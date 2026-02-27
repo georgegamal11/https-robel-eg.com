@@ -155,7 +155,7 @@ async function initAvailableBuildings() {
                     if (['133', '136', '230', '243', '121', '224', '78'].includes(clean)) return "Porto Golf Marina";
                     if (['15', '16', '17', '33', 'shops'].includes(clean)) return "Porto Said";
                     if (['9', '10', 'celebration', 'alamein'].includes(clean)) return "Celebration";
-                    return "Other";
+                    return "hidden";
                 };
 
                 if (d1Meta || !localProjectMetadata[bId]) {
@@ -248,10 +248,10 @@ function renderBuildingsInternal(filter = 'all') {
         }
 
         const normalizedMetaArea = normalizeProjectArea(meta.projectArea);
-        const matches = normalizedMetaArea === CURRENT_PAGE_AREA;
+        const matches = normalizedMetaArea === CURRENT_PAGE_AREA && normalizedMetaArea !== "hidden" && String(id).toUpperCase() !== "READY";
 
         // Final fallback: if metadata exists but area is wrong, still check if it's a hardcoded ID for this page
-        if (!matches && CURRENT_PAGE_AREA === "Porto Golf Marina" && golfIds.includes(cleanId)) {
+        if (!matches && CURRENT_PAGE_AREA === "Porto Golf Marina" && golfIds.includes(cleanId) && String(id).toUpperCase() !== "READY") {
             console.log(`✅ [AvailableUnits] ${id} included (meta mismatch but fallback match)`);
             return true;
         }

@@ -246,7 +246,7 @@ var AdminUI = {
                 if (hasNames && hasMeta && hasAdmin) {
                     const buildingsToDelete = window.projectNames.filter(pName => {
                         const meta = window.projectMetadata[pName];
-                        return meta && !meta.deleted && (meta.projectArea === areaName || (!meta.projectArea && areaName === 'Other'));
+                        return meta && !meta.deleted && (meta.projectArea === areaName);
                     });
 
                     // 1. Delete all buildings in this area
@@ -349,7 +349,8 @@ var AdminUI = {
                     const newNames = Object.keys(window.projectMetadata).filter(k => !window.projectMetadata[k].deleted);
                     const newAreas = [...new Set(Object.values(window.projectMetadata)
                         .filter(m => !m.deleted)
-                        .map(m => m.projectArea || "Other"))];
+                        .map(m => m.projectArea || "Other")
+                        .filter(area => area !== "Other" && area.toLowerCase() !== "ready"))];
 
                     if (window.projectNames) window.projectNames.splice(0, window.projectNames.length, ...newNames);
                     if (window.projectAreas) window.projectAreas.splice(0, window.projectAreas.length, ...newAreas);

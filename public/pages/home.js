@@ -1141,16 +1141,17 @@ function finalizeNormalization() {
     projectNames.splice(0, projectNames.length, ...buildingKeys);
 
     const activeAreas = Object.values(projectMetadata)
-        .filter(m => m.category === 'properties') // Only care about areas that have buildings
+        .filter(m => m.category === 'properties' && !m.deleted) // Only care about active buildings
         .map(m => {
             let area = m.projectArea || "Other";
             if (area.toLowerCase().includes('porto golf')) return "Porto Golf Marina";
             if (area.toLowerCase().includes('celebration') || area.toLowerCase().includes('new alamein')) return "Celebration";
             if (area.toLowerCase().includes('porto said')) return "Porto Said";
             return area;
-        });
+        })
+        .filter(area => area !== "Other" && area.toLowerCase() !== "ready");
 
-    const newAreas = [...new Set(activeAreas)].filter(a => a !== "Other" || Object.values(projectMetadata).some(m => m.category === 'properties' && m.projectArea === "Other"));
+    const newAreas = [...new Set(activeAreas)];
     projectAreas.splice(0, projectAreas.length, ...newAreas);
 
     // --- DEDUPLICATE & NORMALIZE INVENTORY (UNITS) ---
