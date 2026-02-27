@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Celebration - New Alamein Luxury Living | Robel Real Estate</title>
+
+    <!-- Speed & Connection Hints -->
+    <link rel="preconnect" href="https://robel-api.george-gamal139.workers.dev">
+    <link rel="dns-prefetch" href="https://robel-api.george-gamal139.workers.dev">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <meta name="description"
+        content="Premium residential units in Celebration, New Alamein. Experience the future of coastal living with Robel Real Estate.">
+    احجز وحدتك الآن بأسعار تبدأ من 3 مليون ج.م.">
+    <meta name="keywords"
+        content="سيلبريشن الساحل الشمالي، سيدي حنيش، عامر جروب، عقارات الساحل، Celebration West Beach">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      "name": "سيلبريشن ويست بيتش | Celebration West Beach",
+      "description": "اكتشف سيلبريشن في سيدي حنيش، الساحل الشمالي. 12 حمام سباحة، رياضات مغامرة، وشاطئ كريستالي.",
+      "url": "https://robel-eg.com/celebration.html",
+      "image": "https://robel-eg.com/assets/images/face-main/celebration-main.webp",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sidi Heneish",
+        "addressCountry": "EG"
+      }
+    }
+    </script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Consolidated CSS Bundle -->
+    <link rel="stylesheet" href="styles/app.bundle.css?v=20260224033801">
+    <link rel="stylesheet" href="styles/filters.css?v=20260224033801">
+    <link rel="stylesheet" href="styles/porto-golf-compact.css?v=20260224033801">
+    <meta name="theme-color" content="#c9a23f">
+    <link rel="icon" type="image/png" href="assets/images/ui/logo-main.png">
+    <link rel="apple-touch-icon" href="assets/images/ui/logo-main.png">
+    <!-- Cache-Control managed by headers -->
+
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="assets/images/face-main/celebration-main.webp" fetchpriority="high">
+
+    <!-- Critical CSS for Instant First Paint -->
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-muted: #C9A23F;
+            --gold-main: #C9A23F;
+            --navy-deep: #1A1A1A;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #FAFAFA;
+            --text-main: #111827;
+            --text-secondary: #6B7280;
+            --font-heading: 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif
+        }
+
+        .hero {
+            position: relative;
+            height: 85vh;
+            background: #0f172a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .hero-slide-item.active {
+            opacity: 1
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            letter-spacing: -1px
+        }
+    </style>
+
+    <style>
+        .admin-only-ui {
+            display: none !important;
+        }
+
+        body {
+            font-family: 'Noto Kufi Arabic', 'Outfit', sans-serif;
+        }
+
+        .hero {
+            position: relative;
+            height: 85vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--navy-deep, #0f172a);
+        }
+
+        .hero-slider-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-slide-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .hero-slide-item.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%);
+            z-index: 2;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .faq-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .faq-header:hover {
+            background: var(--bg-beige);
+        }
+
+        .faq-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            color: var(--text-muted);
+        }
+
+        .faq-item.active .faq-content {
+            padding: 20px;
+            max-height: 200px;
+            border-top: 1px solid #eee;
+        }
+
+        .faq-item.active i {
+            transform: rotate(180deg);
+            color: var(--primary-gold);
+        }
+    </style>
+    <!-- Custom Compact Nav Styles -->
+    <style>
+        .admin-only-ui {
+            display: none !important;
+        }
+
+        .nav-item-btn {
+            font-size: 0.85rem !important;
+            padding: 8px 12px !important;
+        }
+
+        .nav-links {
+            gap: 5px !important;
+        }
+
+        .breadcrumb-header {
+            color: var(--navy-deep);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-header span.current {
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        .breadcrumb-header i {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           📱 MOBILE HERO - MINIMAL LUXURY DESIGN
+           ═══════════════════════════════════════════════════════════════ */
+
+        @media (max-width: 768px) {
+            .hero {
+                height: auto !important;
+                min-height: 25vh !important;
+                padding: 0 !important;
+                background: transparent !important;
+            }
+
+            .hero-slide-item {
+                filter: none !important;
+                /* Ensure no blur */
+            }
+
+            .hero img[alt="Robel Logo"] {
+                max-width: 100px !important;
+                top: 20px !important;
+                right: 5% !important;
+            }
+
+            .hero-content {
+                padding: 15px 10px !important;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem !important;
+                letter-spacing: 1px !important;
+                margin-bottom: 15px !important;
+                margin-top: 0 !important;
+                line-height: 1.1 !important;
+                text-shadow:
+                    0 3px 10px rgba(0, 0, 0, 0.8),
+                    0 5px 20px rgba(0, 0, 0, 0.6),
+                    0 8px 30px rgba(0, 0, 0, 0.4),
+                    0 0 50px rgba(212, 175, 55, 0.2) !important;
+            }
+
+            .hero-content p {
+                font-size: 0.9rem !important;
+                padding: 0 10px !important;
+                margin-bottom: 20px !important;
+                line-height: 1.6 !important;
+                text-shadow:
+                    0 2px 8px rgba(0, 0, 0, 0.8),
+                    0 4px 16px rgba(0, 0, 0, 0.6),
+                    0 6px 24px rgba(0, 0, 0, 0.4) !important;
+            }
+
+            .hero-info-bar {
+                flex-direction: column !important;
+                gap: 15px !important;
+                margin-bottom: 20px !important;
+                background: none !important;
+                background-color: transparent !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+
+            .hero-info-bar .info-item {
+                border: none !important;
+                border-bottom: none !important;
+                padding: 0 !important;
+                background: none !important;
+                background-color: transparent !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-info-bar .info-item .label {
+                font-size: 0.75rem !important;
+                font-weight: 400 !important;
+                letter-spacing: 2px !important;
+                text-transform: uppercase !important;
+                opacity: 0.95 !important;
+                color: #E5C88A !important;
+                text-shadow:
+                    0 2px 6px rgba(0, 0, 0, 0.8),
+                    0 4px 12px rgba(0, 0, 0, 0.6),
+                    0 0 20px rgba(229, 200, 138, 0.3) !important;
+            }
+
+            .hero-info-bar .info-item .value {
+                font-size: 1.4rem !important;
+                font-weight: 800 !important;
+                letter-spacing: 0.5px !important;
+                color: #FFFFFF !important;
+                text-shadow:
+                    0 3px 12px rgba(0, 0, 0, 1),
+                    0 5px 24px rgba(0, 0, 0, 0.9),
+                    0 8px 36px rgba(0, 0, 0, 0.8) !important;
+            }
+
+            .hero-content>div[style*="display: flex"] {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 15px !important;
+                padding: 0 10px !important;
+            }
+
+            .hero-content .cta-button {
+                width: 100% !important;
+                justify-content: center !important;
+                padding: 16px 30px !important;
+                text-align: center !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.6rem !important;
+            }
+
+            .hero-content p {
+                font-size: 0.9rem !important;
+                line-height: 1.5 !important;
+            }
+
+            .hero-info-bar .info-item .value {
+                font-size: 1.2rem !important;
+            }
+
+            .hero-content .cta-button {
+                font-size: 0.9rem !important;
+                padding: 14px 25px !important;
+            }
+
+            .hero-slide-item {
+                background-position: center 35% !important;
+                background-size: cover !important;
+            }
+
+            .hero-overlay {
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%) !important;
+            }
+        }
+
+        /* Project-specific Mobile Logo Adjustment */
+        @media (max-width: 991px) {
+            .logo {
+                left: -25px !important;
+                /* Very slight shift to the right from global -35px */
+            }
+
+            .navbar,
+            .quick-nav {
+                padding-left: 115px !important;
+                /* Increased to clear logo better */
+            }
+        }
+    </style>
+
+    <!-- SSL Force Redirect -->
+    <script>
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.protocol !== 'file:') {
+            location.replace(`https:${location.href.substring(location.protocol.length)}`);
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- Header (Restored from Index) -->
+    <header class="main-header">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-left">
+                    <button id="sidebar-toggle-desktop" class="sidebar-toggle desktop-only"
+                        onclick="window.toggleSidebar(true)" style="display: flex !important;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <!-- Breadcrumbs Replaces Agent Button -->
+                    <div class="breadcrumb-header desktop-only" style="margin-left: 15px;">
+                        <a href="index.html" style="text-decoration: none; color: inherit;"
+                            data-i18n="pd_breadcrumb_home">Home</a>
+                        <i class="fas fa-chevron-right"></i>
+                        <span class="current" data-i18n="Celebration">Celebration West Beach</span>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <button id="theme-btn" class="icon-btn action-icon topbar-icon" title="Toggle Theme"
+                        aria-label="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="lang-text-btn lang-toggle-btn" id="lang-btn-top"
+                        aria-label="Switch Language to Arabic">AR</button>
+                    <span class="divider-vertical"
+                        style="height: 15px; width: 1px; background: #ddd; margin: 0 5px;"></span>
+
+
+
+
+
+                    <a href="index.html#about" class="top-bar-link" data-i18n="nav_about">About Robel</a>
+                    <a href="#contact" class="top-bar-link" data-i18n="nav_contact">Contact us</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container navbar">
+            <!-- Left Group: Logo -->
+            <div class="nav-left-group" style="display: flex; align-items: center; gap: 20px;">
+                <div class="logo">
+                    <a href="index.html" style="display: flex; align-items: center; text-decoration: none;"
+                        aria-label="Go to Home">
+                        <img loading="lazy" src="assets/images/ui/logo-main.png" alt="Robel Real Estate Investment Logo"
+                            width="120" height="40" decoding="async">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation (Page Specific) -->
+            <nav class="desktop-only">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-item-btn" data-i18n="nav_home">Home</a></li>
+                    <li><a href="#progress" class="nav-item-btn" data-i18n="pd_execution_status">Status</a></li>
+                    <li><a href="#masterplan" class="nav-item-btn" data-i18n="pd_masterplan_tag">Master Plan</a></li>
+                    <li><a href="#amenities" class="nav-item-btn" data-i18n="pd_facilities_services">Amenities</a></li>
+                    <li><a href="#buildings" class="nav-item-btn" data-i18n="pd_available_buildings">Buildings</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Login Button -->
+                <button class="lang-text-btn lang-toggle-btn mobile-only lang-toggle-mobile"
+                    id="lang-btn-header">AR</button>
+
+
+                <!-- Admin Button -->
+                <a href="javascript:void(0)" class="btn-admin admin-only-ui" id="admin-header-btn"
+                    style="display: none; margin-right: 10px;">
+                    <i class="fas fa-user-cog"></i> Admin
+                </a>
+
+                <!-- Desktop CTA -->
+                <a href="#contact" class="btn-cta desktop-only" data-i18n="btn_book">Book Consultation</a>
+
+                <!-- Mobile Toggle -->
+                <button id="sidebar-toggle-header" class="sidebar-toggle mobile-only"
+                    onclick="window.toggleSidebar(true)">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUICK NAV BAR (Mobile Only) -->
+    <div class="quick-nav mobile-only">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="#progress" data-i18n="pd_execution_status" class="active">Status</a>
+        <a href="#masterplan" data-i18n="pd_masterplan_tag">Master Plan</a>
+        <a href="#amenities" data-i18n="pd_facilities_services">Amenities</a>
+        <a href="#buildings" data-i18n="pd_available_buildings">Buildings</a>
+    </div>
+
+    <section class="hero">
+        <!-- Slider Images -->
+        <div class="hero-slider-container">
+            <div class="hero-slide-item active"
+                style="background-image: url('assets/images/projects/celebration/hero/hero-1.webp');">
+            </div>
+            <div class="hero-slide-item"
+                style="background-image: url('assets/images/projects/celebration/hero/hero-3.webp');">
+            </div>
+            <div class="hero-slide-item"
+                style="background-image: url('assets/images/projects/celebration/hero/hero-2.webp');">
+            </div>
+            <div class="hero-slide-item"
+                style="background-image: url('assets/images/projects/celebration/hero/hero-4.webp');">
+            </div>
+            <div class="hero-slide-item"
+                style="background-image: url('assets/images/projects/celebration/hero/hero-5.webp');">
+            </div>
+            <div class="hero-slide-item"
+                style="background-image: url('assets/images/projects/celebration/hero/hero-6.webp');">
+            </div>
+        </div>
+
+        <div class="hero-overlay"></div>
+        <div class="hero-content" data-aos="fade-up">
+            <h1 data-i18n="pd_celebration_title">سيلبريشن ويست بيتش</h1>
+            <p data-i18n="pd_celebration_subtitle">المغامرة تلتقي بالرفاهية على أجمل
+                شواطئ سيدي حنيش</p>
+
+            <div class="hero-info-bar" style="display: flex; justify-content: center; gap: 40px; margin-bottom: 40px;">
+                <div class="info-item">
+                    <span class="label" data-i18n="pd_location_label"
+                        style="display: block; font-size: 0.85rem; text-transform: uppercase; color: var(--primary-gold);">الموقع</span>
+                    <span class="value" data-i18n="pd_celebration_location_val">Celebration West Beach</span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="pd_price_prefix"
+                        style="display: block; font-size: 0.85rem; text-transform: uppercase; color: var(--primary-gold);">يبدأ
+                        السعر من</span>
+                    <span class="value">5,500,000 ج.م</span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="pd_payment_system_label"
+                        style="display: block; font-size: 0.85rem; text-transform: uppercase; color: var(--primary-gold);">نظام
+                        التقسيط</span>
+                    <span class="value" data-i18n="pd_plan_6_years">Up to 6 Years</span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                <a href="#contact" class="cta-button" data-i18n="pd_book_free_visit">احجز معاينة
+                    مجانية</a>
+                <a href="https://wa.me/201200666530" class="cta-button"
+                    style="background: #25d366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); border-color: #25d366;">
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="pd_whatsapp_official">واتساب
+                        الرسمي</span>
+                </a>
+                <a href="#buildings" class="cta-button"
+                    style="background: var(--navy-deep); border-color: var(--navy-deep);">
+                    <i class="fas fa-building"></i> <span data-i18n="pd_view_project">عرض المشروع</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="quick-overview-bar" data-aos="fade-up" data-aos-delay="200">
+        <div class="overview-card"><i class="fas fa-swimmer"></i>
+            <h4 data-i18n="pd_pools">حمامات سباحة</h4>
+            <p data-i18n="pd_12_pools">12 حمام</p>
+        </div>
+        <div class="overview-card"><i class="fas fa-mountain"></i>
+            <h4 data-i18n="pd_adventures">مغامرات</h4>
+            <p data-i18n="pd_climbing_jumping">تسلق وقفز</p>
+        </div>
+        <div class="overview-card"><i class="fas fa-umbrella-beach"></i>
+            <h4 data-i18n="pd_beach">الشاطئ</h4>
+            <p data-i18n="pd_550m">550 متر</p>
+        </div>
+        <div class="overview-card"><i class="fas fa-percentage"></i>
+            <h4 data-i18n="pd_payment_system">نظام الدفع</h4>
+            <p data-i18n="pd_6_years">6 سنوات</p>
+        </div>
+        <div class="overview-card"><i class="fas fa-home"></i>
+            <h4 data-i18n="pd_areas">المساحات</h4>
+            <p data-i18n="pd_areas_start_51sqm">تبدأ من 51م&sup2;</p>
+        </div>
+    </div>
+
+    <!-- Construction Progress -->
+    <section class="construction-progress" id="progress">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag" data-i18n="pd_execution_status">حالة التنفيذ</span>
+            <h2 data-i18n="pd_celebration_progress_title">تطور أعمال سيلبريشن</h2>
+            <div class="line"></div>
+        </div>
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div class="progress-bar-container" data-aos="fade-up">
+                <div class="progress-bar" style="width: 45%;"></div>
+            </div>
+            <div class="progress-labels" data-aos="fade-up"><span data-i18n="pd_45_percent_complete">تم إنجاز 45%
+                    من
+                    المشروع</span><span data-i18n="pd_update_jan_2025">تحديث: يناير
+                    2025</span></div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n="pd_year_2023">2023</h3>
+                        <p data-i18n="pd_2023_desc">بدء أعمال الحفر وتنسيق الموقع
+                            والشاطئ.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n="pd_year_2024">2024</h3>
+                        <p data-i18n="pd_2024_desc">الانتهاء من الأساسات والانطلاق في
+                            بناء الهياكل الخرسانية.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n="pd_year_2025">2025</h3>
+                        <p data-i18n="pd_2025_desc">جاري الآن: تشطيب حمامات السباحة
+                            والمنطقة الترفيهية.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n="pd_year_2027">2027</h3>
+                        <p data-i18n="pd_2027_desc">الموعد المستهدف للتسليم الكامل
+                            للمشروع.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </section>
+
+    <!-- Master Plan & Global Urban Planning Section -->
+    <section class="masterplan-section" id="masterplan"
+        style="padding: 3.125rem 0; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div class="section-header" data-aos="fade-up" style="text-align: center; margin-bottom: 50px;">
+                <span class="section-tag"
+                    style="background: linear-gradient(135deg, var(--primary-gold) 0%, #d4af37 100%); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 15px;"
+                    data-i18n="pd_masterplan_tag">المخطط العام</span>
+                <h2 style="font-size: 1.75rem; color: var(--navy-deep); margin-bottom: 0.9375rem; font-weight: 800;"
+                    data-i18n="pd_urban_planning_title">Master Plan & Global Urban Planning</h2>
+                <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto 20px;"
+                    data-i18n="pd_urban_planning_desc">
+                    استكشف التصميم المعماري الفريد للمشروع - تخطيط متكامل
+                    يجمع بين الفخامة والطبيعة
+                </p>
+                <div class="line" style="width: 80px; height: 4px; background: var(--primary-gold); margin: 0 auto;">
+                </div>
+            </div>
+
+            <div class="masterplan-viewer" data-aos="zoom-in" data-aos-delay="200"
+                style="margin-top: 50px; position: relative;">
+
+                <div class="masterplan-container"
+                    style="position: relative; background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.15); border: 3px solid var(--primary-gold); width: 100%;">
+
+                    <!-- Image Wrapper with Zoom/Pan -->
+                    <div id="masterplanImageWrapper"
+                        style="position: relative; overflow: hidden; cursor: grab; min-height: 400px; display: flex; align-items: center; justify-content: center; background: #f1f5f9;">
+                        <img id="masterplanImage" src="assets/images/projects/celebration/master-plan/overview-main.jpg"
+                            alt="Celebration Master Plan" loading="lazy"
+                            style="max-width: none; width: auto; height: 100%; display: block; transition: transform 0.1s ease-out; transform-origin: center; cursor: grab;">
+
+                        <!-- Zoom Controls -->
+                        <div class="zoom-controls"
+                            style="position: absolute; bottom: 20px; left: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 20;">
+                            <button onclick="changeZoom(0.2)" class="zoom-btn" title="Zoom In"><i
+                                    class="fas fa-plus"></i></button>
+                            <button onclick="changeZoom(-0.2)" class="zoom-btn" title="Zoom Out"><i
+                                    class="fas fa-minus"></i></button>
+                            <button onclick="resetZoom()" class="zoom-btn" title="Reset"><i
+                                    class="fas fa-expand"></i></button>
+                            <button onclick="toggleFullScreen()" class="zoom-btn" title="Full Screen"><i
+                                    class="fas fa-compress"></i></button>
+                        </div>
+
+                        <!-- Zoom Indicator -->
+                        <div class="zoom-indicator"
+                            style="position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.7); color: white; padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(10px); pointer-events: none;">
+                            <i class="fas fa-search-plus"></i>
+                            <span data-i18n="pd_click_to_zoom">اضغط للتكبير</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .admin-only-ui {
+            display: none !important;
+        }
+
+        .masterplan-viewer .zoom-btn {
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--navy-deep);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .masterplan-viewer .zoom-btn:hover {
+            background: var(--primary-gold);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .feature-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--primary-gold);
+        }
+
+        .feature-card.green {
+            border-top-color: #10b981;
+        }
+
+        .feature-card.blue {
+            border-top-color: #3b82f6;
+        }
+
+        .feature-card.purple {
+            border-top-color: #8b5cf6;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        @media (max-width: 768px) {
+            .masterplan-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .masterplan-map {
+                height: 300px;
+                order: -1;
+            }
+
+            .masterplan-features {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px;
+            }
+
+            .feature-card {
+                padding: 15px;
+            }
+        }
+
+        /* Luxury About Us Section Enhancements */
+        .about-redesign {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            padding: 100px 0;
+        }
+
+        .about-title {
+            font-family: 'Cinzel', serif !important;
+            color: var(--navy-deep);
+            letter-spacing: 1px;
+            font-weight: 700 !important;
+            font-size: 1.7rem !important;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .about-mission {
+            text-align: center;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 60px 40px;
+            border-radius: 40px;
+            border: 1px solid rgba(201, 162, 63, 0.15);
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 25px 50px -12px rgba(201, 162, 63, 0.08);
+        }
+
+        .about-mission .quote-icon {
+            font-size: 3rem;
+            color: var(--gold-main);
+            opacity: 0.2;
+            margin-bottom: 30px;
+        }
+
+        .about-mission p {
+            font-size: 1.25rem !important;
+            line-height: 1.9 !important;
+            color: var(--navy-deep);
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .achieve-card {
+            background: white;
+            border: 1px solid rgba(201, 162, 63, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .achieve-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-main);
+            box-shadow: 0 20px 40px rgba(201, 162, 63, 0.1);
+        }
+
+        .value-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            border-bottom-color: var(--gold-main);
+            transform: translateY(-5px);
+        }
+
+        .value-icon i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--gold-main), #b08d35);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .about-mission {
+                padding: 40px 20px;
+                margin: 30px 15px;
+            }
+
+            .about-mission p {
+                font-size: 1.1rem !important;
+            }
+
+            .about-title {
+                font-size: 1.1rem !important;
+                line-height: 1.4 !important;
+            }
+
+            /* Force 4-columns for Values Grid (Why Robel) */
+            .values-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 5px !important;
+            }
+
+            .value-card {
+                padding: 12px 6px !important;
+                border-radius: 12px !important;
+            }
+
+            .value-icon i {
+                font-size: 1.5rem !important;
+            }
+
+            .value-card h4 {
+                font-size: 0.6rem !important;
+            }
+
+            /* Force 3-columns for Compound Guide */
+            .achievements-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 8px !important;
+            }
+
+            .achieve-card {
+                padding: 12px 6px !important;
+                border-radius: 12px !important;
+            }
+
+            .achieve-card i {
+                font-size: 1.4rem !important;
+            }
+
+            .achieve-card h4 {
+                font-size: 0.6rem !important;
+            }
+
+            .achieve-card p {
+                font-size: 0.5rem !important;
+            }
+
+            .proven-stats-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 5px !important;
+            }
+
+            .proven-stats-grid>div>div:first-child {
+                font-size: 0.8rem !important;
+                margin-bottom: 2px !important;
+                white-space: nowrap;
+            }
+
+            .proven-stats-grid>div>div:last-child {
+                font-size: 0.4rem !important;
+                line-height: 1 !important;
+                opacity: 0.7;
+            }
+
+            .proven-stats-container {
+                padding: 15px 5px !important;
+                margin-top: 25px !important;
+                border-radius: 15px !important;
+            }
+
+            .header-actions .logout-pill-btn.mobile-only,
+            .header-actions .btn-admin {
+                padding: 3px 8px !important;
+                font-size: 0.65rem !important;
+                min-height: 0 !important;
+                height: 24px !important;
+                /* Removed !important display */
+                align-items: center;
+                justify-content: center;
+            }
+
+            .sidebar-actions-pair .action-pill-btn {
+                padding: 5px 12px !important;
+                font-size: 0.75rem !important;
+                border-radius: 6px !important;
+                height: auto !important;
+            }
+
+            .lang-toggle-mobile {
+                padding: 2px 6px !important;
+                font-size: 0.65rem !important;
+                margin-right: 4px !important;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 4px;
+                background: transparent;
+                color: var(--primary-gold);
+                height: 24px !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
+
+
+    <!-- About Robel Redesign -->
+    <section id="about" class="about-redesign">
+        <div class="container">
+            <!-- Header -->
+            <div class="about-header" data-aos="fade-up">
+                <span class="about-tag" data-i18n="about_robel_tag">نبذة عنا</span>
+                <h2 class="about-title" data-i18n="about_robel_title">Scale. Credibility. Proven Delivery.</h2>
+                <div style="width: 80px; height: 4px; background: var(--primary-gold); margin: 25px auto;"></div>
+            </div>
+
+            <!-- Mission Statement -->
+            <div class="about-mission" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p data-i18n="about_robel_mission">Robel Real Estate is an established real estate consultancy and
+                    operations partner with a large-scale on-ground presence across Egypt’s most prominent coastal
+                    developments.</p>
+                <p style="margin-top: 20px; font-style: normal; font-size: 1.1rem; opacity: 0.9;"
+                    data-i18n="about_robel_p1">Our role extends beyond brokerage. We act as a strategic interface
+                    between developers, marketing firms, and end clients.</p>
+            </div>
+
+            <!-- Portfolio & Presence -->
+            <div class="achievements-section" data-aos="fade-up" style="margin-top: 60px;">
+                <h3 style="text-align: center; color: var(--navy-deep); margin-bottom: 30px;"
+                    data-i18n="portfolio_title">Operational Coverage</h3>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: #64748b;"
+                    data-i18n="portfolio_presence_desc">Each building is treated as a standalone investment environment,
+                    enabling accurate comparisons and precise unit matching.</p>
+
+                <div class="achievements-grid"
+                    style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div class="achieve-card" style="text-align: right; padding: 30px; border-radius: 20px;">
+                        <i class="fas fa-building"
+                            style="font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 20px;"></i>
+                        <h4 style="color: var(--navy-deep); font-weight: 800; margin-bottom: 12px; font-size: 1.2rem;"
+                            data-i18n="porto_golf_title">بورتو جولف مارينا</h4>
+                        <p style="font-weight: 500; font-size: 0.95rem; line-height: 1.7; color: #64748b;"
+                            data-i18n="porto_golf_buildings_list">المباني: 51، 52، 78، 121، 133، 136، 223،
+                            224، 225،
+                            226، 230، 243</p>
+                    </div>
+                    <div class="achieve-card" style="text-align: right; padding: 30px; border-radius: 20px;">
+                        <i class="fas fa-city"
+                            style="font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 20px;"></i>
+                        <h4 style="color: var(--navy-deep); font-weight: 800; margin-bottom: 12px; font-size: 1.2rem;"
+                            data-i18n="porto_said_title">بورتو سعيد</h4>
+                        <p style="font-weight: 500; font-size: 0.95rem; line-height: 1.7; color: #64748b;"
+                            data-i18n="porto_said_buildings_list">المباني: 9، 10، 15، 16، 33</p>
+                    </div>
+                    <div class="achieve-card" style="text-align: right; padding: 30px; border-radius: 20px;">
+                        <i class="fas fa-umbrella-beach"
+                            style="font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 20px;"></i>
+                        <h4 style="color: var(--navy-deep); font-weight: 800; margin-bottom: 12px; font-size: 1.2rem;"
+                            data-i18n="celebration_title">سيلبريشن</h4>
+                        <p style="font-weight: 500; font-size: 0.95rem; line-height: 1.7; color: #64748b;"
+                            data-i18n="celebration_buildings_list">وحدات سكنية متعددة تحت
+                            الإدارة النشطة</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Values Proposition -->
+            <div style="margin-top: 80px;" data-aos="fade-up">
+            </div>
+        </div>
+
+        <!-- Proven Track Record Stats -->
+        <div class="proven-stats-container"
+            style="margin-top: 60px; background: var(--navy-deep); border-radius: 24px; padding: 40px 20px; color: white;"
+            data-aos="fade-up">
+            <div class="proven-stats-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-gold); margin-bottom: 5px;"
+                        data-i18n="achieve_years_val">800+</div>
+                    <div style="font-size: 1rem; opacity: 0.8;" data-i18n="achieve_years">Residential units delivered
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-gold); margin-bottom: 5px;"
+                        data-i18n="achieve_units_val">1,500+</div>
+                    <div style="font-size: 1rem; opacity: 0.8;" data-i18n="achieve_units">Satisfied clients</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-gold); margin-bottom: 5px;"
+                        data-i18n="achieve_projects_val">Proven</div>
+                    <div style="font-size: 1rem; opacity: 0.8;" data-i18n="achieve_projects">Years of Collaboration
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-gold); margin-bottom: 5px;"
+                        data-i18n="achieve_satisfaction_val">20+</div>
+                    <div style="font-size: 1rem; opacity: 0.8;" data-i18n="achieve_satisfaction">Operational Presence
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Robel & Values -->
+        <div class="section-compact-mobile" style="margin-top: 20px;" data-aos="fade-up">
+            <h3 style="text-align: center; color: var(--navy-deep); margin-bottom: 20px;"
+                data-i18n="experience_value_title">Why Robel</h3>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h4 style="margin-bottom: 15px; color: var(--navy-deep); font-weight: 700;"
+                        data-i18n="experience_value_1">Deep building-level knowledge</h4>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-history"></i></div>
+                    <h4 style="margin-bottom: 15px; color: var(--navy-deep); font-weight: 700;"
+                        data-i18n="experience_value_2">Strong delivery history</h4>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                    <h4 style="margin-bottom: 15px; color: var(--navy-deep); font-weight: 700;"
+                        data-i18n="experience_value_3">Trusted partnerships</h4>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-database"></i></div>
+                    <h4 style="margin-bottom: 15px; color: var(--navy-deep); font-weight: 700;"
+                        data-i18n="experience_value_4">Data-driven guidance</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Developer & Corporate Network -->
+        <div class="section-compact-mobile" style="padding: 30px 20px; background: #f8fafc; border-radius: 30px;"
+            data-aos="fade-up">
+            <h3 style="text-align: center; color: var(--navy-deep); margin-bottom: 10px; font-size: 1.3rem;"
+                data-i18n="network_title">
+                Developer & Corporate Network</h3>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 25px; color: #64748b; font-size: 0.9rem;"
+                data-i18n="network_desc">We work directly and indirectly with a wide network of major real estate
+                entities, including:</p>
+            <div class="network-container-inner">
+                <span class="network-pill" data-i18n="network_list_1">Thomas Developments</span>
+                <span class="network-pill" data-i18n="network_list_2">El Alamein Developments</span>
+                <span class="network-pill" data-i18n="network_list_3">New Alamein City projects</span>
+                <span class="network-pill" data-i18n="network_list_4">Infinity Developments</span>
+                <span class="network-pill" data-i18n="network_list_5">Professional marketing companies across
+                    Egypt</span>
+            </div>
+        </div>
+
+        <!-- Final Statement -->
+        <div style="text-align: center; margin-top: 20px;" data-aos="fade-up">
+            <p style="font-size: 1.4rem; font-weight: 700; color: var(--navy-deep);" data-i18n="about_p1">Robel Real
+                Estate represents real presence, real inventory, and real results.</p>
+        </div>
+
+        <!-- CTA -->
+        <div class="about-cta-container" data-aos="zoom-in" style="margin-top: 15px;">
+            <a href="https://wa.me/201200666530" class="about-cta-btn">
+                <span data-i18n="about_cta">📞 Contact us to explore real investment opportunities with
+                    Robel</span>
+            </a>
+        </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section class="roi-calculator-section" id="roi">
+        <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 50px 0;">
+            <div class="roi-calculator" data-aos="fade-up" style="background: var(--primary-gold); color: white;">
+                <div class="calc-grid">
+                    <div class="calc-inputs" style="padding-right: 0;">
+                        <h2 style="color: white;" data-i18n="pd_investment_calculator_sidi_heneish">حاسبة
+                            الاستثمار -
+                            سيدي حنيش</h2>
+                        <div class="form-group"><label data-i18n="pd_unit_price">سعر الوحدة</label><input type="text"
+                                id="unit-price" value="3500000" oninput="calculateROI()" lang="en" dir="ltr"
+                                inputmode="numeric"
+                                style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3);"></div>
+                        <div class="form-group"><label data-i18n="pd_installment_period_years">مدة التقسيط
+                                (سنة)</label><select id="years" onchange="calculateROI()"
+                                style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;">
+                                <option value="4" data-i18n="pd_4_years">4 سنوات</option>
+                                <option value="6" selected data-i18n="pd_6_years">6 سنوات</option>
+                            </select></div>
+                    </div>
+                    <div class="calc-result" style="background: rgba(0,0,0,0.1);">
+                        <h4 data-i18n="pd_monthly_installment">القسط الشهري</h4>
+                        <div class="calc-val" id="monthly-installment">--</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Available Buildings -->
+    <section class="unit-types-section" id="buildings">
+        <div class="section-header">
+            <h2 data-i18n="pd_available_buildings">المباني المتاحة</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="units-container" id="units-grid">
+            <!-- Dynamic content loaded via available-units.js -->
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #94a3b8;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 20px;"></i>
+                <p>Loading buildings status...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Tool Section -->
+    <section class="section comparison-section" id="compare" data-aos="fade-up">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag" data-i18n="compare_tag">Comparison Tool</span>
+            <h2 data-i18n="compare_title">Compare Unit Types</h2>
+            <div class="line"></div>
+        </div>
+        <div class="container" style="max-width: 1100px; margin: 0 auto;">
+            <div class="compare-container" data-aos="fade-up">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="compare_specs">Specifications</th>
+                            <th data-i18n="compare_studio">30-Meter</th>
+                            <th data-i18n="compare_2br">60-Meter</th>
+                            <th data-i18n="compare_82">82-Meter</th>
+                            <th data-i18n="compare_3br">90-Meter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_area">Area</td>
+                            <td>30 m&sup2;</td>
+                            <td>60 m&sup2;</td>
+                            <td>82 m&sup2;</td>
+                            <td>90 m&sup2;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_rooms">Rooms</td>
+                            <td data-i18n="compare_1room">1 Bedroom</td>
+                            <td data-i18n="compare_1room">1 Bedroom</td>
+                            <td data-i18n="compare_1room">1 Bedroom</td>
+                            <td data-i18n="compare_2rooms">2 Bedrooms</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_bathrooms">Bathrooms</td>
+                            <td data-i18n="compare_1bath">1 Bathroom</td>
+                            <td data-i18n="compare_2bath">2 Bathrooms</td>
+                            <td data-i18n="compare_2bath">2 Bathrooms</td>
+                            <td data-i18n="compare_2bath">2 Bathrooms</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_kitchen">Kitchen</td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_living">Living</td>
+                            <td>-</td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_dining">Dining</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td>-</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_est_price">Estimated Price</td>
+                            <td>2.1M</td>
+                            <td>3.5M</td>
+                            <td>4.8M</td>
+                            <td>5.8M</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Amenities Section -->
+    <section class="amenities-section" id="amenities" style="background: var(--white);">
+        <div class="section-header">
+            <h2 data-i18n="pd_world_of_adventure">عالم من المغامرة</h2>
+            <div class="line"></div>
+        </div>
+        <div class="amenities-grid">
+            <div class="amenity-item"><i class="fas fa-mountain"></i>
+                <h3 data-i18n="pd_mountain_climbing">تسلق جبال</h3>
+            </div>
+            <div class="amenity-item"><i class="fas fa-swimmer"></i>
+                <h3 data-i18n="pd_12_pools_amenity">12 حمام سباحة</h3>
+            </div>
+            <div class="amenity-item"><i class="fas fa-hiking"></i>
+                <h3 data-i18n="pd_adventure_activities">أنشطة مغامرة</h3>
+            </div>
+            <div class="amenity-item"><i class="fas fa-cloud"></i>
+                <h3 data-i18n="pd_skydiving">قفز بالمظلات</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nearby Facilities -->
+    <section style="background: #fff; padding-bottom: 50px;">
+        <div class="container" style="max-width: 1100px; margin: 0 auto;">
+            <div class="section-header">
+                <h3 data-i18n="pd_nearby_facilities">مرافق بالقرب منك</h3>
+            </div>
+            <div class="download-grid">
+                <div class="download-link"><i class="fas fa-road"></i>
+                    <div>
+                        <h4 data-i18n="pd_new_foka_road">طريق فوكا الجديد</h4>
+                        <p data-i18n="pd_10km_away">على بعد 10 كم</p>
+                    </div>
+                </div>
+                <div class="download-link"><i class="fas fa-plane"></i>
+                    <div>
+                        <h4 data-i18n="pd_marsa_matrouh_airport">مطار مرسى مطروح</h4>
+                        <p data-i18n="pd_45_minutes_away">على بعد 45 دقيقة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info" data-aos="fade-left">
+                <p style="font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; color: #1a1a1a; font-weight: 500;"
+                    data-i18n="inquiry_text">
+                    Robel Real Estate Investment is a leading real estate consultancy and operational partner with a
+                    strong on-ground presence across Egypt’s premier coastal developments.
+                </p>
+                <div style="margin-bottom: 30px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <i class="fas fa-phone" style="color: var(--primary-gold);"></i>
+                        <a href="tel:201200666530" style="text-decoration:none; color:inherit;">
+                            <span data-i18n="contact_phone_val">201200666530</span>
+                        </a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <i class="fas fa-globe" style="color: var(--primary-gold);"></i>
+                        <a href="https://www.robel-eg.com/" target="_blank"
+                            style="text-decoration:none; color:inherit;">
+                            <span data-i18n="contact_website">Visit our website</span>
+                        </a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary-gold);"></i>
+                        <span data-i18n="contact_address_val">375 El Geish Rd, Kased Kareem Tower, Gleem,
+                            Alexandria</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <i class="fab fa-whatsapp" style="color: #25d366;"></i>
+                        <a href="https://wa.me/201200666530" target="_blank"
+                            style="text-decoration:none; color:inherit;">
+                            <span data-i18n="whatsapp_send">Send a message via WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" id="projectContactForm" data-aos="fade-right" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="contactName" data-i18n="pd_form_name_label">Full Name</label>
+                    <input type="text" id="contactName" name="Full_Name" placeholder="Enter your name here" required
+                        data-i18n-placeholder="pd_form_name_placeholder">
+                    <input type="hidden" name="name" id="contactNameAlias">
+                    <!-- Hidden email field to satisfy template {{email}} variable -->
+                    <input type="hidden" name="email" value="George.gamal139@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="contactPhone" data-i18n="pd_form_phone_label">Phone Number</label>
+                    <input type="tel" id="contactPhone" name="Phone_Number" placeholder="Mobile number" required
+                        data-i18n-placeholder="pd_form_phone_placeholder">
+                </div>
+                <div class="form-group">
+                    <label for="unitType" data-i18n="pd_preferred_unit_type">Preferred Project Type</label>
+                    <select id="unitType" name="Preferred_Project_Type">
+                        <option value="Porto Golf" data-i18n="nav_porto_golf">Porto Golf Marina</option>
+                        <option value="Porto Said" data-i18n="nav_porto_said">Porto Said</option>
+                        <option value="Celebration" data-i18n="Celebration">Celebration</option>
+                        <option value="Agent" data-i18n="join_agent_btn">Be an Agent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="additionalMessage" data-i18n="pd_additional_message">Additional Message</label>
+                    <textarea id="additionalMessage" name="Additional_Message" rows="4"
+                        placeholder="How can we help you?" data-i18n-placeholder="pd_form_msg_ph"></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%; border-radius: 8px;"
+                    data-i18n="pd_form_submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Section 2: Quick Links -->
+                <div class="footer-section footer-links">
+                    <h3 data-i18n="footer_quick_links_title">Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#home"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_home">Home</span></a></li>
+                        <li><a href="index.html#about"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_about">About Robel</span></a></li>
+                        <li><a href="index.html#projects"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_projects">Our Projects</span></a></li>
+                        <li><a href="units.html"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_units">Available Units</span></a></li>
+                        <li><a href="#contact"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_contact">Contact Us</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Section 3: Projects -->
+                <div class="footer-section footer-links">
+                    <h3 data-i18n="footer_our_projects_title">Our Projects</h3>
+                    <ul>
+                        <li><a href="porto-golf-marina.html"><i class="fas fa-building"></i> <span
+                                    data-i18n="footer_porto_golf">Porto Golf Marina</span></a></li>
+                        <li><a href="porto-said.html"><i class="fas fa-building"></i> <span
+                                    data-i18n="footer_porto_said">Porto Said</span></a></li>
+                        <li><a href="celebration.html"><i class="fas fa-building"></i> <span
+                                    data-i18n="footer_celebration">Celebration</span></a></li>
+                        <li><a href="index.html#projects"><i class="fas fa-building"></i> <span
+                                    data-i18n="footer_all_projects">All Projects</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Section 4: Contact -->
+                <div class="footer-section footer-contact">
+                    <h3 data-i18n="footer_contact_info_title">Contact Us</h3>
+                    <div class="contact-grid-inner">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="contact-text" data-i18n="footer_location">North Coast – Egypt</div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="contact-text"><a href="tel:201200666530">201200666530</a></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <div class="contact-text"><a href="https://www.robel-eg.com/" target="_blank"><span
+                                        data-i18n="contact_website">Visit our website</span></a></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-text"><a href="mailto:info@robel-eg.com">info@robel-eg.com</a></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div class="contact-text"><a href="https://wa.me/201200666530" target="_blank"
+                                    data-i18n="footer_whatsapp">WhatsApp Inquiries</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.facebook.com/share/18St5cZFSC/" target="_blank" aria-label="Facebook"><i
+                        class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <!-- Website Designer Section (Now Bottom) -->
+        <div class="footer-designer-attribution">
+            <div class="designer-card">
+                <div class="designer-info">
+                    <h3 data-i18n="footer_designer_title">Website Designer</h3>
+                    <div class="designer-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-user"></i>
+                            <span data-i18n="footer_designer_name">George Gamal Helmy</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>George.gamal139@gmail.com</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-phone"></i>
+                            <span>01270605528</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="designer-actions-bottom">
+                    <a href="https://www.linkedin.com/in/georgegamal1/" class="designer-pill" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://georgegamal.netlify.app/" class="designer-pill" target="_blank">
+                        <i class="fas fa-globe"></i> Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="trust-tagline" data-i18n="footer_trust_tagline">Real Expertise – Extended Trust – Tangible
+                Results</div>
+            <div class="copyright" data-i18n="footer_copyright">© 2026 Robel Real Estate Investment - Robel Urban
+                Development. All rights reserved.</div>
+            <div class="footer-stats">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span data-i18n="footer_stat_clients">Trusted by 1500+ Clients</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-building"></i>
+                    <span data-i18n="footer_stat_units">800+ Units Delivered</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-handshake"></i>
+                    <span data-i18n="footer_stat_partners">Strategic Partner of Leading Developers</span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>
+
+
+    <!-- WhatsApp Widget -->
+    <a href="https://wa.me/201200666530" class="floating-whatsapp" target="_blank"
+        aria-label="Contact us on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- Main Sidebar -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <aside id="main-sidebar" class="main-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-container">
+                <img src="assets/images/ui/logo-main.png" alt="Robel Real Estate" width="120" height="40"
+                    loading="lazy">
+            </div>
+            <button id="sidebar-close" class="sidebar-close-btn" onclick="window.toggleSidebar(false)">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="sidebar-links">
+                <li style="--i:1">
+                    <a href="index.html#home" class="sidebar-link" onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-home"></i>
+                        <span data-i18n="nav_home">Home</span>
+                    </a>
+                </li>
+                <li style="--i:2">
+                    <a href="index.html#contact" class="sidebar-link agent-highlight"
+                        onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-user-tie"></i>
+                        <span data-i18n="topbar_agent">Be an agent</span>
+                    </a>
+                </li>
+                <li style="--i:3">
+                    <div class="sidebar-dropdown-wrapper">
+                        <div class="sidebar-link has-dropdown" onclick="this.parentElement.classList.toggle('open')">
+                            <i class="fas fa-city"></i>
+                            <span data-i18n="nav_all_projects">Projects</span>
+                            <i class="fas fa-chevron-down ms-auto"></i>
+                        </div>
+                        <ul class="sidebar-dropdown-list">
+                            <li><a href="#"
+                                    onclick="openProject('Porto Golf Marina'); toggleSidebar(false); return false;">Porto
+                                    Golf Marina</a></li>
+                            <li><a href="#"
+                                    onclick="openProject('Porto Said'); toggleSidebar(false); return false;">Porto
+                                    Said</a></li>
+                            <li><a href="#"
+                                    onclick="openProject('Celebration'); toggleSidebar(false); return false;">Celebration</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li style="--i:4">
+                    <div class="sidebar-dropdown-wrapper">
+                        <div class="sidebar-link has-dropdown" onclick="this.parentElement.classList.toggle('open')">
+                            <i class="fas fa-building"></i>
+                            <span data-i18n="nav_projects">Buildings</span>
+                            <i class="fas fa-chevron-down ms-auto"></i>
+                        </div>
+                        <ul class="sidebar-dropdown-list">
+                            <li><a href="#" onclick="openProject('B133'); toggleSidebar(false); return false;">B133</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('B136'); toggleSidebar(false); return false;">B136</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('B243'); toggleSidebar(false); return false;">B243</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('B230'); toggleSidebar(false); return false;">B230</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('78'); toggleSidebar(false); return false;">78</a></li>
+                            <li><a href="#" onclick="openProject('224'); toggleSidebar(false); return false;">224</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('121'); toggleSidebar(false); return false;">121</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('15'); toggleSidebar(false); return false;">15</a></li>
+                            <li><a href="#" onclick="openProject('16'); toggleSidebar(false); return false;">16</a></li>
+                            <li><a href="#" onclick="openProject('17'); toggleSidebar(false); return false;">17</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li style="--i:5">
+                    <a href="javascript:void(0)" class="sidebar-link admin-link admin-only-ui" id="open-admin-btn"
+                        style="display:none !important;">
+                        <i class="fas fa-user-shield"></i>
+                        <span>ADMIN</span>
+                    </a>
+                </li>
+                <li style="--i:6">
+                    <a href="index.html#strategy" class="sidebar-link" onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-i18n="nav_strategy">Strategy</span>
+                    </a>
+                </li>
+                <li style="--i:7">
+                    <a href="index.html#process" class="sidebar-link" onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-tasks"></i>
+                        <span data-i18n="proc_subtitle">Process</span>
+                    </a>
+                </li>
+                <li style="--i:8">
+                    <a href="index.html#contact" class="sidebar-link" onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-envelope"></i>
+                        <span data-i18n="nav_contact">Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer-new">
+
+            <div class="sidebar-bottom-row">
+                <div class="sidebar-social-icons">
+                    <a href="https://wa.me/201200666530" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+                <div class="sidebar-actions-pair" style="justify-content: center; padding: 15px 0;">
+                    <button class="action-pill-btn lang-toggle-btn" id="sidebar-lang-btn"
+                        style="padding: 6px 20px; font-size: 0.8rem; border-radius: 50px; background: #f8fafc; border: 1px solid #e1e8f0; color: #0f172a; font-weight: 700; transition: all 0.3s ease;">
+                        AR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
+
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+        defer></script>
+
+    <!-- Core App Logic (Bundled) -->
+    <script src="scripts/core-bundle.js?v=20260224033801" defer></script>
+    <script src="api/query-api.js?v=20260224033801" defer></script>
+    <script src="api/admin-api.js?v=20260224033801" defer></script>
+
+    <script>
+        function calculateROI() {
+            const price = parseFloat(document.getElementById('unit-price').value) || 0;
+            const years = parseInt(document.getElementById('years').value) || 1;
+            const down = price * 0.1;
+            const monthly = (price - down) / (years * 12);
+            document.getElementById('monthly-installment').innerText = Math.round(monthly).toLocaleString() + " ج.م";
+        }
+        window.addEventListener('load', () => { AOS.init(); calculateROI(); });
+    </script>
+    <script src="utils/image-loader-utils.js?v=20260224033801" defer></script>
+    <script src="services/available-units.js?v=20260224033801" defer></script>
+    <script src="pages/project-detail.js?v=20260224033801" defer></script>
+</body>
+
+</html>

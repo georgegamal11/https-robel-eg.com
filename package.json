@@ -1,0 +1,28 @@
+{
+  "name": "robel-web-project",
+  "version": "1.0.0",
+  "description": "Robel Real Estate Web Project",
+  "main": "src/pages/script.js",
+  "scripts": {
+    "start": "serve public",
+    "check-sync": "node migration/check-sync.js",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write src/**/*.{js,css,html,md}",
+    "deploy": "wrangler deploy",
+    "deploy:frontend": "wrangler pages deploy public --project-name robel-web-project --commit-dirty=true",
+    "seed-database": "node scripts/seed-database.js",
+    "setup": "npm run deploy && npm run seed-database"
+  },
+  "keywords": [
+    "realestate",
+    "robel"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "firebase-tools": "^15.5.1",
+    "prettier": "^3.0.0",
+    "wrangler": "^4.63.0"
+  }
+}

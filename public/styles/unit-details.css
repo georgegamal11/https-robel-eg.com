@@ -1,0 +1,80 @@
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    /* Init Hidden */
+}
+
+/* Stagger Delays */
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-400 {
+    animation-delay: 400ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
+}
+
+/* Utilities */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Typography Overrides */
+.prose p {
+    margin-bottom: 1.25em;
+    line-height: 1.75;
+}
+
+/* Leaflet Map Logic */
+#map {
+    z-index: 1;
+    /* Keep below sticky nav */
+}
+
+/* Gallery Transitions */
+#main-hero-image {
+    transition: opacity 0.4s ease-in-out, transform 0.7s ease-out;
+}
+
+/* Form Styles */
+input:focus,
+textarea:focus {
+    box-shadow: 0 0 0 4px rgba(201, 162, 63, 0.15);
+    /* Gold shadow */
+    border-color: #c9a23f;
+}
+
+/* Toast Animation */
+.toast-visible {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}

@@ -1,0 +1,32 @@
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: upgrade-insecure-requests;
+
+# Cache static assets for 1 year
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/styles/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/scripts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/utils/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/pages/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/services/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/api/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Avoid caching HTML to ensure users get the latest version of the site shell immediately
+/*.html
+  Cache-Control: public, no-cache, must-revalidate

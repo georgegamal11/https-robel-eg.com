@@ -1,0 +1,396 @@
+/* Promotions / Professional White Horizontal Section */
+.billboard-section {
+    padding: 80px 0;
+    margin-top: 0;
+    /* Ensure separation from hero/filter sections */
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+}
+
+@media (max-width: 1024px) {
+    .billboard-section {
+        margin-top: 0;
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .billboard-section {
+        margin-top: 0;
+        padding-top: 18px;
+    }
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d878 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: #6c757d;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Cairo', sans-serif;
+}
+
+/* Scroll Container */
+.scroll-nav-container {
+    position: relative;
+    max-width: 100%;
+    /* Spans full width of the page */
+    margin: 0 auto;
+}
+
+.offers-scroll {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 32px;
+    padding: 20px 5% 40px;
+    /* Responsive side padding */
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #e9ecef;
+}
+
+.offers-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.offers-scroll::-webkit-scrollbar-track {
+    background: #e9ecef;
+    border-radius: 10px;
+}
+
+.offers-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #d4af37, #f4d878);
+    border-radius: 10px;
+}
+
+/* Card Styling */
+.offer-card {
+    position: relative;
+    flex: 0 0 auto;
+    width: 480px;
+    /* Adjusted for better aspect ratio */
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    scroll-snap-align: center;
+    /* Better snapping for wider cards */
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.offer-card:hover {
+    transform: translateY(-8px);
+    /* Subtle lift */
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.12), 0 8px 16px rgba(0, 0, 0, 0.06);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+/* Card Image Wrapper */
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    /* Increased height to show more image content */
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.offer-card:hover .card-image {
+    transform: scale(1.08);
+}
+
+.card-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+/* Badge */
+.card-badge {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    padding: 8px 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+[dir="rtl"] .card-badge {
+    right: auto;
+    left: 20px;
+}
+
+.badge-best-price {
+    background: linear-gradient(135deg, #d4af37 0%, #f4d878 100%);
+    color: #1a1a1a;
+}
+
+.badge-flexible {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    color: #ffffff;
+}
+
+.badge-limited {
+    background: linear-gradient(135deg, #ff6b35 0%, #e74c3c 100%);
+    color: #ffffff;
+    animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    }
+}
+
+/* Card Content */
+.card-content {
+    padding: 24px 32px;
+    background: #ffffff;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 28px;
+    /* Slightly smaller title for more horizontal space */
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 6px;
+    font-family: 'Cairo', sans-serif;
+    color: #1a1a1a;
+}
+
+.card-title.highlight {
+    background: linear-gradient(135deg, #d4af37 0%, #f4d878 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card-subtitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #495057;
+    margin-bottom: 10px;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.card-description {
+    font-size: 14px;
+    font-weight: 400;
+    color: #6c757d;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-family: 'Cairo', sans-serif;
+}
+
+/* CTA */
+.card-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    /* Custom width for cleaner look */
+    min-width: 200px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ff9500 0%, #ff8000 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 149, 0, 0.25);
+    text-decoration: none;
+    margin-top: auto;
+}
+
+.card-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(255, 149, 0, 0.35);
+    background: linear-gradient(135deg, #ff8000 0%, #ff6b00 100%);
+    color: #fff;
+}
+
+/* Navigation Buttons */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: #ffffff;
+    border: 2px solid #d4af37;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    color: #d4af37;
+    font-size: 20px;
+}
+
+.scroll-btn:hover {
+    background: linear-gradient(135deg, #d4af37 0%, #f4d878 100%);
+    border-color: transparent;
+    transform: translateY(-50%) scale(1.1);
+    color: #ffffff;
+}
+
+.scroll-left {
+    left: 10px;
+}
+
+.scroll-right {
+    right: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .offer-card {
+        width: 380px;
+    }
+
+    .card-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .billboard-section {
+        margin-top: 40px !important;
+        /* Prevent overlap with hero section on mobile */
+        padding: 40px 0;
+    }
+
+    .section-title {
+        font-size: 36px;
+    }
+
+    .offer-card {
+        width: 320px;
+    }
+
+    .card-title {
+        font-size: 24px;
+    }
+
+    .scroll-btn {
+        display: none;
+    }
+
+    .offers-scroll {
+        padding: 20px;
+        gap: 16px;
+    }
+}
+
+/* Professional Countdown Badge - Stacked under main badge on right */
+.countdown-timer-badge {
+    position: absolute;
+    top: 54px;
+    /* Stacked below the main badge */
+    right: 20px;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 107, 53, 0.3) !important;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 !important;
+    width: max-content !important;
+    z-index: 20;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+}
+
+.countdown-timer-badge i {
+    color: #e74c3c;
+    font-size: 9px;
+}
+
+[dir="rtl"] .countdown-timer-badge {
+    right: auto;
+    left: 20px;
+}
+
+/* Ensure no overlap if multiple badges exist */
+[dir="rtl"] .card-badge {
+    right: auto;
+    left: 20px;
+}
+
+@media (max-width: 768px) {
+    .countdown-timer-badge {
+        top: 38px;
+        right: 10px;
+        font-size: 8px;
+        padding: 2px 8px;
+        gap: 4px;
+    }
+
+    [dir="rtl"] .countdown-timer-badge {
+        right: auto;
+        left: 10px;
+    }
+}

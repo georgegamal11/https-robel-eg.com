@@ -1,0 +1,8 @@
+name = "robel-api"
+main = "src/worker.js"
+compatibility_date = "2024-03-01"
+
+[[d1_databases]]
+binding = "DB" # اسم الربط في الكود
+database_name = "robel" # اسم القاعدة في Cloudflare
+database_id = "b09c934f-5980-425f-bcdf-201f0157939a" 

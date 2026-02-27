@@ -1,0 +1,519 @@
+/* ═══════════════════════════════════════════════════════════════
+   🌟 PROJECT HERO - PREMIUM DESIGN
+   ✨ النصوص مباشرة على الصورة بدون خلفيات شفافة
+   🎨 تأثيرات نصية احترافية مع توهج ذهبي
+   ⚡ انيميشن متقدمة و Zoom ديناميكي
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 🔤 PREMIUM ARABIC FONTS - خطوط عربية احترافية */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Readex+Pro:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* 🎨 Gold Gradient Colors */
+    --gold-light: #f4d03f;
+    --gold-medium: #c5a059;
+    --gold-dark: #a68541;
+    --gold-ultra: #8b6f34;
+
+    /* ✨ Effect Colors */
+    --glow-gold: rgba(244, 208, 63, 0.8);
+    --shadow-deep: rgba(0, 0, 0, 0.9);
+    --shadow-soft: rgba(0, 0, 0, 0.6);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🎬 HERO SECTION - قسم البطل
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Tajawal', 'Readex Pro', sans-serif;
+}
+
+/* 🖼️ BACKGROUND ZOOM ANIMATION - تأثير Zoom تدريجي للخلفية */
+.hero-slider-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-slide-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 🎯 تأثير Zoom تدريجي */
+    animation: heroZoomEffect 20s ease-in-out infinite;
+}
+
+.hero-slide-item.active {
+    opacity: 1;
+}
+
+@keyframes heroZoomEffect {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 🌫️ OVERLAY - طبقة شفافة خفيفة فقط */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.15) 0%,
+            rgba(0, 0, 0, 0.35) 50%,
+            rgba(0, 0, 0, 0.5) 100%);
+    z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   📝 TEXT CONTENT - المحتوى النصي
+   🎯 بدون خلفيات - مباشرة على الصورة
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+/* 🏷️ PROJECT TITLE - عنوان المشروع */
+.hero-content h1 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+
+    /* 🎨 3D TEXT SHADOW - ظل ثلاثي الأبعاد */
+    text-shadow:
+        0 1px 0 #ccc,
+        0 2px 0 #c9c9c9,
+        0 3px 0 #bbb,
+        0 4px 0 #b9b9b9,
+        0 5px 0 #aaa,
+        0 6px 1px rgba(0, 0, 0, 0.1),
+        0 0 5px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.3),
+        0 3px 5px rgba(0, 0, 0, 0.2),
+        0 5px 10px rgba(0, 0, 0, 0.25),
+        0 10px 20px rgba(0, 0, 0, 0.2),
+        0 20px 40px rgba(0, 0, 0, 0.15);
+
+    /* ✨ GOLD GLOW - توهج ذهبي */
+    filter: drop-shadow(0 0 20px var(--glow-gold)) drop-shadow(0 0 40px var(--glow-gold));
+
+    /* 🎬 FADE IN ANIMATION */
+    animation: fadeInDown 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📄 SUBTITLE - العنوان الفرعي */
+.hero-content p {
+    font-family: 'Readex Pro', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.8;
+    margin-bottom: 35px;
+
+    /* 🎨 SOFT SHADOW - ظل ناعم */
+    text-shadow:
+        2px 2px 8px var(--shadow-deep),
+        0 0 15px rgba(0, 0, 0, 0.7),
+        0 4px 10px rgba(0, 0, 0, 0.5);
+
+    /* 🎬 FADE IN ANIMATION */
+    animation: fadeInDown 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s backwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   📊 INFO BAR - شريط المعلومات
+   🎯 بدون خلفيات شفافة - نصوص مباشرة
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero-info-bar {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 40px;
+    /* 🎬 FADE IN ANIMATION */
+    animation: fadeInUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s backwards;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    /* 🎯 FLOATING ANIMATION */
+    animation: floatingItem 3s ease-in-out infinite;
+}
+
+/* ⚡ Different delay for each item */
+.info-item:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.info-item:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.info-item:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes floatingItem {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 🏷️ LABEL - التسمية */
+.info-item .label {
+    font-family: 'Readex Pro', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    /* 🎨 GOLD GRADIENT TEXT */
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-medium));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* ✨ GLOW EFFECT */
+    filter: drop-shadow(0 0 10px var(--glow-gold)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.8));
+}
+
+/* 💰 VALUE - القيمة */
+.info-item .value {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+
+    /* 🎨 ENHANCED 3D SHADOW */
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        4px 4px 8px rgba(0, 0, 0, 0.6),
+        6px 6px 12px rgba(0, 0, 0, 0.4),
+        0 0 20px var(--glow-gold);
+
+    /* 🎯 HOVER EFFECT */
+    transition: all 0.3s ease;
+}
+
+.info-item:hover .value {
+    /* ✨ GOLD GLOW ON HOVER */
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        4px 4px 8px rgba(0, 0, 0, 0.6),
+        0 0 30px var(--glow-gold),
+        0 0 40px var(--gold-light);
+    transform: scale(1.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🎯 BUTTONS - الأزرار
+   ✨ تدرجات ذهبية فاخرة مع hover متقدم
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero-content>div {
+    /* Container للأزرار */
+    animation: fadeInUp 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s backwards;
+}
+
+.cta-button {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 18px 45px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+
+    /* 🎨 LUXURY GOLD GRADIENT */
+    background: linear-gradient(135deg,
+            var(--gold-light) 0%,
+            var(--gold-medium) 50%,
+            var(--gold-dark) 100%);
+
+    /* ✨ SHADOW & GLOW */
+    box-shadow:
+        0 10px 30px rgba(197, 160, 89, 0.4),
+        0 0 20px rgba(244, 208, 63, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+    /* 🎬 SMOOTH TRANSITIONS */
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ✨ BUTTON SHINE EFFECT */
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    transition: left 0.5s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+/* 🎯 HOVER STATE */
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+
+    /* ✨ ENHANCED GLOW */
+    box-shadow:
+        0 15px 40px rgba(197, 160, 89, 0.6),
+        0 0 30px var(--glow-gold),
+        0 0 40px rgba(244, 208, 63, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+    /* 🎨 LIGHTER GRADIENT */
+    background: linear-gradient(135deg,
+            var(--gold-light) 0%,
+            var(--gold-medium) 30%,
+            var(--gold-light) 100%);
+}
+
+/* 🟢 WHATSAPP BUTTON */
+.cta-button[href*="whatsapp"],
+.cta-button[href*="wa.me"] {
+    background: linear-gradient(135deg, #25d366 0%, #20ba5a 100%);
+    box-shadow:
+        0 10px 30px rgba(37, 211, 102, 0.4),
+        0 0 20px rgba(37, 211, 102, 0.3);
+}
+
+.cta-button[href*="whatsapp"]:hover,
+.cta-button[href*="wa.me"]:hover {
+    background: linear-gradient(135deg, #2fef75 0%, #25d366 100%);
+    box-shadow:
+        0 15px 40px rgba(37, 211, 102, 0.6),
+        0 0 30px rgba(37, 211, 102, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🎬 ADVANCED ANIMATIONS - انيميشن متقدمة
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🎯 PULSE ANIMATION للعناصر المهمة */
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 10px var(--glow-gold));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 25px var(--glow-gold)) drop-shadow(0 0 35px var(--gold-light));
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 RESPONSIVE DESIGN - التصميم المتجاوب
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero-info-bar {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+
+    .hero-info-bar {
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .info-item .value {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+        /* 🎨 SIMPLIFIED SHADOW FOR MOBILE */
+        text-shadow:
+            0 2px 0 #999,
+            0 4px 8px rgba(0, 0, 0, 0.5),
+            0 8px 16px rgba(0, 0, 0, 0.3),
+            0 0 20px var(--glow-gold);
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        padding: 0 15px;
+    }
+
+    .hero-info-bar {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .info-item .value {
+        font-size: 1.6rem;
+    }
+
+    .cta-button {
+        font-size: 1rem;
+        padding: 15px 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+
+    .info-item .label {
+        font-size: 0.75rem;
+    }
+
+    .info-item .value {
+        font-size: 1.4rem;
+    }
+
+    .cta-button {
+        font-size: 0.95rem;
+        padding: 14px 30px;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   🎨 SPECIAL EFFECTS - تأثيرات خاصة
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ✨ PRICE SPECIAL EFFECT - تأثير خاص للسعر */
+.info-item .value:contains('ج.م'),
+.info-item .value:contains('EGP') {
+    /* 💰 GOLDEN PRICE GLOW */
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* 🎯 ACTIVE STATE للأزرار */
+.cta-button:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4);
+}
+
+/* ✨ FOCUS STATE للوصولية */
+.cta-button:focus {
+    outline: 3px solid rgba(244, 208, 63, 0.5);
+    outline-offset: 3px;
+}
+
+/* 🌟 SPARKLE EFFECT - Optional */
+@keyframes sparkle {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* 🎬 REDUCE MOTION للوصولية */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

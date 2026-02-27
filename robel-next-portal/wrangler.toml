@@ -1,0 +1,21 @@
+name = "robel-api-worker"
+main = "worker/index.ts"
+compatibility_date = "2024-09-23"
+
+# D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "robel"
+database_id = "b09c934f-5980-425f-bcdf-201f0157939a"
+
+# R2 Bucket Binding
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "robel-uploads"
+
+[vars]
+# Domain Security (Set this to your real frontend domain)
+ALLOWED_ORIGIN = "https://robel-eg.com"
+
+# Secrets (Add via 'wrangler secret put JWT_SECRET')
+# JWT_SECRET = "" 

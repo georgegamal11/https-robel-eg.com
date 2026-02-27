@@ -1,0 +1,251 @@
+/* =========================================
+   02-RESET & BASE
+   ========================================= */
+html {
+    scroll-behavior: smooth;
+    /* Prevent anchor overlap */
+    scroll-padding-top: var(--navbar-height-desktop);
+}
+
+@media (max-width: 991px) {
+    html {
+        scroll-padding-top: var(--total-header-mobile);
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--text-main);
+    line-height: 1.8;
+    overflow-x: hidden;
+    font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 4px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+}
+
+/* FIX: Removed duplicate !important rules and consolidated hover states */
+.btn-gold {
+    background: var(--gold-muted);
+    color: #1A1A1A;
+    /* Consistent dark contrast on gold */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+.btn-gold.is-animated:hover {
+    transform: translateY(-2px);
+}
+
+.btn-gold:active {
+    transform: translateY(0);
+}
+
+.btn-outline {
+    border: 1px solid var(--text-secondary);
+    color: var(--text-main);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    border-color: var(--navy-deep);
+    color: var(--navy-deep);
+}
+
+.small-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+}
+
+/* --- Login Button (Base) --- */
+.btn-login {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    color: var(--text-main);
+    padding: 10px 24px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.btn-login:hover {
+    background: var(--bg-secondary);
+    border-color: var(--gold-muted);
+    color: var(--gold-muted);
+}
+
+.btn-login.logged-in {
+    border: 1px solid var(--border-light);
+    color: var(--navy-deep);
+    background: transparent;
+}
+
+.btn-login.logged-in:hover {
+    background: var(--bg-secondary);
+    border-color: var(--navy-deep);
+}
+
+/* --- Google Professional Button --- */
+.btn-google-login {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    background: #fff;
+    color: var(--navy-deep);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="dark"] .btn-google-login {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.btn-google-login:hover {
+    background: #f8fafc;
+    border-color: var(--gold-muted);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .btn-google-login:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--gold-muted);
+}
+
+.btn-google-login img {
+    height: 22px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+    transition: transform 0.3s ease;
+}
+
+.btn-google-login:hover img {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* --- Ultra-Premium Login Submit --- */
+.btn-login-submit {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #A8893F 0%, #D4AF37 50%, #F1D279 100%);
+    background-size: 200% auto;
+    color: var(--navy-deep);
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(168, 137, 63, 0.2);
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease;
+    z-index: 1;
+}
+
+.btn-login-submit:hover {
+    background-position: right center;
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(168, 137, 63, 0.4);
+    letter-spacing: 2px;
+}
+
+.btn-login-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    transition: none;
+    z-index: 2;
+}
+
+.btn-login-submit:hover::before {
+    left: 150%;
+    transition: all 0.8s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold-muted);
+    border-radius: 10px;
+    border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--navy-deep);
+}

@@ -1,0 +1,1439 @@
+:root {
+    --navbar-height: 80px;
+}
+
+/* UTILITY CLASSES (Visibility) */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: flex;
+}
+
+@media (max-width: 991px) {
+    .mobile-only {
+        display: flex;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+}
+
+/* MAIN HEADER WRAPPER */
+.main-header {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: visible;
+    /* Removed !important */
+}
+
+/* NAVBAR (The Nav Row) */
+.navbar {
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+}
+
+/* --- THE LOGO --- */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+@media (min-width: 992px) {
+    .main-header.scrolled {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        background: #FFFFFF;
+    }
+
+    .main-header.scrolled .navbar {
+        height: 70px;
+    }
+}
+
+
+/* NAVIGATION LINKS */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--navy-deep);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 10px 18px;
+    transition: 0.3s;
+}
+
+.nav-item-btn {
+    padding: 10px 24px !important;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.nav-item-btn.active {
+    background: #000000 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.nav-links a:not(.active):hover {
+    color: var(--gold-muted);
+}
+
+.nav-links a:hover {
+    color: var(--gold-muted);
+}
+
+/* ACTION BUTTONS */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.action-icon {
+    background: #f1f5f9;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--navy-deep);
+}
+
+/* Top Bar Specific Icon Style */
+.topbar-icon {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    font-size: 0.9rem;
+}
+
+.topbar-icon:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.lang-text-btn {
+    background: transparent;
+    border: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--navy-deep);
+    cursor: pointer;
+}
+
+.login-link-btn {
+    background: transparent;
+    border: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--navy-deep);
+    cursor: pointer;
+}
+
+.btn-admin {
+    background: #e11d48;
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.logout-pill-btn {
+    background: #fff;
+    color: var(--navy-deep) !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cta {
+    background: var(--gold-main);
+    color: #fff !important;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(201, 162, 63, 0.3);
+    transition: 0.3s;
+}
+
+/* SIDEBAR TOGGLE (Hamburger) */
+.sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--navy-deep);
+    /* Ensure visible against white */
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.2s;
+    margin-right: 1px;
+    display: none;
+    /* Hidden by default on desktop, shown in mobile MQ */
+}
+
+@media (max-width: 991px) {
+    .sidebar-toggle {
+        display: flex;
+    }
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.1);
+    color: var(--gold-muted);
+}
+
+.quick-nav {
+    display: none !important;
+}
+
+@media (max-width: 991px) {
+    .quick-nav {
+        display: flex !important;
+        position: fixed !important;
+        top: var(--navbar-height-mobile) !important;
+        height: var(--quick-nav-height);
+        left: 0;
+        right: 0;
+        background: #fff;
+        z-index: 1020;
+        padding: 10px 5px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Firefox */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .quick-nav::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.quick-nav a,
+.quick-nav-drop-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    /* Reduced from 8px 16px */
+    margin: 0 3px;
+    /* Reduced from 0 5px */
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    color: var(--navy-deep);
+    text-decoration: none;
+    font-size: 0.75rem;
+    /* Slightly reduced from 0.8rem */
+    font-weight: 700;
+    transition: 0.3s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    /* Reduced from 8px */
+}
+
+.quick-nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.quick-nav-dropdown-content {
+    display: none;
+    position: fixed;
+    /* Fixed avoids clipping by .quick-nav horizontal scroll */
+    top: 110px;
+    /* Positioned below the quick nav bar */
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    width: max-content;
+    min-width: 200px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    /* Higher z-index to stay on top */
+    padding: 10px 0;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.quick-nav-dropdown-content.active {
+    display: flex;
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.quick-nav-dropdown-content a {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+    border: none;
+    background: transparent;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy-deep);
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+[dir="rtl"] .quick-nav-dropdown-content a {
+    text-align: right;
+    border-left: none;
+    border-right: 3px solid transparent;
+}
+
+.quick-nav-dropdown-content a:hover {
+    background: rgba(201, 162, 63, 0.08);
+    color: var(--gold-dark);
+    border-left-color: var(--gold-main);
+}
+
+[dir="rtl"] .quick-nav-dropdown-content a:hover {
+    border-right-color: var(--gold-main);
+}
+
+.quick-nav-drop-btn i {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .quick-nav-dropdown-content {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .quick-nav-dropdown-content a {
+    color: #f8fafc;
+}
+
+.quick-nav a.active,
+.quick-nav-dropdown-content a.active {
+    background: var(--gold-main) !important;
+    color: #000 !important;
+    border-color: var(--gold-main);
+    font-weight: 800;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 991px) {
+    .main-header {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        z-index: 1000;
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .top-bar {
+        display: none !important;
+        /* Hide top bar on mobile to match single-row mockup */
+    }
+
+    .navbar {
+        height: 85px !important;
+        /* Much taller for large logo */
+        padding: 0 10px !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background: #fff !important;
+        gap: 10px !important;
+    }
+
+    .header-actions {
+        gap: 6px;
+        /* Reduced gap */
+        flex: 1;
+        justify-content: flex-end;
+        margin-right: 8px;
+        /* Push to right */
+    }
+
+    .logo {
+        position: absolute !important;
+        /* Position left to overlap both bars */
+        left: -22px !important;
+        top: 0 !important;
+        /* Remove centering transform */
+        transform: none !important;
+        width: 140px !important;
+        /* Fixed width for consistent spacing */
+        height: 120px !important;
+        /* Increased height to span both bars */
+        margin: 0 !important;
+        padding: 5px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 2000 !important;
+        /* Top usage */
+        flex-shrink: 0 !important;
+        background: transparent !important;
+        /* Transparent to blend */
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .logo img {
+        height: 100% !important;
+        width: auto !important;
+        object-fit: contain !important;
+        max-width: none !important;
+        display: block !important;
+    }
+
+    /* Mobile Button Styles - VERY COMPACT */
+    .btn-admin,
+    .logout-pill-btn {
+        padding: 0 5px !important;
+        font-size: 0.6rem !important;
+        /* Very small */
+        height: 24px !important;
+        /* Very compact */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 5px !important;
+        white-space: nowrap !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.02em !important;
+    }
+
+    .btn-admin {
+        background: #e11d48 !important;
+        color: #fff !important;
+        margin-left: 4px;
+        /* Reduced margin */
+        box-shadow: 0 4px 10px rgba(225, 29, 72, 0.2);
+    }
+
+    .logout-pill-btn {
+        background: #fff !important;
+        color: #000 !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    .sidebar-toggle {
+        font-size: 1.4rem !important;
+        /* Slightly smaller */
+        padding: 4px !important;
+        margin-left: 0;
+    }
+
+    /* QUICK NAV - SECOND BAR (Nav items only) */
+    .quick-nav {
+        display: flex !important;
+        position: fixed !important;
+        top: 85px !important;
+        height: 50px !important;
+        /* Reduced height */
+        left: 0 !important;
+        right: 0 !important;
+        background: #fff !important;
+        z-index: 1020 !important;
+        padding: 8px 15px !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        gap: 8px !important;
+        justify-content: flex-start !important;
+        /* Nav items to start from left (pushed by padding) */
+        padding-left: 140px !important;
+        /* Push content right to clear the logo */
+        align-items: center !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .quick-nav::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    /* Hide logo element */
+    .quick-nav-logo {
+        display: none !important;
+    }
+
+    /* Navigation items - aligned to right */
+    .quick-nav a,
+    .quick-nav-drop-btn {
+        margin: 0 !important;
+        padding: 0 12px !important;
+        height: 34px !important;
+        background: #fff !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 20px !important;
+        color: #000 !important;
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+        flex-shrink: 0 !important;
+    }
+
+    .quick-nav a.active {
+        background: #C9A23F !important;
+        color: #000 !important;
+        border-color: #C9A23F !important;
+        transform: scale(1.02) !important;
+    }
+
+    .quick-nav-drop-btn,
+    .quick-nav-dropdown {
+        flex-shrink: 0 !important;
+    }
+
+    .quick-nav-drop-btn {
+        gap: 5px !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   📱 MOBILE QUICK NAV ADJUSTMENTS (< 768px)
+   Based on user request to fix overflow & spacing ("Available Buildings", etc.)
+   ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   📱 MOBILE QUICK NAV ADJUSTMENTS (< 768px)
+   Based on user request to center elements and fix spacing/colors
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .quick-nav {
+        display: flex;
+        justify-content: center !important;
+        /* Center items horizontally */
+        align-items: center;
+        /* Center items vertically */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        /* Consistent gap */
+        padding: 12px 10px;
+    }
+
+    .quick-nav a,
+    .quick-nav-drop-btn {
+        font-size: 11px !important;
+        /* Small font size for mobile */
+        padding: 0 14px !important;
+        /* Padding for pill shape */
+        margin: 0 4px !important;
+        /* Margin for spacing */
+        white-space: nowrap !important;
+        height: 32px !important;
+        /* Fixed height */
+        line-height: 30px !important;
+        /* Center text */
+        min-width: fit-content;
+        /* Fit content */
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: auto !important;
+        flex-shrink: 0;
+        border-radius: 100px !important;
+        /* Full pill */
+        box-sizing: border-box !important;
+    }
+
+    /* Gold Icons as requested */
+    .quick-nav a i,
+    .quick-nav-drop-btn i {
+        font-size: 11px !important;
+        margin: 0 5px 0 0 !important;
+        /* Space between icon and text */
+        color: #C9A23F !important;
+        /* Gold color */
+    }
+
+    [dir="rtl"] .quick-nav a i,
+    [dir="rtl"] .quick-nav-drop-btn i {
+        margin: 0 0 0 5px !important;
+    }
+}
+
+/* THEME OVERRIDES */
+[data-theme="dark"] .main-header,
+[data-theme="dark"] .top-bar,
+[data-theme="dark"] .quick-nav {
+    background: #000000;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .nav-links a,
+[data-theme="dark"] .top-bar-contact,
+[data-theme="dark"] .login-link-btn,
+[data-theme="dark"] .sidebar-toggle,
+[data-theme="dark"] .lang-text-btn {
+    color: #F8FAFC;
+}
+
+[data-theme="dark"] .logo {
+    background: #000000;
+}
+
+
+/* --- LOGO ADJUSTMENTS (DESKTOP) --- */
+/* ═══════════════════════════════════════════════════════════════
+   📱 iPHONE SE / SMALL MOBILE ADJUSTMENTS (< 380px)
+   Targeting 375px width to fix "sections in header" fitting
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 380px) {
+
+    /* 1. Shrink Navbar Height */
+    .navbar {
+        height: 65px !important;
+        padding: 0 5px !important;
+    }
+
+    /* 2. Shrink & Reposition Logo */
+    .logo {
+        width: 100px !important;
+        height: 85px !important;
+        left: -15px !important;
+        top: -5px !important;
+    }
+
+    .logo img {
+        height: 85% !important;
+    }
+
+    /* 3. Adjust Header Actions (Login/Menu) */
+    .header-actions {
+        gap: 4px !important;
+        margin-right: 0 !important;
+    }
+
+    .logout-pill-btn {
+        padding: 0 8px !important;
+        height: 24px !important;
+        font-size: 0.65rem !important;
+    }
+
+    .lang-text-btn {
+        font-size: 0.7rem !important;
+    }
+
+    .sidebar-toggle {
+        font-size: 1.2rem !important;
+        padding: 2px !important;
+    }
+
+    /* 4. Fix Quick Nav Bar (The "Sections") */
+    .quick-nav {
+        top: 65px !important;
+        /* Move up under new smaller navbar */
+        height: 42px !important;
+        padding-left: 85px !important;
+        /* Reduced pushing from left */
+        justify-content: flex-start !important;
+        /* Start after logo, don't center */
+        padding-right: 5px !important;
+        gap: 4px !important;
+    }
+
+    /* 5. Shrink Quick Nav Items (Pills) */
+    .quick-nav a,
+    .quick-nav-drop-btn {
+        height: 28px !important;
+        font-size: 9px !important;
+        /* Smaller text */
+        padding: 0 8px !important;
+        /* Tighter padding */
+        margin: 0 1px !important;
+        line-height: 26px !important;
+    }
+
+    /* Gold Icons inside pills */
+    .quick-nav a i,
+    .quick-nav-drop-btn i {
+        font-size: 9px !important;
+        margin-right: 3px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    /* 1. Reset Container to Standard Centered */
+    .main-header .container {
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0 40px;
+        position: relative;
+    }
+
+    .navbar {
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    /* 2. Overlapping Logo on the Left */
+    .nav-left-group {
+        width: 180px;
+        /* Preserve space for logo */
+        flex-shrink: 0;
+    }
+
+    .logo {
+        position: absolute;
+        left: 20px;
+        top: -45px;
+        /* Overlap Top Bar */
+        height: 145px;
+        width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1005;
+        background: transparent;
+        transition: all 0.3s ease;
+    }
+
+    .logo img {
+        height: 110px;
+        width: auto;
+        filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
+    }
+
+    /* 3. Shift Top Bar Content */
+    .top-bar-left {
+        padding-left: 200px;
+        /* Make room for overlapping logo */
+    }
+
+    /* 4. Navigation Links */
+    nav.desktop-only {
+        margin-left: -225px;
+        /* Shifted 2cm further left from -150px */
+        display: flex !important;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .nav-links a {
+        padding: 8px 16px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border-radius: 50px;
+    }
+
+    /* Main Nav Active State (Gold Pill) */
+    .nav-links a.nav-item-btn.active {
+        background: var(--gold-main) !important;
+        color: #000 !important;
+        padding: 8px 25px !important;
+        box-shadow: 0 4px 15px rgba(201, 162, 63, 0.3);
+    }
+
+    /* 5. Header Actions */
+    .header-actions {
+        margin-left: auto;
+        gap: 12px;
+    }
+
+    /* Buttons (Shrunk more as requested) */
+    .btn-admin {
+        background: #e11d48;
+        color: #fff;
+        padding: 3px 10px;
+        /* Reduced from 4px 10px */
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        min-width: 65px;
+        /* Reduced from 70px */
+        text-align: center;
+    }
+
+    .logout-pill-btn {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        padding: 5px 12px !important;
+        /* Consistent with Admin button */
+        font-size: 0.8rem;
+        font-weight: 700;
+        border-radius: 6px;
+    }
+
+    .btn-cta {
+        background: #C9A23F !important;
+        color: #fff !important;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 700;
+        box-shadow: 0 4px 15px rgba(201, 162, 63, 0.4);
+    }
+
+    /* Hide redundant utils in header if showing in top bar */
+    .header-actions #theme-btn,
+    .header-actions #lang-btn,
+    .header-actions .divider-vertical {
+        display: none !important;
+    }
+}
+
+.top-bar-right {
+    display: flex !important;
+}
+
+/* Default state for desktop-only sections */
+@media (min-width: 992px) {
+    .desktop-only-flex {
+        display: flex;
+    }
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.main-sidebar.active .sidebar-links li {
+    animation-fill-mode: forwards;
+}
+
+/* --- GLOBAL SIDEBAR STYLES (Premium Refined) --- */
+.main-sidebar {
+    position: fixed;
+    top: 0;
+    z-index: 10001;
+    /* Fix: Ensure sidebar is above the overlay (9999) */
+    left: -320px;
+    /* Default: slides from left */
+    width: 300px;
+    height: 100vh;
+    background: #ffffff;
+    transform: translateX(0);
+    /* Base state: ready to move */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* RTL Support for Sidebar */
+[dir="rtl"] .main-sidebar {
+    left: auto;
+    right: -320px;
+    /* Slides from right in Arabic */
+    border-right: none;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+}
+
+.main-sidebar.active {
+    left: 0 !important;
+}
+
+[dir="rtl"] .main-sidebar.active {
+    left: auto !important;
+    right: 0 !important;
+}
+
+/* Utility to prevent transition flicker during layout shifts (like RTL switch) */
+.no-transition,
+.no-transition * {
+    transition: none !important;
+    animation: none !important;
+}
+
+[data-theme="dark"] .main-sidebar {
+    background: #000000;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 10px 0 50px rgba(0, 0, 0, 0.3);
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Header */
+.sidebar-header {
+    padding: 30px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.sidebar-logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-right: 20px;
+}
+
+.sidebar-logo-container img {
+    height: 110px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(201, 162, 63, 0.15));
+}
+
+.sidebar-close-btn {
+    background: #f1f5f9;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--navy-deep);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    font-size: 1.1rem;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+}
+
+[data-theme="dark"] .sidebar-close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.sidebar-close-btn:hover {
+    background: #e2e8f0;
+    transform: rotate(90deg);
+}
+
+/* Navigation */
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 15px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    color: var(--navy-deep);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    transition: 0.2s all ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+[data-theme="dark"] .sidebar-link {
+    color: #cbd5e1;
+}
+
+.sidebar-link i {
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #C9A23F;
+    /* Gold Color as requested */
+    transition: 0.2s;
+}
+
+[data-theme="dark"] .sidebar-link i {
+    color: #C9A23F;
+    /* Ensure Gold in Dark Mode too */
+}
+
+.sidebar-link:hover {
+    background: #f8fafc;
+    color: var(--gold-dark);
+}
+
+.sidebar-link:hover i {
+    color: #C9A23F;
+    /* Keep Gold on Hover */
+}
+
+.sidebar-link.active {
+    background: rgba(201, 162, 63, 0.08);
+    color: var(--gold-dark);
+    font-weight: 700;
+}
+
+.sidebar-link.active i {
+    color: #C9A23F;
+    /* Keep Gold when Active */
+}
+
+/* Agent Highlight */
+.sidebar-link.agent-highlight {
+    color: var(--gold-muted);
+    font-weight: 700;
+}
+
+.sidebar-link.agent-highlight i {
+    color: var(--gold-muted);
+}
+
+/* Admin Link (Non-functional style) */
+.sidebar-link.admin-link {
+    margin-top: 10px;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid rgba(220, 38, 38, 0.1);
+}
+
+[data-theme="dark"] .sidebar-link.admin-link {
+    background: rgba(220, 38, 38, 0.05);
+    color: #f87171;
+    border-color: rgba(248, 113, 113, 0.1);
+}
+
+.sidebar-link.admin-link i {
+    color: #dc2626;
+}
+
+[data-theme="dark"] .sidebar-link.admin-link i {
+    color: #f87171;
+}
+
+/* Dropdowns */
+.sidebar-dropdown-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-link.has-dropdown .ms-auto {
+    margin-left: auto;
+    font-size: 0.8rem;
+    transition: 0.3s transform ease;
+}
+
+.sidebar-dropdown-wrapper.open .has-dropdown .ms-auto {
+    transform: rotate(180deg);
+}
+
+.sidebar-dropdown-list {
+    list-style: none;
+    padding: 0 0 0 45px;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+}
+
+.sidebar-dropdown-wrapper.open .sidebar-dropdown-list {
+    max-height: 500px;
+    padding-bottom: 15px;
+    padding-top: 5px;
+}
+
+.sidebar-dropdown-list li a {
+    display: block;
+    padding: 10px 15px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: 0.2s;
+    border-radius: 8px;
+}
+
+[data-theme="dark"] .sidebar-dropdown-list li a {
+    color: #94a3b8;
+}
+
+.sidebar-dropdown-list li a:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--gold-muted);
+    padding-left: 20px;
+}
+
+[data-theme="dark"] .sidebar-dropdown-list li a:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Footer Section */
+.sidebar-footer-new {
+    padding: 25px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+[data-theme="dark"] .sidebar-footer-new {
+    background: #000000;
+    border-top-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-auth-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px;
+    background: var(--navy-deep);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+[data-theme="dark"] .sidebar-auth-btn {
+    background: #1e293b;
+}
+
+.sidebar-auth-btn:hover {
+    background: #000;
+    transform: translateY(-2px);
+}
+
+.sidebar-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.sidebar-social-icons a {
+    color: #64748b;
+    font-size: 1.1rem;
+    transition: 0.2s;
+}
+
+.sidebar-social-icons a:hover {
+    color: var(--gold-muted);
+    transform: translateY(-2px);
+}
+
+.sidebar-actions-pair {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.action-circle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: var(--navy-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+[data-theme="dark"] .action-circle-btn {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.action-pill-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: var(--navy-deep);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+[data-theme="dark"] .action-pill-btn {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.action-pill-btn:hover {
+    border-color: var(--gold-muted);
+    color: var(--gold-muted);
+}
+
+/* Hide language toggle in sidebar for cleaner look */
+.sidebar-bottom-row .action-pill-btn {
+    display: none !important;
+}
+
+/* --- RTL HEADER FIXES --- */
+@media (min-width: 992px) {
+    [dir="rtl"] .top-bar-left {
+        padding-left: 0;
+        padding-right: 250px;
+    }
+
+    [dir="rtl"] nav .nav-links {
+        margin-left: 0;
+        margin-right: 250px;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    /* Flip Logo Position */
+    [dir="rtl"] .logo {
+        left: auto;
+        right: 40px;
+    }
+
+    /* Flip Top Bar Padding (Space for Logo) */
+    [dir="rtl"] .top-bar-left {
+        padding-left: 0;
+        padding-right: 200px;
+    }
+
+    /* Flip Navigation "Pull" Effect */
+    [dir="rtl"] nav.desktop-only {
+        margin-left: 0;
+        margin-right: -225px;
+    }
+
+    /* Flip Header Actions Push (Push to Left/End) */
+    [dir="rtl"] .header-actions {
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+
+/* =========================================
+   PROJECTS MEGA MENU ("Queen" Style)
+   ========================================= */
+
+/* The Dropdown Wrapper (LI) */
+.nav-item-dropdown {
+    position: relative;
+    padding-bottom: 10px;
+    /* Reduced gap to bring menu closer to button */
+    margin-bottom: -10px;
+}
+
+/* The Menu Itself */
+/* The Menu Itself */
+.queen-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: max-content;
+    /* Fit to content width */
+    min-width: 220px;
+    /* Minimum professional width */
+    background: #FFFFFF;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border-radius: 0 0 12px 12px;
+    /* Bottom corners only */
+    padding: 10px 0;
+    z-index: 2000;
+    flex-direction: column;
+    animation: slideDownFade 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform-origin: top center;
+    border-top: 3px solid #C9A23F;
+    /* Gold Top Line */
+}
+
+/* Show on Hover */
+.nav-item-dropdown:hover .queen-dropdown-menu {
+    display: flex;
+}
+
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Menu Items */
+.queen-menu-item {
+    display: block;
+    padding: 14px 25px;
+    color: #000000;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.nav-links .queen-dropdown-menu .queen-menu-item:hover,
+.nav-links .queen-dropdown-menu .queen-menu-item.active {
+    background: #D4AF37 !important;
+    /* Soft premium gold */
+    color: #000000 !important;
+    border-left: none !important;
+    font-weight: 800 !important;
+    border-radius: 8px;
+    margin: 5px 12px;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Ensure mobile dropdown links also turn gold when active */
+.quick-nav-dropdown-content a:hover,
+.quick-nav-dropdown-content a.active {
+    background: #D4AF37 !important;
+    color: #000 !important;
+    border-left: 4px solid #000 !important;
+}
+
+/* Highlight (Removed Red) */
+.queen-menu-item.highlight-red {
+    background: transparent;
+    color: inherit;
+}
+
+/* Projects Link Arrow */
+.nav-link-projects {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.nav-link-projects::after {
+    content: '\f078';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    transition: transform 0.2s;
+}
+
+.nav-item-dropdown:hover .nav-link-projects::after {
+    transform: rotate(180deg);
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] .queen-dropdown-menu {
+    background: #262626 !important;
+    /* Absolute dark grey from tokens */
+    border-top: 3px solid #D4AF37 !important;
+}
+
+[data-theme="dark"] .queen-menu-item {
+    color: #f5f5f5 !important;
+}
+
+[data-theme="dark"] .queen-menu-item:hover,
+[data-theme="dark"] .queen-menu-item.active {
+    background: rgba(212, 175, 55, 0.15) !important;
+    color: #D4AF37 !important;
+    border-left-color: #D4AF37 !important;
+}

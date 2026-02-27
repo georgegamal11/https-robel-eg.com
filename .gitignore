@@ -1,0 +1,31 @@
+# Node
+node_modules/
+
+# Cloudflare
+.wrangler/
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+
+# System
+.DS_Store
+Thumbs.db
+
+# Backups
+*.zip
+backups/
+*.bak
+
+# Temporary files
+*.tmp
+
+# Build
+.next/
+dist/
+
+# Large JSON if generated
+public/*.json

@@ -1,0 +1,89 @@
+{
+    "B133": {
+        "delivery": "1/1/2029",
+        "projectArea": "Porto Golf Marina",
+        "status": "buy",
+        "constStatus": "Under Construction",
+        "image": [
+            "../src/assets/images/projects/porto-golf/main.jpg"
+        ]
+    },
+    "B136": {
+        "delivery": "1/1/2029",
+        "projectArea": "Porto Golf Marina",
+        "status": "buy",
+        "constStatus": "Under Construction",
+        "image": [
+            "../src/assets/images/projects/porto-golf/main.jpg"
+        ]
+    },
+    "B230": {
+        "delivery": "1/1/2029",
+        "projectArea": "Porto Golf Marina",
+        "status": "buy",
+        "constStatus": "Under Construction",
+        "image": [
+            "../src/assets/images/projects/porto-golf/main.jpg"
+        ]
+    },
+    "B243": {
+        "delivery": "1/1/2029",
+        "projectArea": "Porto Golf Marina",
+        "status": "buy",
+        "constStatus": "Under Construction",
+        "image": [
+            "../src/assets/images/projects/porto-golf/main.jpg"
+        ]
+    },
+    "121": {
+        "delivery": "Ready",
+        "projectArea": "Porto Golf Marina",
+        "status": "buy",
+        "constStatus": "Ready",
+        "image": [
+            "../src/assets/images/projects/porto-golf/main.jpg"
+        ]
+    },
+    "224": {
+        "delivery": "Ready",
+        "projectArea": "Porto Golf Marina",
+        "status": "buy",
+        "constStatus": "Ready",
+        "image": [
+            "../src/assets/images/projects/porto-golf/main.jpg"
+        ]
+    },
+    "78": {
+        "delivery": "1/1/2029",
+        "projectArea": "Porto Golf Marina",
+        "status": "buy",
+        "constStatus": "Under Construction",
+        "image": [
+            "../src/assets/images/projects/porto-golf/main.jpg"
+        ]
+    },
+    "15": {
+        "delivery": "12/2026",
+        "projectArea": "Porto Said",
+        "status": "buy",
+        "constStatus": "Under Construction"
+    },
+    "16": {
+        "delivery": "12/2026",
+        "projectArea": "Porto Said",
+        "status": "buy",
+        "constStatus": "Under Construction"
+    },
+    "17": {
+        "delivery": "12/2026",
+        "projectArea": "Porto Said",
+        "status": "buy",
+        "constStatus": "Under Construction"
+    },
+    "Celebration": {
+        "delivery": "1/1/2028",
+        "projectArea": "New Alamein",
+        "status": "buy",
+        "constStatus": "Under Construction"
+    }
+}

@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #c9a23f;
+  --primary-dark: #b08d2b;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  @apply bg-gray-50 text-slate-800;
+}
+
+[dir="rtl"] body {
+  font-family: 'Tajawal', system-ui, sans-serif;
+}
