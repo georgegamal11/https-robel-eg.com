@@ -92,30 +92,7 @@ function getPaymentPlanData(buildingId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const downloadBtn = document.getElementById('download-price-list-btn');
-    if (downloadBtn) {
-        // Direct PDF generation when button is clicked
-        downloadBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-
-            // Check if inventory is loaded
-            if (!window.inventory || window.inventory.length === 0) {
-                alert('جاري تحميل البيانات، يرجى الانتظار لحظات...\nLoading data, please wait a moment...');
-
-                // Wait a bit and retry
-                setTimeout(async () => {
-                    if (window.inventory && window.inventory.length > 0) {
-                        await generatePriceListPDF(true); // true = Available units only
-                    } else {
-                        alert('لا توجد وحدات متاحة حالياً\nNo units available at the moment');
-                    }
-                }, 2000);
-                return;
-            }
-
-            await generatePriceListPDF(true); // true = Available units only
-        });
-    }
+    // Event listener for download-price-list-btn moved to index.html for on-demand loading
 
     const modalDownloadBtn = document.getElementById('download-report-pdf-btn');
     if (modalDownloadBtn) {

@@ -1137,7 +1137,10 @@ function finalizeNormalization() {
     Object.assign(projectMetadata, normalizedMetadata);
 
     // Filter projectNames to ONLY include real buildings (properties)
-    const buildingKeys = Object.keys(projectMetadata).filter(k => projectMetadata[k].category === 'properties');
+    const buildingKeys = Object.keys(projectMetadata).filter(k => {
+        const key = k.toUpperCase();
+        return projectMetadata[k].category === 'properties' && key !== 'OTHER' && key !== 'READY';
+    });
     projectNames.splice(0, projectNames.length, ...buildingKeys);
 
     const activeAreas = Object.values(projectMetadata)

@@ -346,7 +346,10 @@ var AdminUI = {
 
                 // Sync window lists by mutating existing arrays to keep references alive
                 if (window.projectMetadata) {
-                    const newNames = Object.keys(window.projectMetadata).filter(k => !window.projectMetadata[k].deleted);
+                    const newNames = Object.keys(window.projectMetadata).filter(k => {
+                        const key = k.toUpperCase();
+                        return !window.projectMetadata[k].deleted && key !== 'OTHER' && key !== 'READY';
+                    });
                     const newAreas = [...new Set(Object.values(window.projectMetadata)
                         .filter(m => !m.deleted)
                         .map(m => m.projectArea || "Other")

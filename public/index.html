@@ -1464,8 +1464,48 @@
                 <h2 data-i18n="downloads_title">Files & Plans</h2>
                 <div class="line"></div>
             </div>
+            <!-- Coming Soon Toast Notification -->
+            <div id="coming-soon-toast" style="
+                display: none;
+                position: fixed;
+                bottom: 40px;
+                left: 50%;
+                transform: translateX(-50%) translateY(20px);
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                color: white;
+                padding: 18px 30px;
+                border-radius: 16px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,162,63,0.3);
+                z-index: 99999;
+                min-width: 320px;
+                max-width: 90vw;
+                text-align: center;
+                transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+                opacity: 0;
+            ">
+                <div style="display:flex; align-items:center; justify-content:center; gap:14px;">
+                    <div style="
+                        background: linear-gradient(135deg, #c9a23f, #e8c56d);
+                        width: 44px; height: 44px;
+                        border-radius: 50%;
+                        display: flex; align-items: center; justify-content: center;
+                        flex-shrink: 0;
+                        box-shadow: 0 4px 15px rgba(201,162,63,0.4);
+                    ">
+                        <i class="fas fa-clock" style="color:#0f172a; font-size:18px;"></i>
+                    </div>
+                    <div style="text-align:left;">
+                        <div style="font-weight:800; font-size:15px; margin-bottom:3px;" id="coming-soon-title">Coming
+                            Soon</div>
+                        <div style="font-size:12px; color:#94a3b8;" id="coming-soon-subtitle">This file will be
+                            available shortly. Please check back soon.</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="download-grid">
-                <a href="#" class="download-link reveal reveal-scale">
+                <a href="#" class="download-link reveal reveal-scale"
+                    onclick="showComingSoon(event,'Project Brochure','سيتم إتاحة الكتيب قريباً — تواصل معنا لمزيد من المعلومات')">
                     <i class="far fa-file-pdf"></i>
                     <div>
                         <h4 style="margin:0;" data-i18n="btn_brochure">Project Brochure</h4>
@@ -1473,7 +1513,8 @@
                             (12MB)</p>
                     </div>
                 </a>
-                <a href="#" class="download-link reveal reveal-scale">
+                <a href="#" class="download-link reveal reveal-scale"
+                    onclick="showComingSoon(event,'Master Plan','سيتم إتاحة المخطط العام قريباً — تواصل معنا لمزيد من المعلومات')">
                     <i class="far fa-map"></i>
                     <div>
                         <h4 style="margin:0;" data-i18n="downloads_masterplan">Master Plan</h4>
@@ -1491,6 +1532,39 @@
                     </div>
                 </a>
                 <script>
+                    var _comingSoonTimer = null;
+
+                    function showComingSoon(e, title, subtitle) {
+                        e.preventDefault();
+                        const toast = document.getElementById('coming-soon-toast');
+                        const titleEl = document.getElementById('coming-soon-title');
+                        const subtitleEl = document.getElementById('coming-soon-subtitle');
+                        if (!toast) return;
+
+                        const lang = window.currentLang || localStorage.getItem('preferredLang') || 'en';
+                        titleEl.textContent = lang === 'ar' ? 'قريباً...' : (title + ' — Coming Soon');
+                        subtitleEl.textContent = lang === 'ar'
+                            ? subtitle
+                            : 'This file will be available shortly. Contact us for more information.';
+
+                        // Show with animation
+                        toast.style.display = 'block';
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                toast.style.opacity = '1';
+                                toast.style.transform = 'translateX(-50%) translateY(0)';
+                            });
+                        });
+
+                        // Auto-hide after 4 seconds
+                        if (_comingSoonTimer) clearTimeout(_comingSoonTimer);
+                        _comingSoonTimer = setTimeout(() => {
+                            toast.style.opacity = '0';
+                            toast.style.transform = 'translateX(-50%) translateY(20px)';
+                            setTimeout(() => { toast.style.display = 'none'; }, 400);
+                        }, 4000);
+                    }
+
                     function handlePriceListClick(e) {
                         e.preventDefault();
                         loadHeavyLibraries();
