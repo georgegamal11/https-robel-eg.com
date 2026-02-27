@@ -49,7 +49,7 @@ const footerContent = {
             { icon: 'fas fa-phone', text: '01270605528' }
         ],
         designerActions: [
-            { icon: 'fab fa-linkedin', text: 'LinkedIn', href: 'https://www.linkedin.com/in/georgegamal1/' },
+            { icon: 'fab fa-linkedin', text: 'LinkedIn', href: 'https://www.linkedin.com/in/george-gamal-helmy' },
             { icon: 'fas fa-globe', text: 'Portfolio', href: '#portfolio' }
         ],
 
@@ -104,7 +104,7 @@ const footerContent = {
             { icon: 'fas fa-phone', text: '01270605528' }
         ],
         designerActions: [
-            { icon: 'fab fa-linkedin', text: 'LinkedIn', href: 'https://www.linkedin.com/in/georgegamal1/' },
+            { icon: 'fab fa-linkedin', text: 'LinkedIn', href: 'https://www.linkedin.com/in/george-gamal-helmy' },
             { icon: 'fas fa-globe', text: 'Portfolio', href: '#portfolio' }
         ],
 
