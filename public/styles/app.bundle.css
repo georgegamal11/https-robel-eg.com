@@ -596,6 +596,19 @@ a.btn-cta.mobile-only {
     a.btn-cta.mobile-only {
         display: inline-flex !important;
         align-items: center;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* RTL Specific Overrides for Mobile Exclusivity */
+@media (max-width: 991px) {
+    [dir="rtl"] a.btn-cta.desktop-only {
+        display: none !important;
+    }
+
+    [dir="rtl"] a.btn-cta.mobile-only {
+        display: inline-flex !important;
     }
 }
 
@@ -1880,7 +1893,7 @@ a.btn-cta.mobile-only {
     }
 
     /* 7. Ultra Small Actions (Visible in both AR & EN) */
-    .btn-cta,
+    .btn-cta.mobile-only,
     .btn-admin {
         display: flex;
         /* Layout handled by flex, visibility by utility classes */
@@ -1899,7 +1912,7 @@ a.btn-cta.mobile-only {
         margin: 0 !important;
     }
 
-    [dir="rtl"] .btn-cta,
+    [dir="rtl"] .btn-cta.mobile-only,
     [dir="rtl"] .btn-admin {
         padding: 0 4px !important;
         font-size: 0.5rem !important;

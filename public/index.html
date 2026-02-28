@@ -1,8 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
+    <!-- ZERO CACHE CONFIGURATION -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Robel Real Estate Investment - Robel Urban Development | Strategic Partner of Amer Group</title>
 
@@ -12,6 +17,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;700;800&family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
 
     <meta name="description"
         content="Luxury real estate investment opportunities in Porto Golf Marina, Porto Said and Celebration. Strategic partner of Amer Group.">
@@ -87,7 +95,7 @@
         }
 
         .hero-title-center {
-            font-family: 'Cinzel', serif;
+            font-family: 'Cinzel', 'Cairo', 'Tajawal', serif;
             font-size: clamp(2rem, 6vw, 4.5rem);
             font-weight: 700;
             line-height: 1.1;
@@ -271,46 +279,53 @@
 
             .offer-card {
                 width: 330px !important;
-                height: 180px !important;
-                /* Increased height for better room */
+                height: 240px !important;
+                /* Increased height to fit all content */
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
                 border-radius: 12px !important;
             }
 
             .card-image-wrapper {
                 height: 100% !important;
-                /* Match card height */
             }
 
             .card-content {
-                padding: 12px !important;
+                padding: 15px !important;
+                padding-top: 60px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
             }
 
             .card-title {
-                font-size: 1rem !important;
+                font-size: 1.1rem !important;
                 margin-bottom: 4px !important;
+                font-weight: 800 !important;
             }
 
             .card-subtitle {
-                font-size: 0.75rem !important;
-                margin-bottom: 5px !important;
+                font-size: 0.85rem !important;
+                margin-bottom: 8px !important;
+                opacity: 0.9;
             }
 
             .card-description {
-                font-size: 0.65rem !important;
-                line-height: 1.2 !important;
-                margin-bottom: 10px !important;
+                font-size: 0.8rem !important;
+                line-height: 1.4 !important;
+                margin-bottom: 12px !important;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 line-clamp: 2;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
+                color: rgba(255, 255, 255, 0.95) !important;
             }
 
             .card-cta {
                 min-width: 100% !important;
-                padding: 8px 15px !important;
-                font-size: 0.75rem !important;
+                padding: 10px 15px !important;
+                font-size: 0.85rem !important;
+                margin-top: auto !important;
             }
 
             .card-badge {
@@ -318,6 +333,41 @@
                 font-size: 9px !important;
                 top: 10px !important;
                 right: 10px !important;
+            }
+
+            [dir="rtl"] .card-badge {
+                right: auto !important;
+                left: 10px !important;
+            }
+
+            .countdown-timer-badge {
+                top: 38px !important;
+                right: 10px !important;
+            }
+
+            [dir="rtl"] .countdown-timer-badge {
+                right: auto !important;
+                left: 10px !important;
+            }
+
+            /* Shift text to right for RTL */
+            [dir="rtl"] .billboard-section {
+                font-family: 'Cairo', 'Tajawal', sans-serif !important;
+            }
+
+            [dir="rtl"] .card-content {
+                text-align: right !important;
+            }
+
+            [dir="rtl"] .card-title,
+            [dir="rtl"] .card-subtitle,
+            [dir="rtl"] .card-description {
+                text-align: right !important;
+            }
+
+            [dir="rtl"] .card-cta {
+                text-align: center !important;
+                /* Keep button text centered */
             }
 
             /* Comparison Tool Mobile Responsiveness */
@@ -354,6 +404,14 @@
             font-size: 1.7rem !important;
             max-width: 100%;
             margin: 0 auto;
+        }
+
+        /* RTL Header & Typography Overrides */
+        [dir="rtl"] .hero-title-center,
+        [dir="rtl"] .about-title,
+        [dir="rtl"] .section-title {
+            font-family: 'Cairo', 'Tajawal', sans-serif !important;
+            letter-spacing: 0 !important;
         }
 
         .about-mission {
@@ -982,8 +1040,8 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title highlight" data-i18n="ad2_title">40% OFF</h3>
-                        <div class="card-subtitle" data-i18n="ad2_subtitle">??? ??? 40%</div>
-                        <p class="card-description" data-i18n="ad1_desc">Unlock massive savings with our exclusive cash
+                        <div class="card-subtitle" data-i18n="ad2_subtitle">Ø®ØµÙ… Ø§Ù„ÙƒØ§Ø´ 40%</div>
+                        <p class="card-description" data-i18n="ad2_desc">Unlock massive savings with our exclusive cash
                             payment offer.</p>
                         <a href="#contact" class="card-cta" data-i18n="view_project">Book now</a>
                     </div>
@@ -1000,7 +1058,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title" data-i18n="ad3_title">10% DOWN</h3>
-                        <div class="card-subtitle" data-i18n="ad3_subtitle">???? 10% ???</div>
+                        <div class="card-subtitle" data-i18n="ad3_subtitle">Ù…Ù‚Ø¯Ù… 10% ÙÙ‚Ø·</div>
                         <p class="card-description" data-i18n="ad3_desc">10% discount & flexible installments over 6
                             years.</p>
                         <a href="#contact" class="card-cta" data-i18n="request_price">Book now</a>
@@ -1023,7 +1081,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title highlight" data-i18n="ad1_title">FREE FINISHING</h3>
-                        <div class="card-subtitle" data-i18n="ad1_subtitle">????? ?????</div>
+                        <div class="card-subtitle" data-i18n="ad1_subtitle">ØªØ´Ø·ÙŠØ¨ Ù…Ø¬Ø§Ù†ÙŠ</div>
                         <p class="card-description" data-i18n="ad1_desc">Get your unit with free professional finishing
                             for a limited time.</p>
                         <a href="#contact" class="card-cta" data-i18n="book_visit">Book now</a>
@@ -1042,7 +1100,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title" data-i18n="ad4_title">PORTO GOLF</h3>
-                        <div class="card-subtitle" data-i18n="ad4_subtitle">????? ???? ???????</div>
+                        <div class="card-subtitle" data-i18n="ad4_subtitle">Ø¨ÙˆØ±ØªÙˆ Ø¬ÙˆÙ„Ù Ø§Ù„Ø¹Ù„Ù…ÙŠÙ†</div>
                         <p class="card-description" data-i18n="ad4_desc">Book your unit in the best strategic location
                             in heart of North Coast.</p>
                         <a href="#contact" class="card-cta" data-i18n="join_now">Book now</a>
@@ -1060,7 +1118,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title highlight" data-i18n="ad5_title">SPECIAL OFFER</h3>
-                        <div class="card-subtitle" data-i18n="ad5_subtitle">??? ???</div>
+                        <div class="card-subtitle" data-i18n="ad5_subtitle">Ø¹Ø±Ø¶ Ø®Ø§Øµ</div>
                         <p class="card-description" data-i18n="ad5_desc">Gift finishing OR 25% discount when paying over
                             4 years.</p>
                         <a href="#contact" class="card-cta" data-i18n="join_now">Book now</a>
@@ -1073,15 +1131,16 @@
                         <img src="assets/images/exclusive-opportunities/offer-6.webp" class="card-image"
                             alt="Coming Soon Teaser" loading="lazy">
                         <div class="card-image-overlay" style="background: rgba(255,255,255,0.4);"></div>
-                        <div class="card-badge badge-flexible" style="background: #95a5a6;">PREMIUM <i
-                                class="fas fa-crown"></i></div>
+                        <div class="card-badge badge-flexible" style="background: #95a5a6;" data-i18n="offer_premium">
+                            PREMIUM <i class="fas fa-crown"></i></div>
                     </div>
                     <div class="card-content" style="opacity: 0.7;">
-                        <h3 class="card-title">COMING SOON</h3>
-                        <div class="card-subtitle">??????</div>
-                        <p class="card-description">Stay tuned for more premium real estate offers arriving shortly in
+                        <h3 class="card-title" data-i18n="ad6_title">COMING SOON</h3>
+                        <div class="card-subtitle" data-i18n="ad6_subtitle">Ù‚Ø±ÙŠØ¨Ø§Ù‹</div>
+                        <p class="card-description" data-i18n="ad6_desc">Stay tuned for more premium real estate offers
+                            arriving shortly in
                             prime locations.</p>
-                        <button class="card-cta" disabled
+                        <button class="card-cta" disabled data-i18n="stay_tuned"
                             style="background: #ccc; box-shadow: none; cursor: default;">Stay Tuned</button>
                     </div>
                 </div>
@@ -1505,7 +1564,7 @@
 
             <div class="download-grid">
                 <a href="#" class="download-link reveal reveal-scale"
-                    onclick="showComingSoon(event,'Project Brochure','سيتم إتاحة الكتيب قريباً — تواصل معنا لمزيد من المعلومات')">
+                    onclick="showComingSoon(event,'Project Brochure','Ø³ÙŠØªÙ… Ø¥ØªØ§Ø­Ø© Ø§Ù„ÙƒØªÙŠØ¨ Ù‚Ø±ÙŠØ¨Ø§Ù‹ â€” ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ Ù„Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª')">
                     <i class="far fa-file-pdf"></i>
                     <div>
                         <h4 style="margin:0;" data-i18n="btn_brochure">Project Brochure</h4>
@@ -1514,7 +1573,7 @@
                     </div>
                 </a>
                 <a href="#" class="download-link reveal reveal-scale"
-                    onclick="showComingSoon(event,'Master Plan','سيتم إتاحة المخطط العام قريباً — تواصل معنا لمزيد من المعلومات')">
+                    onclick="showComingSoon(event,'Master Plan','Ø³ÙŠØªÙ… Ø¥ØªØ§Ø­Ø© Ø§Ù„Ù…Ø®Ø·Ø· Ø§Ù„Ø¹Ø§Ù… Ù‚Ø±ÙŠØ¨Ø§Ù‹ â€” ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ Ù„Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª')">
                     <i class="far fa-map"></i>
                     <div>
                         <h4 style="margin:0;" data-i18n="downloads_masterplan">Master Plan</h4>
@@ -1542,7 +1601,7 @@
                         if (!toast) return;
 
                         const lang = window.currentLang || localStorage.getItem('preferredLang') || 'en';
-                        titleEl.textContent = lang === 'ar' ? 'قريباً...' : (title + ' — Coming Soon');
+                        titleEl.textContent = lang === 'ar' ? 'Ù‚Ø±ÙŠØ¨Ø§Ù‹...' : (title + ' â€” Coming Soon');
                         subtitleEl.textContent = lang === 'ar'
                             ? subtitle
                             : 'This file will be available shortly. Contact us for more information.';
@@ -1574,7 +1633,7 @@
                         const originalHTML = btn.innerHTML;
                         btn.style.opacity = '0.7';
                         btn.style.pointerEvents = 'none';
-                        if (h4) h4.textContent = 'جاري التحضير...';
+                        if (h4) h4.textContent = 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ø¶ÙŠØ±...';
 
                         // Wait until jsPDF AND autoTable are both ready
                         let attempts = 0;
@@ -1592,14 +1651,14 @@
                                 if (typeof generatePriceListPDF === 'function') {
                                     generatePriceListPDF(true);
                                 } else {
-                                    alert('خطأ: ملف التصدير غير محمل.\nError: Export module not loaded.');
+                                    alert('Ø®Ø·Ø£: Ù…Ù„Ù Ø§Ù„ØªØµØ¯ÙŠØ± ØºÙŠØ± Ù…Ø­Ù…Ù„.\nError: Export module not loaded.');
                                 }
                             } else if (attempts > 50) {
                                 clearInterval(check);
                                 btn.innerHTML = originalHTML;
                                 btn.style.opacity = '';
                                 btn.style.pointerEvents = '';
-                                alert('فشل تحميل مكتبة PDF. يرجى تحديث الصفحة والمحاولة مجدداً.\nPDF library failed to load. Please refresh and try again.');
+                                alert('ÙØ´Ù„ ØªØ­Ù…ÙŠÙ„ Ù…ÙƒØªØ¨Ø© PDF. ÙŠØ±Ø¬Ù‰ ØªØ­Ø¯ÙŠØ« Ø§Ù„ØµÙØ­Ø© ÙˆØ§Ù„Ù…Ø­Ø§ÙˆÙ„Ø© Ù…Ø¬Ø¯Ø¯Ø§Ù‹.\nPDF library failed to load. Please refresh and try again.');
                             }
                         }, 200);
                     }
@@ -1645,10 +1704,10 @@
                     <tbody>
                         <tr>
                             <td style="font-weight:700;" data-i18n="compare_area">Area</td>
-                            <td><span lang="en">30</span> m²</td>
-                            <td><span lang="en">60</span> m²</td>
-                            <td><span lang="en">82</span> m²</td>
-                            <td><span lang="en">90</span> m²</td>
+                            <td><span lang="en">30</span> mÂ²</td>
+                            <td><span lang="en">60</span> mÂ²</td>
+                            <td><span lang="en">82</span> mÂ²</td>
+                            <td><span lang="en">90</span> mÂ²</td>
                         </tr>
                         <tr>
                             <td style="font-weight:700;" data-i18n="compare_rooms">Rooms</td>
@@ -1722,10 +1781,10 @@
                     <tbody>
                         <tr>
                             <td style="font-weight:700;">Area</td>
-                            <td><span lang="en">41-47</span> m²</td>
-                            <td><span lang="en">69-72</span> m²</td>
-                            <td><span lang="en">90-107</span> m²</td>
-                            <td><span lang="en">165</span> m²</td>
+                            <td><span lang="en">41-47</span> mÂ²</td>
+                            <td><span lang="en">69-72</span> mÂ²</td>
+                            <td><span lang="en">90-107</span> mÂ²</td>
+                            <td><span lang="en">165</span> mÂ²</td>
                         </tr>
                         <tr>
                             <td style="font-weight:700;">Rooms</td>
@@ -1789,21 +1848,21 @@
                     <thead>
                         <tr>
                             <th>Specifications</th>
-                            <th>30-59m²</th>
-                            <th>60-75m²</th>
-                            <th>76-95m²</th>
-                            <th>96-120m²</th>
-                            <th>121-150m²</th>
+                            <th>30-59mÂ²</th>
+                            <th>60-75mÂ²</th>
+                            <th>76-95mÂ²</th>
+                            <th>96-120mÂ²</th>
+                            <th>121-150mÂ²</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td style="font-weight:700;">Area Range</td>
-                            <td><span lang="en">30-59</span> m²</td>
-                            <td><span lang="en">60-75</span> m²</td>
-                            <td><span lang="en">76-95</span> m²</td>
-                            <td><span lang="en">96-120</span> m²</td>
-                            <td><span lang="en">121-150</span> m²</td>
+                            <td><span lang="en">30-59</span> mÂ²</td>
+                            <td><span lang="en">60-75</span> mÂ²</td>
+                            <td><span lang="en">76-95</span> mÂ²</td>
+                            <td><span lang="en">96-120</span> mÂ²</td>
+                            <td><span lang="en">121-150</span> mÂ²</td>
                         </tr>
                         <tr>
                             <td style="font-weight:700;">Type</td>
@@ -3337,7 +3396,7 @@
                                 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
                                 function () {
                                     _heavyLibsReady = true;
-                                    console.log('✅ PDF libs ready');
+                                    console.log('âœ… PDF libs ready');
                                 }
                             );
                         }

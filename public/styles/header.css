@@ -13,11 +13,11 @@
 
 @media (max-width: 991px) {
     .mobile-only {
-        display: flex;
+        display: flex !important;
     }
 
     .desktop-only {
-        display: none;
+        display: none !important;
     }
 }
 

@@ -28,17 +28,17 @@ const footerContent = {
         projects: [
             { text: 'بورتو جولف مارينا', href: 'porto-golf-marina.html', icon: 'fas fa-building' },
             { text: 'بورتو سعيد', href: 'porto-said.html', icon: 'fas fa-building' },
-            { text: 'سيليبريشن', href: 'celebration.html', icon: 'fas fa-building' },
+            { text: 'سيلبريشن', href: 'celebration.html', icon: 'fas fa-building' },
             { text: 'جميع المشاريع', href: '#all-projects', icon: 'fas fa-building' }
         ],
 
         // Section 4: Contact
         contactHeading: 'تواصل معنا',
         contactItems: [
-            { icon: 'fas fa-map-marker-alt', text: 'الساحل الشمالي – مصر', href: null },
-            { icon: 'fas fa-phone', text: '+20 127 060 5528', href: 'tel:+201270605528' },
-            { icon: 'fas fa-envelope', text: 'info@robel-realestate.com', href: 'mailto:info@robel-realestate.com' },
-            { icon: 'fab fa-whatsapp', text: 'واتساب للاستفسارات', href: 'https://wa.me/201270605528' }
+            { icon: 'fas fa-map-marker-alt', text: '375 طريق الجيش، برج قاصد كريم، جليم، الإسكندرية', href: null },
+            { icon: 'fas fa-phone', text: '+20 120 091 0191', href: 'tel:+201200910191' },
+            { icon: 'fas fa-envelope', text: 'info@robel-eg.com', href: 'mailto:info@robel-eg.com' },
+            { icon: 'fab fa-whatsapp', text: 'واتساب للاستفسارات', href: 'https://wa.me/201200666530' }
         ],
 
         // Section 5: Designer

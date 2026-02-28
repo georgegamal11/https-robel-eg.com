@@ -31,6 +31,26 @@
   ExpiresDefault "access plus 2 days"
 </IfModule>
 
+# Force No-Cache for HTML Files (Apache)
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+# Bypass LiteSpeed Caching (Common on cPanel hosts)
+<IfModule LiteSpeed>
+  CacheDisable public /
+  CacheDisable public *.html
+</IfModule>
+
+# Disable mod_pagespeed if exists
+<IfModule pagespeed_module>
+  ModPagespeed off
+</IfModule>
+
 # 3. SECURITY & CLEAN URLS
 Options -Indexes
 ErrorDocument 404 /index.html
