@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://robel-eg.com/sitemap.xml
+
+# Crawl Delay
+Crawl-delay: 1
+
+# Disallow admin & sensitive areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /services/
+Disallow: /_headers
+Disallow: /_redirects

@@ -48,11 +48,11 @@ function isUnitInTarget(u, target) {
     const targets = Array.isArray(target) ? target.map(t => normalizeId(t)) : [normalizeId(target)];
 
     // We already normalize fields during transform/sync, so use buildingId directly for speed
-    const uB = u.buildingId || normalizeId(u.building_id || u.buildingCode || u.building || u.Building) || '';
-    const uP = (u.projectId || u.project || '').toString();
+    const uB = u.buildingId || normalizeId(u.building_id || u.buildingCode || u.building || u.Building);
+    const uP = u.projectId || u.project || '';
 
     return targets.some(t => {
-        return uB === t || uP.toLowerCase() === t.toLowerCase() || (uB && uB.replace(/^B/i, '') === t.replace(/^B/i, ''));
+        return uB === t || uP === t.toLowerCase() || uB.replace(/^B/i, '') === t.replace(/^B/i, '');
     });
 }
 

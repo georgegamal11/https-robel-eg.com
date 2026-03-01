@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Comparison Tool - Porto Properties</title>
+    <meta name="description"
+        content="Compare unit types across Porto Golf Marina, Porto Said projects with detailed specifications and pricing">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/tokens.css?v=20260228032718">
+    <link rel="stylesheet" href="../styles/base.css?v=20260228032718">
+    <link rel="stylesheet" href="../styles/header.css?v=20260228032718">
+    <link rel="stylesheet" href="../styles/footer.css?v=20260228032718">
+    <link rel="stylesheet" href="../styles/app.bundle.css?v=20260228032718">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Comparison Tool Styles */
+        .comparison-hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 80px 20px 60px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .comparison-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D878 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .comparison-hero p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+        }
+
+        /* Project Filters */
+        .project-filter-section {
+            padding: 50px 20px;
+            background: #fafafa;
+        }
+
+        .project-filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .project-filter-btn {
+            padding: 14px 32px;
+            border: 2px solid #e2e8f0;
+            background: #fff;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-filter-btn:hover {
+            border-color: #D4AF37;
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .project-filter-btn.active {
+            background: #D4AF37;
+            color: #000;
+            border-color: #D4AF37;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Comparison Table */
+        .comparison-table-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .comparison-table thead th {
+            padding: 20px 15px;
+            color: #fff;
+            font-weight: 700;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table thead th:first-child {
+            text-align: left;
+            background: #D4AF37;
+            color: #000;
+            font-size: 1.05rem;
+        }
+
+        .comparison-table tbody tr {
+            border-bottom: 1px solid #e9ecef;
+            transition: all 0.2s ease;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tbody td {
+            padding: 18px 15px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+        .comparison-table tbody td:first-child {
+            text-align: left;
+            font-weight: 700;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
+
+        .comparison-table .check-icon {
+            color: #10b981;
+            font-size: 1.3rem;
+        }
+
+        .comparison-table .cross-icon {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table .price-cell {
+            font-weight: 700;
+            color: #D4AF37;
+            font-size: 1.05rem;
+        }
+
+        /* Garden Badge */
+        .garden-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .comparison-hero h1 {
+                font-size: 2rem;
+            }
+
+            .comparison-hero p {
+                font-size: 0.95rem;
+            }
+
+            .project-filter-btn {
+                padding: 12px 24px;
+                font-size: 0.85rem;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table thead th,
+            .comparison-table tbody td {
+                padding: 12px 8px;
+            }
+        }
+
+        /* Hidden state for tables */
+        .project-table {
+            display: none;
+        }
+
+        .project-table.active {
+            display: block;
+        }
+
+        /* Info Note */
+        .comparison-note {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fef3c7;
+            border-left: 4px solid #D4AF37;
+            border-radius: 8px;
+        }
+
+        .comparison-note h3 {
+            color: #1a1a1a;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-note p {
+            color: #78350f;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header will be loaded via JS -->
+    <div id="header-container"></div>
+
+    <!-- Comparison Hero -->
+    <section class="comparison-hero">
+        <div class="container">
+            <h1>COMPARISON TOOL</h1>
+            <p>Compare Unit Types</p>
+        </div>
+    </section>
+
+    <!-- Project Filters & Comparison Tables -->
+    <section class="project-filter-section">
+        <div class="container">
+            <!-- Project Selection Buttons -->
+            <div class="project-filter-buttons">
+                <button class="project-filter-btn active" data-project="porto-golf">Porto Golf Marina</button>
+                <button class="project-filter-btn" data-project="porto-said-b15">Porto Said - B15</button>
+                <button class="project-filter-btn" data-project="porto-said-b33">Porto Said - B33</button>
+            </div>
+
+            <!-- Porto Golf Marina Table -->
+            <div class="project-table active" id="table-porto-golf">
+                <div class="comparison-table-container">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Specifications</th>
+                                <th>30-Meter</th>
+                                <th>60-Meter</th>
+                                <th>82-Meter</th>
+                                <th>90-Meter</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Area</td>
+                                <td>30 m&sup2;</td>
+                                <td>60 m&sup2;</td>
+                                <td>82 m&sup2;</td>
+                                <td>90 m&sup2;</td>
+                            </tr>
+                            <tr>
+                                <td>Rooms</td>
+                                <td>1 Bedroom</td>
+                                <td>1 Bedroom</td>
+                                <td>1 Bedroom</td>
+                                <td>2 Bedrooms</td>
+                            </tr>
+                            <tr>
+                                <td>Bathrooms</td>
+                                <td>1 Bathroom</td>
+                                <td>2 Bathrooms</td>
+                                <td>2 Bathrooms</td>
+                                <td>2 Bathrooms</td>
+                            </tr>
+                            <tr>
+                                <td>Kitchen</td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Living</td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Dining</td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Estimated Price</td>
+                                <td class="price-cell">2.1M</td>
+                                <td class="price-cell">3.5M</td>
+                                <td class="price-cell">4.8M</td>
+                                <td class="price-cell">5.8M</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Ground Floor Note -->
+                <div class="comparison-note">
+                    <h3><i class="fas fa-leaf" style="color: #10b981;"></i> Ground Floor Bonus</h3>
+                    <p>All ground floor units automatically include a <strong>Private Garden</strong> feature at no
+                        additional cost. Perfect for families and outdoor enthusiasts!</p>
+                </div>
+            </div>
+
+            <!-- Porto Said B15 Table -->
+            <div class="project-table" id="table-porto-said-b15">
+                <div class="comparison-table-container">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Specifications</th>
+                                <th>41m&sup2; & 47m&sup2;</th>
+                                <th>69m&sup2; & 72m&sup2;</th>
+                                <th>90m&sup2; & 107m&sup2;</th>
+                                <th>165m&sup2;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Area</td>
+                                <td>41-47 m&sup2;</td>
+                                <td>69-72 m&sup2;</td>
+                                <td>90-107 m&sup2;</td>
+                                <td>165 m&sup2;</td>
+                            </tr>
+                            <tr>
+                                <td>Rooms</td>
+                                <td>Studio</td>
+                                <td>1 Bedroom</td>
+                                <td>2 Bedrooms</td>
+                                <td>3 Bedrooms</td>
+                            </tr>
+                            <tr>
+                                <td>Bathrooms</td>
+                                <td>1 Bathroom</td>
+                                <td>1 Bathroom</td>
+                                <td>2 Bathrooms</td>
+                                <td>2 Bathrooms</td>
+                            </tr>
+                            <tr>
+                                <td>Kitchen</td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Living</td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Dining</td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Estimated Price</td>
+                                <td class="price-cell">1.8-2.2M</td>
+                                <td class="price-cell">3.2-3.5M</td>
+                                <td class="price-cell">4.5-5.5M</td>
+                                <td class="price-cell">8.5M</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="comparison-note">
+                    <h3><i class="fas fa-leaf" style="color: #10b981;"></i> Ground Floor Bonus</h3>
+                    <p>All ground floor units automatically include a <strong>Private Garden</strong> feature at no
+                        additional cost.</p>
+                </div>
+            </div>
+
+            <!-- Porto Said B33 Table -->
+            <div class="project-table" id="table-porto-said-b33">
+                <div class="comparison-table-container">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Specifications</th>
+                                <th>30-59m&sup2;</th>
+                                <th>60-75m&sup2;</th>
+                                <th>76-95m&sup2;</th>
+                                <th>96-120m&sup2;</th>
+                                <th>121-150m&sup2;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Area Range</td>
+                                <td>30-59 m&sup2;</td>
+                                <td>60-75 m&sup2;</td>
+                                <td>76-95 m&sup2;</td>
+                                <td>96-120 m&sup2;</td>
+                                <td>121-150 m&sup2;</td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td>Studio</td>
+                                <td>Junior 1BR</td>
+                                <td>1 Bedroom</td>
+                                <td>2 Bedrooms</td>
+                                <td>Family - 3BR</td>
+                            </tr>
+                            <tr>
+                                <td>Bathrooms</td>
+                                <td>1 Bathroom</td>
+                                <td>1 Bathroom</td>
+                                <td>1-2 Bathrooms</td>
+                                <td>2 Bathrooms</td>
+                                <td>2-3 Bathrooms</td>
+                            </tr>
+                            <tr>
+                                <td>Kitchen</td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Living</td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Dining</td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-minus cross-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                                <td><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Price Range</td>
+                                <td class="price-cell">1.5-2.5M</td>
+                                <td class="price-cell">2.8-3.8M</td>
+                                <td class="price-cell">3.5-4.8M</td>
+                                <td class="price-cell">4.8-6.5M</td>
+                                <td class="price-cell">6.5-9.0M</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="comparison-note">
+                    <h3><i class="fas fa-leaf" style="color: #10b981;"></i> Ground Floor Bonus</h3>
+                    <p>All ground floor units automatically include a <strong>Private Garden</strong> feature at no
+                        additional cost.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer will be loaded via JS -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script>
+        // Project Filter Switching
+        const filterButtons = document.querySelectorAll('.project-filter-btn');
+        const projectTables = document.querySelectorAll('.project-table');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                // Hide all tables
+                projectTables.forEach(table => table.classList.remove('active'));
+
+                // Show the selected project table
+                const projectId = button.getAttribute('data-project');
+                const targetTable = document.getElementById(`table-${projectId}`);
+                if (targetTable) {
+                    targetTable.classList.add('active');
+                }
+            });
+        });
+
+        // Load Header & Footer
+        fetch('../components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+            });
+
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+    </script>
+</body>
+
+</html>

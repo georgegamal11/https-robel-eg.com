@@ -1,0 +1,200 @@
+/* =========================================
+   03-LAYOUT
+   ========================================= */
+.section {
+    padding: 120px 0;
+    position: relative;
+}
+
+.container {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+@media (max-width: 991px) {
+
+    .grid-2col,
+    .grid-3col {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-subtitle {
+    color: var(--gold-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2.5px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.section-title {
+    font-size: 2.6rem;
+    font-weight: 500;
+    color: var(--navy-deep);
+    line-height: 1.2;
+}
+
+[data-theme='dark'] .section-title {
+    color: var(--text-main);
+}
+
+/* Projects Section specific overrides for long titles */
+#projects .section-header {
+    max-width: 1000px;
+}
+
+#projects .section-title {
+    white-space: nowrap;
+    font-size: 2rem;
+    /* Reduced size as requested */
+    font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+    #projects .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    #projects .section-title {
+        white-space: normal;
+        font-size: 1.8rem;
+    }
+}
+
+#projects .section-subtitle {
+    font-family: 'Cinzel', serif;
+    /* Font معماري فخم جداً وملائم للعقارات */
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    background: linear-gradient(135deg, #c9a23f 0%, #f1d18a 50%, #c9a23f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+#projects .section-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #c9a23f, transparent);
+}
+
+/* =========================================
+   04-TIMELINE / PROCESS
+   ========================================= */
+.timeline-container {
+    margin-top: 60px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.timeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    min-width: 1100px;
+}
+
+.timeline-item {
+    text-align: center;
+    flex: 1;
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.timeline-item:hover {
+    transform: translateY(-5px);
+}
+
+.timeline-number {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--gold-muted);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-item:hover .timeline-number {
+    background: var(--gold-muted);
+    box-shadow: 0 0 15px rgba(201, 162, 63, 0.4);
+}
+
+.timeline-item h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 12px;
+}
+
+[data-theme="dark"] .timeline-item h4 {
+    color: var(--white);
+}
+
+.timeline-item p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Add a connector line between circles on desktop */
+@media (min-width: 992px) {
+    .timeline-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 20px;
+        /* Center of the 40px circle */
+        left: calc(50% + 20px);
+        width: calc(100% - 40px);
+        height: 1px;
+        background: var(--border-light);
+        opacity: 0.5;
+        z-index: 1;
+    }
+}

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رفع وحدات B136</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .units-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .units-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .units-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .units-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            display: block;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: block;
+        }
+
+        .status.loading {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            display: block;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 25px;
+            overflow: hidden;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🏢 رفع وحدات مبنى B136</h1>
+        <p class="subtitle">Porto Golf Marina - Building 136</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>7</h3>
+                <p>إجمالي الوحدات</p>
+            </div>
+            <div class="stat-card">
+                <h3>B136</h3>
+                <p>رقم المبنى</p>
+            </div>
+            <div class="stat-card">
+                <h3>90/60</h3>
+                <p>المساحات (م²)</p>
+            </div>
+        </div>
+
+        <table class="units-table">
+            <thead>
+                <tr>
+                    <th>رقم الوحدة</th>
+                    <th>الطابق</th>
+                    <th>المساحة</th>
+                    <th>الإطلالة</th>
+                    <th>السعر</th>
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>136102</td>
+                    <td>الأول</td>
+                    <td>90 م²</td>
+                    <td>South-facing</td>
+                    <td>6,365,000 جنيه</td>
+                    <td>متاح</td>
+                </tr>
+                <tr>
+                    <td>136125</td>
+                    <td>الأول</td>
+                    <td>90 م²</td>
+                    <td>South-facing</td>
+                    <td>6,365,000 جنيه</td>
+                    <td>متاح</td>
+                </tr>
+                <tr>
+                    <td>136225</td>
+                    <td>الثاني</td>
+                    <td>90 م²</td>
+                    <td>South-facing</td>
+                    <td>6,447,000 جنيه</td>
+                    <td>متاح</td>
+                </tr>
+                <tr>
+                    <td>136825</td>
+                    <td>الثامن</td>
+                    <td>90 م²</td>
+                    <td>South-facing</td>
+                    <td>6,935,000 جنيه</td>
+                    <td>متاح</td>
+                </tr>
+                <tr>
+                    <td>136902</td>
+                    <td>التاسع</td>
+                    <td>90 م²</td>
+                    <td>South-facing</td>
+                    <td>6,605,000 جنيه</td>
+                    <td>متاح</td>
+                </tr>
+                <tr>
+                    <td>136922</td>
+                    <td>التاسع</td>
+                    <td>60 م²</td>
+                    <td>South-facing</td>
+                    <td>4,405,000 جنيه</td>
+                    <td>متاح</td>
+                </tr>
+                <tr>
+                    <td>136925</td>
+                    <td>التاسع</td>
+                    <td>90 م²</td>
+                    <td>South-facing</td>
+                    <td>6,605,000 جنيه</td>
+                    <td>متاح</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="btn" id="uploadBtn" onclick="uploadUnits()">
+            ابدأ رفع الوحدات
+        </button>
+
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill">0%</div>
+        </div>
+
+        <div class="status" id="statusBox"></div>
+    </div>
+
+    <script src="../api/query-api.js?v=20260228032718"></script>
+    <script src="../api/admin-api.js?v=20260228032718"></script>
+    <script>
+        const units = [
+            {
+                code: "136102",
+                building_id: "B136",
+                project_id: "porto-golf-marina",
+                floor: "1",
+                area: 90,
+                view: "South-facing",
+                price: 6365000,
+                status: "Available"
+            },
+            {
+                code: "136125",
+                building_id: "B136",
+                project_id: "porto-golf-marina",
+                floor: "1",
+                area: 90,
+                view: "South-facing",
+                price: 6365000,
+                status: "Available"
+            },
+            {
+                code: "136225",
+                building_id: "B136",
+                project_id: "porto-golf-marina",
+                floor: "2",
+                area: 90,
+                view: "South-facing",
+                price: 6447000,
+                status: "Available"
+            },
+            {
+                code: "136825",
+                building_id: "B136",
+                project_id: "porto-golf-marina",
+                floor: "8",
+                area: 90,
+                view: "South-facing",
+                price: 6935000,
+                status: "Available"
+            },
+            {
+                code: "136902",
+                building_id: "B136",
+                project_id: "porto-golf-marina",
+                floor: "9",
+                area: 90,
+                view: "South-facing",
+                price: 6605000,
+                status: "Available"
+            },
+            {
+                code: "136922",
+                building_id: "B136",
+                project_id: "porto-golf-marina",
+                floor: "9",
+                area: 60,
+                view: "South-facing",
+                price: 4405000,
+                status: "Available"
+            },
+            {
+                code: "136925",
+                building_id: "B136",
+                project_id: "porto-golf-marina",
+                floor: "9",
+                area: 90,
+                view: "South-facing",
+                price: 6605000,
+                status: "Available"
+            }
+        ];
+
+        async function uploadUnits() {
+            const btn = document.getElementById('uploadBtn');
+            const statusBox = document.getElementById('statusBox');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+
+            btn.disabled = true;
+            btn.innerHTML = 'جاري الرفع... <span class="spinner"></span>';
+
+            statusBox.className = 'status loading';
+            statusBox.innerHTML = '⏳ جاري رفع الوحدات...';
+            progressBar.style.display = 'block';
+
+            let uploaded = 0;
+            let failed = 0;
+            const total = units.length;
+
+            try {
+                for (let i = 0; i < units.length; i++) {
+                    const unit = units[i];
+
+                    try {
+                        await window.robelAdminAPI.createUnit({
+                            code: unit.code,
+                            buildingId: unit.building_id,
+                            projectId: unit.project_id,
+                            floor: unit.floor,
+                            area: unit.area,
+                            view: unit.view,
+                            price: unit.price,
+                            status: unit.status,
+                            purpose: 'Buy',
+                            paymentPlan: 'Installments',
+                            specifications: {
+                                bedrooms: unit.area < 51 ? 1 : (unit.area < 96 ? 1 : (unit.area < 121 ? 2 : 3)),
+                                bathrooms: unit.area < 96 ? 1 : 2,
+                                kitchen: true,
+                                living: true
+                            },
+                            images: []
+                        });
+
+                        uploaded++;
+                        console.log(`✅ تم رفع الوحدة ${unit.code}`);
+
+                    } catch (err) {
+                        failed++;
+                        console.error(`❌ فشل رفع الوحدة ${unit.code}:`, err);
+                    }
+
+                    // Update progress
+                    const percent = Math.round(((uploaded + failed) / total) * 100);
+                    progressFill.style.width = percent + '%';
+                    progressFill.textContent = percent + '%';
+
+                    // Small delay
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                }
+
+                // Show results
+                if (uploaded === total) {
+                    statusBox.className = 'status success';
+                    statusBox.innerHTML = `
+                        ✅ <strong>تم بنجاح!</strong><br>
+                        تم رفع جميع الوحدات (${uploaded} من ${total})<br>
+                        مبنى B136 جاهز الآن!
+                    `;
+                    btn.innerHTML = '✅ اكتمل الرفع';
+                } else {
+                    statusBox.className = 'status error';
+                    statusBox.innerHTML = `
+                        ⚠️ <strong>رفع جزئي</strong><br>
+                        تم رفع ${uploaded} من ${total} وحدة<br>
+                        فشل رفع ${failed} وحدة - تحقق من Console
+                    `;
+                    btn.disabled = false;
+                    btn.innerHTML = 'إعادة المحاولة';
+                }
+
+            } catch (error) {
+                console.error('خطأ:', error);
+                statusBox.className = 'status error';
+                statusBox.innerHTML = `❌ حدث خطأ: ${error.message}`;
+                btn.disabled = false;
+                btn.innerHTML = 'إعادة المحاولة';
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+

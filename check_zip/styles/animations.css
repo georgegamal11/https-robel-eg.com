@@ -1,0 +1,284 @@
+/* =========================================
+   09-ANIMATIONS
+   ========================================= */
+
+/* Reveal Components */
+.reveal {
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+/* FIX: Specific keyframes for different sizes */
+@keyframes fadeUp-sm {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp-md {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Base keyframes replacing generic fadeInUp */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes logoEntrance {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -110%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Utility Animations */
+.animate-fade-up {
+    animation: fadeUp-sm 0.8s forwards;
+    /* Use optimized */
+}
+
+.animate-fade {
+    animation: fadeIn 1.2s forwards;
+}
+
+/* Directions */
+.reveal-up {
+    transform: translateY(60px);
+}
+
+.reveal-down {
+    transform: translateY(-60px);
+}
+
+.reveal-left {
+    transform: translateX(60px);
+}
+
+.reveal-right {
+    transform: translateX(-60px);
+}
+
+.reveal-scale {
+    transform: scale(0.9);
+}
+
+/* Premium Hover Interactions */
+.hover-lift {
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+}
+
+.btn-premium {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-premium::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-premium:hover::after {
+    width: 300%;
+    height: 300%;
+}
+
+/* Pulse for status */
+@keyframes pulse-gold {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
+.pulse-available {
+    animation: pulse-gold 2s infinite;
+}
+
+/* Loader Animation */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--navy-deep);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s;
+}
+
+.loader-logo {
+    width: 120px;
+    animation: loaderPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loaderPulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+.loader-finished {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Staggered Delay Helpers */
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+.delay-400 {
+    animation-delay: 0.4s;
+}
+
+.delay-500 {
+    animation-delay: 0.5s;
+}
+
+/* Stagger Logic for Containers */
+.stagger-container>* {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-visible .stagger-container>* {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-visible .stagger-container>*:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.reveal-visible .stagger-container>*:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.reveal-visible .stagger-container>*:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.reveal-visible .stagger-container>*:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+/* Modal Staggered */
+.modal-overlay.active .login-header,
+.modal-overlay.active .form-group-modal,
+.modal-overlay.active .btn-login-submit,
+.modal-overlay.active .divider,
+.modal-overlay.active .btn-google-login,
+.modal-overlay.active .login-footer {
+    animation: fadeUp-sm 0.5s ease forwards;
+    opacity: 0;
+}
+
+/* Staggered delays for modal */
+.modal-overlay.active .login-header {
+    animation-delay: 0.1s;
+}
+
+.modal-overlay.active .form-group-modal:nth-child(1) {
+    animation-delay: 0.15s;
+}
+
+.modal-overlay.active .form-group-modal:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.modal-overlay.active .btn-login-submit {
+    animation-delay: 0.25s;
+}
+
+.modal-overlay.active .divider {
+    animation-delay: 0.3s;
+}
+
+.modal-overlay.active .btn-google-login {
+    animation-delay: 0.35s;
+}
+
+.modal-overlay.active .login-footer {
+    animation-delay: 0.4s;
+}

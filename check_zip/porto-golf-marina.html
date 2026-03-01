@@ -1,0 +1,3132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- ZERO CACHE CONFIGURATION -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Porto Golf Marina - Premium Coastal Lifestyle | Robel Real Estate</title>
+
+    <!-- Speed & Connection Hints -->
+    <link rel="preconnect" href="https://robel-api.george-gamal139.workers.dev">
+    <link rel="dns-prefetch" href="https://robel-api.george-gamal139.workers.dev">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Meta Tags for SEO -->
+    <meta name="description"
+        content="Discover luxury units in Porto Golf Marina with Robel. Premier real estate opportunities in the heart of El Alamein.">
+    <meta name="keywords"
+        content="بورتو جولف مارينا، عامر جروب، عقارات العلمين، شقق في مشروع بورتو جولف مارينا، Porto Golf Marina">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      "name": "بورتو جولف مارينا | Porto Golf Marina",
+      "description": "اكتشف بورتو جولف مارينا، عاصمة الترفيه والجولف في الساحل الشمالي. وحدات فاخرة، ملاعب جولف عالمية، وأكبر أكوا بارك.",
+      "url": "https://robel-eg.com/porto-golf-marina.html",
+      "image": "https://robel-eg.com/assets/images/face-main/porto-golf-main.webp",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "North Coast",
+        "addressCountry": "EG"
+      }
+    }
+    </script>
+
+    <!-- Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Libraries CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Custom CSS -->
+    <!-- Consolidated CSS Bundle -->
+    <link rel="stylesheet" href="styles/app.bundle.css?v=20260228032718">
+    <link rel="stylesheet" href="styles/filters.css?v=20260228032718">
+    <link rel="stylesheet" href="styles/porto-golf-compact.css?v=20260228032718">
+    <meta name="theme-color" content="#c9a23f">
+    <link rel="icon" type="image/png" href="assets/images/ui/logo-main.png">
+    <link rel="apple-touch-icon" href="assets/images/ui/logo-main.png">
+    <!-- Cache-Control managed by headers -->
+
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="assets/images/projects/porto-golf-marina/hero/hero-1.webp"
+        fetchpriority="high">
+    <style>
+        .admin-only-ui {
+            display: none !important;
+        }
+
+        body {
+            font-family: 'Noto Kufi Arabic', 'Outfit', sans-serif;
+        }
+
+        .hero {
+            position: relative;
+            background: none;
+            /* Removed static background */
+        }
+
+        .hero-slider-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .hero-slide-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .hero-slide-item.active {
+            opacity: 1;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .video-cover:hover {
+            transform: scale(1.02);
+        }
+
+        .video-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+
+        .video-cover:hover::after {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .play-button-outer {
+            position: relative;
+            z-index: 11;
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 0 0 0 rgba(197, 168, 124, 0.4);
+            animation: pulse-gold 2s infinite;
+            transition: transform 0.3s;
+        }
+
+        .video-cover:hover .play-button-outer {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse-gold {
+            0% {
+                box-shadow: 0 0 0 0 rgba(197, 168, 124, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(197, 168, 124, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(197, 168, 124, 0);
+            }
+        }
+
+        .buildings-status-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            /* Force all 7 beside each other on desktop */
+            gap: 10px;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .building-status-card,
+        .feature-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 15px 10px;
+            /* More compact padding for desktop */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card {
+            border-top: 4px solid var(--primary-gold);
+            /* Default color */
+        }
+
+        .feature-card.green {
+            border-top-color: #10b981;
+        }
+
+        .feature-card.blue {
+            border-top-color: #3b82f6;
+        }
+
+        .feature-card.purple {
+            border-top-color: #8b5cf6;
+        }
+
+        .feature-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .building-status-card:hover,
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .building-status-card.delivered {
+            border: 2px solid #10b981;
+        }
+
+        .building-status-card.upcoming {
+            border: 2px solid var(--primary-gold);
+        }
+
+        .building-status-card h3 {
+            font-size: 1.8rem;
+            color: var(--navy-deep);
+            margin: 40px 0 15px 0;
+            font-weight: 800;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--navy-deep);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .building-status-card p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: white;
+            padding: 8px 20px;
+            border-bottom-left-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .construction-progress .section-header .line {
+                display: none !important;
+            }
+
+            .construction-progress .section-header h2 {
+                font-size: 1.2rem !important;
+                margin-bottom: 5px !important;
+            }
+
+            .construction-progress .section-tag {
+                font-size: 0.7rem !important;
+                padding: 4px 12px !important;
+            }
+
+            .buildings-status-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                /* 4 per row for more compact feel */
+                gap: 6px;
+                padding: 0 2px;
+                margin-top: 15px !important;
+            }
+
+            .building-status-card {
+                padding: 10px 5px !important;
+                border-radius: 10px !important;
+            }
+
+            .status-badge {
+                padding: 3px 6px !important;
+                font-size: 0.55rem !important;
+                border-bottom-left-radius: 8px !important;
+            }
+
+            .building-status-card h3 {
+                font-size: 0.75rem !important;
+                /* Smaller text */
+                margin: 15px 0 5px 0 !important;
+            }
+
+            .building-status-card p {
+                font-size: 0.65rem !important;
+                /* Smaller delivery text */
+                margin: 3px 0 !important;
+            }
+
+            .building-status-card p i {
+                font-size: 0.7rem !important;
+            }
+
+            .masterplan-features,
+            .projects-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 6px !important;
+                padding: 0 5px !important;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            .feature-card {
+                padding: 10px 4px !important;
+                border-radius: 8px !important;
+            }
+
+            .feature-icon-wrapper {
+                width: 32px !important;
+                height: 32px !important;
+                margin: 0 auto 8px auto !important;
+            }
+
+            .feature-icon-wrapper i {
+                font-size: 0.9rem !important;
+            }
+
+            .feature-card h3 {
+                font-size: 0.6rem !important;
+                margin-bottom: 3px !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .feature-card p {
+                font-size: 0.5rem !important;
+                line-height: 1.1 !important;
+                display: none;
+                /* Hide descriptions to fit 4 in a row on mobile */
+            }
+
+            /* Helper to center the last row if it has 3 items */
+            .buildings-status-grid>*:nth-last-child(-n+3):first-child {
+                grid-column: span 1;
+            }
+        }
+
+        /* 📍 Geographic Location Section Styles (Desktop Default) */
+        .location-grid-container {
+            display: flex;
+            gap: 0;
+            /* Gap handled by resizer */
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            align-items: stretch;
+            position: relative;
+            user-select: none;
+            /* Prevent text selection during drag */
+        }
+
+        .landmarks-table-wrapper {
+            flex: 1;
+            min-width: 250px;
+            background: #fff;
+            border-radius: 20px 0 0 20px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 📏 Resizer Handle Styles */
+        .resizer {
+            width: 12px;
+            cursor: col-resize;
+            background: #f8f8f8;
+            border-left: 1px solid #eee;
+            border-right: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            position: relative;
+            z-index: 5;
+        }
+
+        .resizer:hover,
+        .resizer.dragging {
+            background: var(--primary-gold);
+            border-color: var(--primary-gold);
+        }
+
+        .resizer::after {
+            content: '⋮';
+            color: #999;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .resizer:hover::after,
+        .resizer.dragging::after {
+            color: white;
+        }
+
+        .landmark-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 30px;
+            border-bottom: 1px solid #f8f8f8;
+            transition: all 0.3s ease;
+        }
+
+        .landmark-item-row:last-child {
+            border-bottom: none;
+        }
+
+        .landmark-item-row:hover {
+            background: #fdfbf7;
+            padding-right: 35px;
+            /* Subtle slide effect */
+        }
+
+        .landmark-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .landmark-icon {
+            font-size: 1.6rem;
+            color: var(--navy-deep);
+            width: 35px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .landmark-item-row:hover .landmark-icon {
+            transform: scale(1.2);
+            color: var(--primary-gold);
+        }
+
+        .landmark-text {
+            font-weight: 700;
+            color: var(--navy-deep);
+            font-size: 1.1rem;
+        }
+
+        .landmark-time {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary-gold);
+            font-weight: 800;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .landmark-time i {
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .landmark-item-row:hover .landmark-time i {
+            transform: translateX(-5px);
+        }
+
+        .map-iframe-wrapper {
+            flex: 1.4;
+            min-width: 300px;
+            border-radius: 0 20px 20px 0;
+            overflow: hidden;
+            box-shadow: 10px 25px 50px rgba(0, 0, 0, 0.1);
+            min-height: 450px;
+            border: 8px solid white;
+            border-left: none;
+            /* Professional white frame */
+            transition: transform 0.3s ease;
+        }
+
+        .map-iframe-wrapper:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 📱 Mobile Overrides for Location Section */
+        @media (max-width: 768px) {
+            .location-grid-container {
+                flex-direction: column !important;
+                gap: 5px !important;
+                padding: 0 5px !important;
+                margin: 10px auto !important;
+            }
+
+            .resizer {
+                display: none !important;
+            }
+
+            .map-iframe-wrapper {
+                order: 1 !important;
+                width: 100% !important;
+                min-height: 250px !important;
+                border: 4px solid white !important;
+                border-radius: 15px !important;
+                min-width: 100% !important;
+            }
+
+            .landmarks-table-wrapper {
+                order: 2 !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                background: none !important;
+                box-shadow: none !important;
+                border: none !important;
+                min-width: 100% !important;
+            }
+
+            .landmark-item-row {
+                padding: 8px 4px !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 2px !important;
+                flex: 1 !important;
+                border: none !important;
+                background: white !important;
+                border-radius: 8px !important;
+                margin: 0 2px !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+
+            .landmark-info {
+                flex-direction: column !important;
+                gap: 3px !important;
+                align-items: center !important;
+            }
+
+            .landmark-icon {
+                font-size: 0.9rem !important;
+                width: auto !important;
+                margin-bottom: 0 !important;
+            }
+
+            .landmark-text {
+                font-size: 0.55rem !important;
+                text-align: center !important;
+                display: block !important;
+                white-space: nowrap !important;
+            }
+
+            .landmark-time {
+                font-size: 0.5rem !important;
+                margin-top: 0 !important;
+                justify-content: center !important;
+                gap: 3px !important;
+            }
+
+            .landmark-time i {
+                display: none !important;
+            }
+        }
+
+        /* Investment Calculator Styles */
+        .calculator-card {
+            background: #fff;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .offer-tab {
+            padding: 25px;
+            border: 2px solid #eee;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .offer-tab:hover {
+            border-color: var(--primary-gold);
+        }
+
+        .offer-tab.active {
+            border-color: var(--primary-gold);
+            background: rgba(197, 168, 124, 0.05);
+            box-shadow: 0 10px 20px rgba(197, 168, 124, 0.1);
+        }
+
+        .offer-tab i {
+            font-size: 2rem;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .offer-tab h4 {
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .offer-tab span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .calc-main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .result-panel {
+            background: var(--navy-deep, #0f172a);
+            color: white;
+            border-radius: 25px;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .result-item {
+            margin-bottom: 25px;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+        }
+
+        .form-group-custom {
+            margin-bottom: 20px;
+        }
+
+        .form-group-custom label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        .form-group-custom input,
+        .form-group-custom select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #eee;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group-custom input:focus {
+            border-color: var(--primary-gold);
+        }
+
+        .pills-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .pill {
+            padding: 8px 20px;
+            border: 2px solid #eee;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pill.active {
+            background: var(--primary-gold);
+            color: white;
+            border-color: var(--primary-gold);
+        }
+
+        @media (max-width: 768px) {
+            .calc-main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-card {
+                padding: 25px;
+            }
+
+            /* ═══════════════════════════════════════════════════════════════
+               📱 MOBILE HERO - MINIMAL LUXURY DESIGN (Like porto-golf-minimal.html)
+               ═══════════════════════════════════════════════════════════════ */
+
+            .hero {
+                height: auto !important;
+                min-height: 25vh !important;
+                padding: 0 !important;
+                /* Removed padding to fix black bars */
+                background: transparent !important;
+                /* Ensure no background shows through */
+            }
+
+            /* Mobile Logo Adjustment */
+            .hero img[alt="Robel Logo"] {
+                max-width: 100px !important;
+                top: 20px !important;
+                right: 5% !important;
+            }
+
+            /* Hero Content - Centered & Clean */
+            .hero-content {
+                padding: 15px 10px !important;
+                /* Reduced further */
+            }
+
+            /* Main Title - Bold & Clear */
+            .hero-content h1 {
+                font-size: 1.8rem !important;
+                /* Reduced further */
+                letter-spacing: 1px !important;
+                margin-bottom: 15px !important;
+                margin-top: 0 !important;
+                line-height: 1.1 !important;
+
+                /* ظلال قوية للوضوح على الصورة */
+                text-shadow:
+                    0 3px 10px rgba(0, 0, 0, 0.8),
+                    0 5px 20px rgba(0, 0, 0, 0.6),
+                    0 8px 30px rgba(0, 0, 0, 0.4),
+                    0 0 50px rgba(212, 175, 55, 0.2) !important;
+            }
+
+            /* Subtitle - Elegant & Readable */
+            .hero-content p {
+                font-size: 0.9rem !important;
+                /* Reduced further */
+                padding: 0 10px !important;
+                margin-bottom: 20px !important;
+                /* Reduced further */
+                line-height: 1.6 !important;
+
+                /* ظلال قوية للوضوح */
+                text-shadow:
+                    0 2px 8px rgba(0, 0, 0, 0.8),
+                    0 4px 16px rgba(0, 0, 0, 0.6),
+                    0 6px 24px rgba(0, 0, 0, 0.4) !important;
+            }
+
+            /* ❌ إزالة كل المربعات والخلفيات - نصوص مباشرة على الصورة */
+            .hero-info-bar {
+                flex-direction: column !important;
+                gap: 15px !important;
+                /* Reduced gap */
+                margin-bottom: 20px !important;
+                /* Reduced further */
+
+                /* ❌ NO backgrounds على الإطلاق */
+                background: none !important;
+                background-color: transparent !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+            .hero-info-bar .info-item {
+                /* ❌ إزالة كل الحدود والخلفيات */
+                border: none !important;
+                border-bottom: none !important;
+                padding: 0 !important;
+                background: none !important;
+                background-color: transparent !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Label - Golden & Clear */
+            .hero-info-bar .info-item .label {
+                font-size: 0.75rem !important;
+                font-weight: 400 !important;
+                letter-spacing: 2px !important;
+                text-transform: uppercase !important;
+                opacity: 0.95 !important;
+
+                /* لون ذهبي فاتح */
+                color: #E5C88A !important;
+
+                /* ظلال قوية للوضوح */
+                text-shadow:
+                    0 2px 6px rgba(0, 0, 0, 0.8),
+                    0 4px 12px rgba(0, 0, 0, 0.6),
+                    0 0 20px rgba(229, 200, 138, 0.3) !important;
+            }
+
+            /* Value - White & Bold */
+            .hero-info-bar .info-item .value {
+                font-size: 1.4rem !important;
+                font-weight: 800 !important;
+                letter-spacing: 0.5px !important;
+                color: #FFFFFF !important;
+
+                /* ظلال قوية جداً للوضوح على الصورة */
+                text-shadow:
+                    0 3px 12px rgba(0, 0, 0, 1),
+                    0 5px 24px rgba(0, 0, 0, 0.9),
+                    0 8px 36px rgba(0, 0, 0, 0.8) !important;
+            }
+
+            /* Buttons - Full Width & Elegant */
+            .hero-content>div[style*="display: flex"] {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 15px !important;
+                padding: 0 10px !important;
+            }
+
+            .hero-content .cta-button {
+                width: 100% !important;
+                justify-content: center !important;
+                padding: 16px 30px !important;
+                text-align: center !important;
+            }
+        }
+
+        /* Mobile Small - Extra Refinements */
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.6rem !important;
+            }
+
+            .hero-content p {
+                font-size: 0.9rem !important;
+                line-height: 1.5 !important;
+            }
+
+            .hero-info-bar .info-item .value {
+                font-size: 1.2rem !important;
+            }
+
+            .hero-content .cta-button {
+                font-size: 0.9rem !important;
+                padding: 14px 25px !important;
+            }
+
+            /* Hero image positioning fix for mobile */
+            .hero-slide-item {
+                background-position: center 35% !important;
+                /* Show more of the building, less sky */
+                background-size: cover !important;
+            }
+
+            /* Reduce overlay to show images better */
+            .hero-overlay {
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%) !important;
+            }
+        }
+    </style>
+    <!-- Custom Compact Nav Styles -->
+    <style>
+        .admin-only-ui {
+            display: none !important;
+        }
+
+        .nav-item-btn {
+            font-size: 0.85rem !important;
+            /* Smaller font size */
+            padding: 8px 12px !important;
+            /* Reduced padding */
+        }
+
+        .nav-links {
+            gap: 5px !important;
+            /* Reduced gap between items */
+        }
+
+        .breadcrumb-header {
+            color: var(--navy-deep);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-header span.current {
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        .breadcrumb-header i {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        /* Project-specific Mobile Logo Adjustment */
+        @media (max-width: 991px) {
+            .logo {
+                left: -25px !important;
+                /* Very slight shift to the right from global -35px */
+            }
+
+            .navbar,
+            .quick-nav {
+                padding-left: 115px !important;
+                /* Increased to clear logo better */
+            }
+        }
+    </style>
+
+    <!-- SSL Force Redirect -->
+    <script>
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.protocol !== 'file:') {
+            location.replace(`https:${location.href.substring(location.protocol.length)}`);
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- Header (Restored from Index) -->
+    <header class="main-header">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-left">
+                    <button id="sidebar-toggle-desktop" class="sidebar-toggle desktop-only"
+                        onclick="window.toggleSidebar(true)" style="display: flex !important;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <!-- Breadcrumbs Replaces Agent Button -->
+                    <div class="breadcrumb-header desktop-only" style="margin-left: 15px;">
+                        <a href="index.html" style="text-decoration: none; color: inherit;"
+                            data-i18n="pd_breadcrumb_home">Home</a>
+                        <i class="fas fa-chevron-right"></i>
+                        <span class="current" data-i18n="pd_breadcrumb_current">Porto Golf Marina</span>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <button id="theme-btn" class="icon-btn action-icon topbar-icon" title="Toggle Theme"
+                        aria-label="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="lang-text-btn lang-toggle-btn" id="lang-btn-top"
+                        aria-label="Switch Language to Arabic">AR</button>
+                    <span class="divider-vertical"
+                        style="height: 15px; width: 1px; background: #ddd; margin: 0 5px;"></span>
+
+
+
+
+
+                    <a href="index.html#about" class="top-bar-link" data-i18n="nav_about">About Robel</a>
+                    <a href="#contact" class="top-bar-link" data-i18n="nav_contact">Contact us</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container navbar">
+            <!-- Left Group: Logo -->
+            <div class="nav-left-group" style="display: flex; align-items: center; gap: 20px;">
+                <div class="logo">
+                    <a href="index.html" style="display: flex; align-items: center; text-decoration: none;"
+                        aria-label="Go to Home">
+                        <img loading="lazy" src="assets/images/ui/logo-main.png"
+                            alt="Robel Real Estate Investment Logo - Experts in Porto Golf Marina and Porto Said"
+                            width="120" height="40" decoding="async">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation (Page Specific) -->
+            <nav class="desktop-only">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-item-btn" data-i18n="nav_home">Home</a></li>
+                    <li><a href="#offers" class="nav-item-btn" data-i18n="nav_price_plans">Pricing</a></li>
+                    <li><a href="#amenities" class="nav-item-btn" data-i18n="pd_facilities_services">Amenities</a></li>
+                    <li><a href="#buildings" class="nav-item-btn" data-i18n="pd_available_buildings">Buildings</a></li>
+                    <li><a href="#location" class="nav-item-btn" data-i18n="pd_location_title">Location</a></li>
+                    <!-- Contact removed as per request -->
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Login Button -->
+                <button class="lang-text-btn lang-toggle-btn mobile-only lang-toggle-mobile"
+                    id="lang-btn-header">AR</button>
+
+
+                <!-- Admin Button -->
+                <a href="javascript:void(0)" class="btn-admin admin-only-ui" id="admin-header-btn"
+                    style="display: none; margin-right: 10px;">
+                    <i class="fas fa-user-cog"></i> Admin
+                </a>
+
+                <!-- Desktop CTA -->
+                <a href="#contact" class="btn-cta desktop-only" data-i18n="btn_book">Book Consultation</a>
+                <a href="#contact" class="btn-cta mobile-only" data-i18n="btn_book_mobile"
+                    style="padding: 4px 10px; font-size: 0.75rem; border-radius: 4px;">Book Now</a>
+
+                <!-- Mobile Toggle -->
+                <button id="sidebar-toggle-header" class="sidebar-toggle mobile-only"
+                    onclick="window.toggleSidebar(true)">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUICK NAV BAR (Mobile Only) -->
+    <div class="quick-nav mobile-only">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="#offers" data-i18n="nav_price_plans" class="active">Price Plans</a>
+        <a href="#amenities" data-i18n="pd_facilities_services">Amenities</a>
+        <a href="#buildings" data-i18n="pd_available_buildings">Buildings</a>
+        <a href="#location" data-i18n="pd_location_title">Location</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </div>
+
+
+
+    <!-- Hero Section -->
+    <section class="hero"
+        style="position: relative; height: 85vh; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <!-- Slider Images -->
+        <div class="hero-slider-container" style="position: absolute; inset: 0; z-index: 1;">
+            <div class="hero-slide-item active"
+                style="background-image: url('assets/images/projects/porto-golf-marina/hero/hero-1.webp'); position: absolute; inset:0; background-size:cover; background-position:center; transition: opacity 1.5s ease-in-out;">
+            </div>
+            <div class="hero-slide-item"
+                style="background-image: url('assets/images/projects/porto-golf-marina/hero/hero-3.webp'); position: absolute; inset:0; background-size:cover; background-position:center; transition: opacity 1.5s ease-in-out;">
+            </div>
+            <div class="hero-slide-item"
+                style="background-image: url('assets/images/projects/porto-golf-marina/hero/hero-2.webp'); position: absolute; inset:0; background-size:cover; background-position:center; transition: opacity 1.5s ease-in-out;">
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="hero-overlay"
+            style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%); z-index: 2;">
+        </div>
+
+        <!-- Content -->
+
+
+
+        <!-- Content -->
+        <div class="hero-content" data-aos="fade-up"
+            style="position: relative; z-index: 10; text-align: center; color: white;">
+            <h1 data-i18n="pd_porto_golf_title"
+                style="font-size: 3.5rem; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); color: #ffffff;">
+                بورتو جولف
+                مارينا</h1>
+            <p data-i18n="pd_porto_golf_subtitle" style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">حيث
+                تجتمع الفخامة الساحلية مع رفاهية ملاعب الجولف العالمية
+            </p>
+
+            <div class="hero-info-bar" style="display: flex; justify-content: center; gap: 40px; margin-bottom: 40px;">
+                <div class="info-item">
+                    <span class="label" data-i18n="pd_location_label"
+                        style="display: block; font-size: 0.85rem; text-transform: uppercase; color: var(--primary-gold);">الموقع</span>
+                    <span class="value" data-i18n="pd_porto_golf_location_val">مشروع بورتو جولف
+                        مارينا</span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="pd_price_prefix"
+                        style="display: block; font-size: 0.85rem; text-transform: uppercase; color: var(--primary-gold);">يبدأ
+                        السعر من</span>
+                    <span class="value">2,000,000 ج.م</span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="pd_payment_system_label"
+                        style="display: block; font-size: 0.85rem; text-transform: uppercase; color: var(--primary-gold);">نظام
+                        التقسيط</span>
+                    <span class="value" data-i18n="compare_plan_val">مقدم 10% - 6 سنوات</span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                <a href="#contact" class="cta-button" data-i18n="pd_book_free_visit">احجز معاينة
+                    مجانية</a>
+                <a href="https://wa.me/201200666530" class="cta-button"
+                    style="background: #25d366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); border-color: #25d366;">
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="pd_whatsapp_official">واتساب
+                        الرسمي</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Overview Bar -->
+    <div class="quick-overview-bar" data-aos="fade-up" data-aos-delay="200">
+        <div class="overview-card">
+            <i class="fas fa-expand-arrows-alt"></i>
+            <h4 data-i18n="pd_areas">المساحات</h4>
+            <p data-i18n="pd_area_range">30/60/82/90m</p>
+        </div>
+        <div class="overview-card">
+            <i class="fas fa-ship"></i>
+            <h4 data-i18n="pd_location">الموقع</h4>
+            <p data-i18n="pd_mediterranean_sea">Mediterranean Sea</p>
+        </div>
+        <div class="overview-card">
+            <i class="fas fa-building"></i>
+            <h4 data-i18n="pd_unit_type">نوع الوحدات</h4>
+            <p data-i18n="pd_apartments">شقق (Apartments)</p>
+        </div>
+        <div class="overview-card">
+            <i class="fas fa-percentage"></i>
+            <h4 data-i18n="pd_down_payment">المقدم</h4>
+            <p data-i18n="pd_down_payment_val">10% فقط</p>
+        </div>
+        <div class="overview-card">
+            <i class="fas fa-golf-ball"></i>
+            <h4 data-i18n="pd_golf">جولف</h4>
+            <p data-i18n="pd_golf_value">18 حفرة</p>
+        </div>
+    </div>
+
+
+    <!-- Construction Progress Section -->
+    <section class="construction-progress" id="progress">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag" data-i18n="pd_execution_status">حالة التنفيذ</span>
+            <h2 data-i18n="pd_construction_progress_title" style="white-space: nowrap;">حالة المباني
+                وتواريخ التسليم
+            </h2>
+        </div>
+
+        <div style="max-width: 1200px; margin: 0 auto;">
+
+
+            <!-- Buildings Delivery Status -->
+            <div class="buildings-status-grid">
+
+                <!-- Building 121 - Delivered -->
+                <div class="building-status-card delivered" data-aos="fade-up">
+                    <div class="status-badge" style="background: #10b981;" data-i18n="pd_status_delivered">
+                        ✔️ تم التسليم
+                    </div>
+                    <h3 data-i18n="pd_building_121_title">مبنى 121</h3>
+                    <p style="color: #10b981;">
+                        <i class="fas fa-check-circle"></i> <span data-i18n="pd_ready_immediate">جاهز
+                            للاستلام
+                            الفوري</span>
+                    </p>
+                </div>
+
+                <!-- Building 224 - Delivered -->
+                <div class="building-status-card delivered" data-aos="fade-up" data-aos-delay="50">
+                    <div class="status-badge" style="background: #10b981;" data-i18n="pd_status_delivered">
+                        ✔️ تم التسليم
+                    </div>
+                    <h3 data-i18n="pd_building_224_title">مبنى 224</h3>
+                    <p style="color: #10b981;">
+                        <i class="fas fa-check-circle"></i> <span data-i18n="pd_ready_immediate">جاهز
+                            للاستلام
+                            الفوري</span>
+                    </p>
+                </div>
+
+                <!-- Building 133 - 2029 -->
+                <div class="building-status-card upcoming" data-aos="fade-up" data-aos-delay="100">
+                    <div class="status-badge" style="background: var(--primary-gold);" data-i18n="pd_status_soon">
+                        🕒 قريباً
+                    </div>
+                    <h3 data-i18n="pd_building_b133_title">مبنى 133</h3>
+                    <p style="color: var(--primary-gold);">
+                        <i class="fas fa-calendar-alt"></i> <span data-i18n="pd_delivery_date_prefix">موعد
+                            التسليم:</span> 12 / 2026
+                    </p>
+                </div>
+
+                <!-- Building 136 - 2029 -->
+                <div class="building-status-card upcoming" data-aos="fade-up" data-aos-delay="150">
+                    <div class="status-badge" style="background: var(--primary-gold);" data-i18n="pd_status_soon">
+                        🕒 قريباً
+                    </div>
+                    <h3 data-i18n="pd_building_b136_title">مبنى 136</h3>
+                    <p style="color: var(--primary-gold);">
+                        <i class="fas fa-calendar-alt"></i> <span data-i18n="pd_delivery_date_prefix">موعد
+                            التسليم:</span> 12 / 2026
+                    </p>
+                </div>
+
+                <!-- Building 230 - 2029 -->
+                <div class="building-status-card upcoming" data-aos="fade-up" data-aos-delay="200">
+                    <div class="status-badge" style="background: var(--primary-gold);" data-i18n="pd_status_soon">
+                        🕒 قريباً
+                    </div>
+                    <h3 data-i18n="pd_building_b230_title">مبنى 230</h3>
+                    <p style="color: var(--primary-gold);">
+                        <i class="fas fa-calendar-alt"></i> <span data-i18n="pd_delivery_date_prefix">موعد
+                            التسليم:</span> 12 / 2027
+                    </p>
+                </div>
+
+                <!-- Building 243 - 2029 -->
+                <div class="building-status-card upcoming" data-aos="fade-up" data-aos-delay="250">
+                    <div class="status-badge" style="background: var(--primary-gold);" data-i18n="pd_status_soon">
+                        🕒 قريباً
+                    </div>
+                    <h3 data-i18n="pd_building_b243_title">مبنى 243</h3>
+                    <p style="color: var(--primary-gold);">
+                        <i class="fas fa-calendar-alt"></i> <span data-i18n="pd_delivery_date_prefix">موعد
+                            التسليم:</span> 12 / 2027
+                    </p>
+                </div>
+
+                <!-- Building 78 - 2029 -->
+                <div class="building-status-card delivered" data-aos="fade-up" data-aos-delay="300">
+                    <div class="status-badge" style="background: #10b981;" data-i18n="pd_status_delivered">
+                        ✔️ تم التسليم
+                    </div>
+                    <h3 data-i18n="pd_building_78_title">مبنى 78</h3>
+                    <p style="color: #10b981;">
+                        <i class="fas fa-check-circle"></i> <span data-i18n="pd_ready_immediate">جاهز
+                            للاستلام
+                            الفوري</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Master Plan Section -->
+    <section class="masterplan-viewer-section" id="masterplan" style="padding: 80px 0; background: #fff;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div class="section-header" data-aos="fade-up" style="text-align: center; margin-bottom: 50px;">
+                <span class="section-tag"
+                    style="background: linear-gradient(135deg, var(--primary-gold) 0%, #d4af37 100%); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 15px;"
+                    data-i18n="pd_masterplan_tag">المخطط العام</span>
+                <h2 style="font-size: 1.75rem; color: var(--navy-deep); margin-bottom: 0.9375rem; font-weight: 800;"
+                    data-i18n="pd_urban_planning_title">المخطط العام والتخطيط العمراني</h2>
+                <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto 20px;"
+                    data-i18n="pd_urban_planning_desc">
+                    استكشف التصميم المعماري الفريد للمشروع - تخطيط متكامل
+                    يجمع بين الفخامة والطبيعة
+                </p>
+                <div class="line" style="width: 80px; height: 4px; background: var(--primary-gold); margin: 0 auto;">
+                </div>
+            </div>
+
+            <div class="masterplan-viewer" data-aos="zoom-in" data-aos-delay="200"
+                style="margin-top: 50px; position: relative;">
+
+                <div class="masterplan-container"
+                    style="position: relative; background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.15); border: 3px solid var(--primary-gold); width: 100%;">
+
+                    <!-- Image Wrapper with Zoom/Pan -->
+                    <div id="masterplanImageWrapper"
+                        style="position: relative; overflow: hidden; cursor: grab; background: #f1f5f9; display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 9; max-height: 600px;">
+                        <img id="masterplanImage"
+                            src="assets/images/projects/porto-golf-marina/master-plan/overview-2.jpg"
+                            alt="Porto Golf Marina Master Plan" loading="lazy"
+                            style="max-width: none; width: 100%; height: auto; display: block; transition: transform 0.1s ease-out; transform-origin: center; cursor: grab;">
+
+                        <!-- Zoom Controls -->
+                        <div class="zoom-controls"
+                            style="position: absolute; bottom: 20px; left: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 20;">
+                            <button onclick="changeZoom(0.2)" class="zoom-btn" title="Zoom In"><i
+                                    class="fas fa-plus"></i></button>
+                            <button onclick="changeZoom(-0.2)" class="zoom-btn" title="Zoom Out"><i
+                                    class="fas fa-minus"></i></button>
+                            <button onclick="resetZoom()" class="zoom-btn" title="Reset"><i
+                                    class="fas fa-expand"></i></button>
+                            <button onclick="toggleFullScreen()" class="zoom-btn" title="Full Screen"><i
+                                    class="fas fa-compress"></i></button>
+                        </div>
+
+                        <!-- Zoom Indicator -->
+                        <div class="zoom-indicator"
+                            style="position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.7); color: white; padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(10px); pointer-events: none;">
+                            <i class="fas fa-search-plus"></i>
+                            <span data-i18n="pd_click_to_zoom">اضغط للتكبير</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .admin-only-ui {
+            display: none !important;
+        }
+
+        .masterplan-viewer .zoom-btn {
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--navy-deep);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .masterplan-viewer .zoom-btn:hover {
+            background: var(--primary-gold);
+            color: white;
+            transform: scale(1.1);
+        }
+    </style>
+
+
+
+
+
+
+    <style>
+        .admin-only-ui {
+            display: none !important;
+        }
+
+        /* Promo Offers Styles */
+        .timer-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .timer-unit span {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+        }
+
+        .timer-unit small {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .offer-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+            border-color: var(--primary-gold);
+        }
+
+        .offer-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+
+        .offer-card:hover .offer-icon {
+            background: var(--primary-gold);
+            color: white;
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .offer-badge {
+            font-weight: 700;
+            color: var(--navy-deep);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .offer-text {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .promo-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #25d366;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .promo-cta-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+            color: white;
+            background: #20b858;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Global Compact Spacing */
+            section {
+                padding: 25px 5px !important;
+            }
+
+            .section-header {
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
+
+            .section-header h2,
+            .section-header h3 {
+                font-size: 1rem !important;
+                margin-bottom: 2px !important;
+                font-weight: 800 !important;
+            }
+
+            .section-header p {
+                font-size: 0.65rem !important;
+                line-height: 1.2 !important;
+                margin-bottom: 8px !important;
+                max-width: 90% !important;
+            }
+
+            .section-tag {
+                font-size: 0.65rem !important;
+                padding: 3px 10px !important;
+                margin-bottom: 8px !important;
+            }
+
+            /* Hero Section Compact */
+            .hero {
+                height: 55vh !important;
+                min-height: 350px !important;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem !important;
+                margin-bottom: 10px !important;
+            }
+
+            .hero-content p {
+                font-size: 0.85rem !important;
+                margin-bottom: 20px !important;
+            }
+
+            .hero-info-bar {
+                gap: 15px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .info-item .label {
+                font-size: 0.65rem !important;
+            }
+
+            .info-item .value {
+                font-size: 0.75rem !important;
+            }
+
+            .cta-button {
+                padding: 10px 15px !important;
+                font-size: 0.85rem !important;
+            }
+
+            /* Fix Offers Grid - 2 Columns (Side by Side) */
+            .timer-container {
+                flex-direction: column !important;
+                padding: 15px 20px !important;
+                gap: 10px !important;
+            }
+
+            .timer-unit span {
+                font-size: 1.2rem;
+            }
+
+            .offers-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+
+            .offer-card {
+                grid-column: auto !important;
+                margin: 0 !important;
+                padding: 15px 10px !important;
+            }
+
+            /* Fix Master Plan Features - 2 Columns (Side by Side) */
+            .masterplan-features,
+            .units-container,
+            .values-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 6px !important;
+                padding: 0 5px !important;
+            }
+
+            .amenities-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                /* 4 columns for ultra-compact look */
+                gap: 8px !important;
+                padding: 0 5px !important;
+            }
+
+            .amenity-card {
+                padding: 10px 5px !important;
+            }
+
+            .amenity-icon {
+                font-size: 1.2rem !important;
+                margin-bottom: 5px !important;
+            }
+
+            .amenity-title {
+                font-size: 0.65rem !important;
+                /* Smaller text for 4 columns */
+                line-height: 1.1 !important;
+            }
+
+            .testimonial-card,
+            .value-card {
+                padding: 15px 10px !important;
+                text-align: center;
+            }
+
+            .testimonial-card p {
+                font-size: 0.75rem !important;
+                line-height: 1.3 !important;
+            }
+
+            .testimonial-card h4 {
+                font-size: 0.7rem !important;
+                margin-top: 5px !important;
+            }
+
+            .value-card h3 {
+                font-size: 0.85rem !important;
+                margin: 5px 0 0 0 !important;
+            }
+
+            .value-icon {
+                margin: 0 auto 8px auto !important;
+            }
+
+            /* Fix Booking Journey - 4 Columns Grid (Side by Side) */
+            .booking-journey {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 5px !important;
+                align-items: start !important;
+            }
+
+            .step-card {
+                padding: 8px 2px !important;
+            }
+
+            .step-card h4 {
+                font-size: 0.6rem !important;
+                margin: 5px 0 2px 0 !important;
+            }
+
+            .step-card p {
+                font-size: 0.5rem !important;
+                display: none;
+                /* Hide desc to fit 4 per row */
+            }
+
+            .step-num {
+                width: 25px !important;
+                height: 25px !important;
+                font-size: 0.8rem !important;
+            }
+
+            /* Hide arrows in grid mode to keep layout clean */
+            .step-arrow {
+                display: none !important;
+            }
+
+            /* Achievements & Stats */
+            .achievements-grid,
+            .dev-stats {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 5px !important;
+            }
+
+            .achieve-card,
+            .stat-item {
+                padding: 10px 2px !important;
+            }
+
+            .achieve-num,
+            .stat-item h3 {
+                font-size: 1rem !important;
+                margin-bottom: 2px !important;
+            }
+
+            .achieve-label,
+            .stat-item p {
+                font-size: 0.55rem !important;
+                line-height: 1.1 !important;
+            }
+
+            /* Contact Form Compact */
+            .contact-section {
+                padding: 20px 10px !important;
+            }
+
+            .contact-grid {
+                gap: 15px !important;
+            }
+
+            .contact-info h2 {
+                font-size: 1.4rem !important;
+                margin-bottom: 10px !important;
+            }
+
+            .contact-info p {
+                font-size: 0.85rem !important;
+                margin-bottom: 20px !important;
+            }
+
+            .contact-form {
+                padding: 15px !important;
+                border-radius: 15px !important;
+            }
+
+            .form-group {
+                margin-bottom: 10px !important;
+            }
+
+            .form-group label {
+                font-size: 0.75rem !important;
+                margin-bottom: 4px !important;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 8px 12px !important;
+                font-size: 0.85rem !important;
+            }
+
+            /* FAQ Compact */
+            .faq-item {
+                margin-bottom: 8px !important;
+            }
+
+            .faq-header {
+                padding: 10px 15px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .faq-content {
+                padding: 10px 15px !important;
+                font-size: 0.75rem !important;
+            }
+
+            /* Nearby Facilities List */
+            .facilities-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 5px !important;
+                padding: 0 5px;
+            }
+
+            .facility-category {
+                padding: 8px 4px !important;
+            }
+
+            .facility-header {
+                margin-bottom: 5px !important;
+                gap: 4px !important;
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .facility-icon {
+                font-size: 0.9rem !important;
+            }
+
+            .facility-title {
+                font-size: 0.6rem !important;
+                line-height: 1.1 !important;
+            }
+
+            .facility-item {
+                padding: 2px 0 !important;
+                font-size: 0.55rem !important;
+                border: none !important;
+            }
+
+            .facility-item strong {
+                font-size: 0.55rem !important;
+                line-height: 1.1 !important;
+                display: block;
+            }
+
+            .facility-item p {
+                display: none !important;
+                /* Hide long descriptions to save space */
+            }
+
+            /* Gallery Swiper height */
+            .gallery-slider {
+                height: 250px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .offers-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            .masterplan-features {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+
+            .booking-journey {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+
+            .promo-cta-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Fix offer card images on mobile */
+            .offer-card img,
+            .pricing-card img {
+                width: 100% !important;
+                height: 150px !important;
+                object-fit: cover !important;
+                object-position: center !important;
+                border-radius: 12px 12px 0 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .masterplan-controls {
+                position: static !important;
+                margin-bottom: 15px;
+                flex-direction: column;
+            }
+
+            .masterplan-btn {
+                width: 100%;
+                font-size: 0.9rem !important;
+                padding: 10px 15px !important;
+            }
+
+            /* Stack main containers but NOT the features grid */
+            .masterplan-viewer>.masterplan-container,
+            .masterplan-viewer>.masterplan-map {
+                grid-template-columns: 1fr !important;
+            }
+
+            .masterplan-map {
+                height: 250px !important;
+                order: -1;
+            }
+
+            #masterplanImageWrapper {
+                min-height: 200px !important;
+                max-height: 400px !important;
+            }
+
+            .masterplan-features {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 4px !important;
+                margin-top: 15px !important;
+            }
+
+            .feature-card {
+                padding: 6px 2px !important;
+            }
+
+            .feature-icon-wrapper {
+                width: 28px !important;
+                height: 28px !important;
+                margin-bottom: 5px !important;
+            }
+
+            .feature-card h3 {
+                font-size: 0.55rem !important;
+            }
+
+            /* Comparison Tool Compact */
+            .compare-container {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
+                margin: 10px -5px !important;
+                padding: 0 5px !important;
+            }
+
+            .compare-table {
+                font-size: 0.7rem !important;
+                min-width: 450px !important;
+            }
+
+            .compare-table th,
+            .compare-table td {
+                padding: 6px 4px !important;
+            }
+
+            /* Geographic Location Compact */
+            .landmark-item-row {
+                padding: 8px 5px !important;
+            }
+
+            .landmark-text {
+                font-size: 0.8rem !important;
+            }
+
+            .landmark-time {
+                font-size: 0.7rem !important;
+            }
+        }
+
+        .zoom-indicator {
+            font-size: 0.75rem !important;
+            padding: 8px 15px !important;
+        }
+
+        /* Luxury About Us Section Enhancements */
+        .about-redesign {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            padding: 100px 0;
+        }
+
+        .about-title {
+            font-family: 'Cinzel', serif !important;
+            color: var(--navy-deep);
+            letter-spacing: 1px;
+            font-weight: 700 !important;
+            font-size: 1.7rem !important;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .about-mission {
+            text-align: center;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 60px 40px;
+            border-radius: 40px;
+            border: 1px solid rgba(201, 162, 63, 0.15);
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 25px 50px -12px rgba(201, 162, 63, 0.08);
+        }
+
+        .about-mission .quote-icon {
+            font-size: 3rem;
+            color: var(--gold-main);
+            opacity: 0.2;
+            margin-bottom: 30px;
+        }
+
+        .about-mission p {
+            font-size: 1.25rem !important;
+            line-height: 1.9 !important;
+            color: var(--navy-deep);
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .achieve-card {
+            background: white;
+            border: 1px solid rgba(201, 162, 63, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .achieve-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-main);
+            box-shadow: 0 20px 40px rgba(201, 162, 63, 0.1);
+        }
+
+        .value-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            border-bottom-color: var(--gold-main);
+            transform: translateY(-5px);
+        }
+
+        .value-icon i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--gold-main), #b08d35);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .about-mission {
+                padding: 40px 20px;
+                margin: 30px 15px;
+            }
+
+            .about-mission p {
+                font-size: 1.1rem !important;
+            }
+
+            .about-title {
+                font-size: 1.1rem !important;
+                line-height: 1.4 !important;
+            }
+
+            /* Force 4-columns for Booking Journey (Seamless Ownership) */
+            .booking-journey {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 5px !important;
+            }
+
+            .step-card {
+                padding: 10px 4px !important;
+                text-align: center;
+            }
+
+            .step-card h4 {
+                font-size: 0.45rem !important;
+                margin-top: 5px !important;
+                line-height: 1.1 !important;
+                word-break: break-word !important;
+            }
+
+            .step-card p,
+            .step-arrow {
+                display: none !important;
+            }
+
+            .step-num {
+                width: 20px !important;
+                height: 20px !important;
+                font-size: 0.7rem !important;
+            }
+
+            /* Force 4-columns for Values Grid (Why Robel) */
+            .values-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 5px !important;
+            }
+
+            .value-card {
+                padding: 12px 6px !important;
+                border-radius: 12px !important;
+            }
+
+            .value-icon i {
+                font-size: 1.5rem !important;
+            }
+
+            .value-card h4 {
+                font-size: 0.6rem !important;
+            }
+
+            /* Force 3-columns for Compound Guide */
+            .achievements-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 8px !important;
+            }
+
+            .achieve-card {
+                padding: 12px 6px !important;
+                border-radius: 12px !important;
+            }
+
+            .achieve-card i {
+                font-size: 1.4rem !important;
+            }
+
+            .achieve-card h4 {
+                font-size: 0.6rem !important;
+            }
+
+            .achieve-card p {
+                font-size: 0.5rem !important;
+            }
+
+            .proven-stats-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 5px !important;
+            }
+
+            .proven-stats-grid>div>div:first-child {
+                font-size: 0.8rem !important;
+                margin-bottom: 2px !important;
+                white-space: nowrap;
+            }
+
+            .proven-stats-grid>div>div:last-child {
+                font-size: 0.4rem !important;
+                line-height: 1 !important;
+                opacity: 0.7;
+            }
+
+            .proven-stats-container {
+                padding: 15px 5px !important;
+                margin-top: 25px !important;
+                border-radius: 15px !important;
+            }
+
+            .header-actions .logout-pill-btn.mobile-only,
+            .header-actions .btn-admin {
+                padding: 3px 8px !important;
+                font-size: 0.65rem !important;
+                min-height: 0 !important;
+                height: 24px !important;
+                /* Removed !important display */
+                align-items: center;
+                justify-content: center;
+            }
+
+            .sidebar-actions-pair .action-pill-btn {
+                padding: 5px 12px !important;
+                font-size: 0.75rem !important;
+                border-radius: 6px !important;
+                height: auto !important;
+            }
+
+            .lang-toggle-mobile {
+                padding: 2px 6px !important;
+                font-size: 0.65rem !important;
+                margin-right: 4px !important;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 4px;
+                background: transparent;
+                color: var(--primary-gold);
+                height: 24px !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
+
+
+
+    <!-- Pricing Plans Section -->
+    <section class="pricing-plans-section" id="offers">
+        <div class="section-header" data-aos="fade-up">
+            <h2 data-i18n="pd_promo_section_title">خطط الأسعار والعروض الحصرية</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="pricing-cards-grid">
+            <!-- Card 1 -->
+            <div class="pricing-card" data-aos="fade-up">
+                <div class="pricing-badge" data-i18n="pd_offer_badge_cash">40% OFF</div>
+                <div class="pricing-icon"><i class="fas fa-coins"></i></div>
+                <h3 class="pricing-title" data-i18n="pd_offer1_title">عرض كاش</h3>
+                <div class="pricing-subtitle" data-i18n="pd_offer1_desc">خصم 40% عند الدفع الفوري</div>
+                <button class="pricing-cta" data-i18n="pd_book_now">احجز الآن</button>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="pricing-badge" data-i18n="pd_offer_badge_installment">Installment</div>
+                <div class="pricing-icon"><i class="fas fa-calendar-check"></i></div>
+                <h3 class="pricing-title" data-i18n="pd_offer2_title">مقدم 10%</h3>
+                <div class="pricing-subtitle" data-i18n="pd_offer_sub_installment">قسط شهري يبدأ من 25,000
+                </div>
+                <button class="pricing-cta" data-i18n="pd_book_now">احجز الآن</button>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="pricing-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="pricing-badge" data-i18n="pd_offer_badge_finishing">Free Finishing</div>
+                <div class="pricing-icon"><i class="fas fa-paint-roller"></i></div>
+                <h3 class="pricing-title" data-i18n="pd_offer3_title">تشطيب مجاني</h3>
+                <div class="pricing-subtitle" data-i18n="pd_offer_sub_finishing">عرض لفترة محدودة</div>
+                <button class="pricing-cta" data-i18n="pd_book_now">احجز الآن</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Countdown Timer
+        function updateTimer() {
+            // Set end date: 1 week from now
+            let endDate = localStorage.getItem('promoEndDate');
+            if (!endDate) {
+                endDate = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+                localStorage.setItem('promoEndDate', endDate);
+            }
+
+            const now = new Date().getTime();
+            const distance = endDate - now;
+
+            if (distance < 0) {
+                // Reset timer for another week if expired (for demo purposes)
+                localStorage.removeItem('promoEndDate');
+                updateTimer();
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // 📏 Resizable Map Logic
+        const resizer = document.getElementById('dragMe');
+        const leftSide = resizer.previousElementSibling;
+        const rightSide = resizer.nextElementSibling;
+
+        let x = 0;
+        let leftWidth = 0;
+
+        const mouseDownHandler = function (e) {
+            x = e.clientX;
+            leftWidth = leftSide.getBoundingClientRect().width;
+            document.addEventListener('mousemove', mouseMoveHandler);
+            document.addEventListener('mouseup', mouseUpHandler);
+            resizer.classList.add('dragging');
+
+            // 💡 Fix: Prevent iframe from capturing mouse events while dragging
+            rightSide.style.pointerEvents = 'none';
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+        };
+
+        const mouseMoveHandler = function (e) {
+            const dx = e.clientX - x;
+            const containerWidth = resizer.parentNode.getBoundingClientRect().width;
+            const newLeftWidth = ((leftWidth + dx) * 100) / containerWidth;
+
+            // Limit resizing between 20% and 70%
+            if (newLeftWidth > 20 && newLeftWidth < 70) {
+                leftSide.style.width = `${newLeftWidth}%`;
+                leftSide.style.flex = 'none';
+            }
+        };
+
+        const mouseUpHandler = function () {
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+            resizer.classList.remove('dragging');
+
+            // 💡 Fix: Re-enable pointer events
+            rightSide.style.pointerEvents = 'auto';
+            document.body.style.cursor = 'default';
+            document.body.style.userSelect = 'auto';
+        };
+
+        resizer.addEventListener('mousedown', mouseDownHandler);
+    </script>
+
+
+    <!-- Available Buildings Section -->
+    <section class="unit-types-section" id="buildings">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag" data-i18n="pd_available_buildings">المباني المتاحة</span>
+            <h2 data-i18n="pd_porto_golf_buildings_title">مباني بورتو جولف مارينا</h2>
+            <div class="line"></div>
+        </div>
+
+        <!-- Building Status Filter -->
+        <div class="units-filter-bar" data-aos="fade-up" data-aos-delay="100">
+            <button class="filter-btn active" data-filter="all">
+                <span data-i18n="filter_all">الكل</span>
+            </button>
+            <button class="filter-btn" data-filter="ready">
+                <span data-i18n="filter_ready">جاهز للاستلام</span>
+            </button>
+            <button class="filter-btn" data-filter="construction">
+                <span data-i18n="filter_construction">تحت الإنشاء</span>
+            </button>
+        </div>
+
+        <style>
+            .admin-only-ui {
+                display: none !important;
+            }
+
+            #units-grid {
+                display: grid !important;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+                gap: 30px !important;
+                width: 100% !important;
+            }
+
+            @media (max-width: 768px) {
+                #units-grid {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 12px !important;
+                }
+            }
+        </style>
+
+        <div id="units-grid" class="projects-grid units-grid">
+            <!-- Units will be loaded dynamically via available-units.js -->
+            <div class="loading-spinner" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                <i class="fas fa-circle-notch fa-spin"></i> Loading Units...
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities (Compact Mobile Grid) -->
+    <section class="amenities-section" id="amenities">
+        <div class="section-header">
+            <h2 data-i18n="pd_facilities_services">المرافق والخدمات</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="amenities-grid">
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-hotel"></i></div>
+                <div class="amenity-title" data-i18n="pd_hotel_serviced_apartments">شقق فندقية</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-utensils"></i></div>
+                <div class="amenity-title" data-i18n="pd_restaurants_cafes">مطاعم وكافيهات</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-swimming-pool"></i></div>
+                <div class="amenity-title" data-i18n="pd_swimming_pools">حمامات سباحة</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-shopping-cart"></i></div>
+                <div class="amenity-title" data-i18n="pd_shopping_mall">مول تجاري</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-golf-ball"></i></div>
+                <div class="amenity-title" data-i18n="pd_18_hole_golf_course">ملعب جولف 18 حفرة</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-walking"></i></div>
+                <div class="amenity-title" data-i18n="pd_1km_promenade_en">ممشى 1 كم</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-music"></i></div>
+                <div class="amenity-title" data-i18n="pd_live_entertainment">ترفيه مباشر</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-running"></i></div>
+                <div class="amenity-title" data-i18n="pd_sports_facilities">مرافق رياضية</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-shopping-basket"></i></div>
+                <div class="amenity-title" data-i18n="pd_hypermarket">هايبر ماركت</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-pills"></i></div>
+                <div class="amenity-title" data-i18n="pd_pharmacy">صيدلية</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-crosshairs"></i></div>
+                <div class="amenity-title" data-i18n="pd_paint_ball_en">باينت بول</div>
+            </div>
+            <div class="amenity-card">
+                <div class="amenity-icon"><i class="fas fa-flag-checkered"></i></div>
+                <div class="amenity-title" data-i18n="pd_go_karting_en">جو كارتينج</div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Location (Compact List + Map) -->
+    <section class="location-landmarks-section" id="location" style="padding: 60px 0; background: #fff;">
+        <div class="section-header" data-aos="fade-up">
+            <h2 data-i18n="pd_geographic_location">الموقع الجغرافي</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="location-grid-container" data-aos="fade-up">
+            <!-- Landmarks Table -->
+            <div class="landmarks-table-wrapper" id="left-panel">
+                <div class="landmark-item-row">
+                    <div class="landmark-info">
+                        <i class="landmark-icon fas fa-plane"></i>
+                        <span class="landmark-text" data-i18n="pd_el_alamein_airport">مطار العلمين</span>
+                    </div>
+                    <div class="landmark-time">
+                        <span data-i18n="pd_distance_20">20 دقيقة</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </div>
+                <div class="landmark-item-row">
+                    <div class="landmark-info">
+                        <i class="landmark-icon fas fa-road"></i>
+                        <span class="landmark-text" data-i18n="pd_new_foka_road">طريق فوكا الجديد</span>
+                    </div>
+                    <div class="landmark-time">
+                        <span data-i18n="pd_distance_15">15 دقيقة</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </div>
+                <div class="landmark-item-row">
+                    <div class="landmark-info">
+                        <i class="landmark-icon fas fa-shopping-bag"></i>
+                        <span class="landmark-text" data-i18n="pd_orouba_mall">مول العروبة</span>
+                    </div>
+                    <div class="landmark-time">
+                        <span data-i18n="pd_distance_10">10 دقائق</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </div>
+                <div class="landmark-item-row">
+                    <div class="landmark-info">
+                        <i class="landmark-icon fas fa-city"></i>
+                        <span class="landmark-text" data-i18n="pd_new_el_alamein">العلمين الجديدة</span>
+                    </div>
+                    <div class="landmark-time">
+                        <span data-i18n="pd_distance_5">5 دقائق</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resizer Handle -->
+            <div class="resizer" id="dragMe"></div>
+
+            <!-- Map Iframe -->
+            <div class="map-iframe-wrapper" id="right-panel">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.561705051234!2d28.91848!3d30.84193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145fefcf9bae2687%3A0xe028adbf02273be8!2sGolf%20Porto%20Marina!5e0!3m2!1sar!2seg!4v1707180000000!5m2!1sar!2seg"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nearby Facilities (3 Cols PC / 1 Col Mobile) -->
+    <section class="nearby-facilities-section">
+        <div class="container" style="max-width: 1200px; margin: 0 auto;">
+            <div class="section-header" data-aos="fade-up">
+                <h3 style="font-size: 1.8rem;" data-i18n="pd_nearby_vital_facilities">مرافق حيوية قريبة
+                </h3>
+            </div>
+
+            <div class="facilities-grid">
+                <!-- Col 1: Hospitals -->
+                <div class="facility-category">
+                    <div class="facility-header">
+                        <i class="facility-icon fas fa-hospital"></i>
+                        <h4 class="facility-title" data-i18n="pd_hospitals">مستشفيات</h4>
+                    </div>
+                    <div class="facility-list">
+                        <div class="facility-item">
+                            <div>
+                                <strong data-i18n="pd_el_alamein_hospital">El Alamein Hospital</strong>
+                                <p style="margin: 4px 0 0 0; font-size: 0.85em; opacity: 0.8; line-height: 1.4;"
+                                    data-i18n="pd_el_alamein_hospital_desc">مستشفى
+                                    مركزي حكومي بمدينة العلمين، يقدم خدمات طبية
+                                    عامة وطوارئ.</p>
+                            </div>
+                        </div>
+                        <div class="facility-item">
+                            <div>
+                                <strong data-i18n="pd_dar_el_fouad">مستشفى دار الفؤاد</strong>
+                                <p style="margin: 4px 0 0 0; font-size: 0.85em; opacity: 0.8; line-height: 1.4;"
+                                    data-i18n="pd_dar_el_fouad_desc">فرع
+                                    متكامل لخدمة رواد الساحل الشمالي والعلمين.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col 2: Schools -->
+                <div class="facility-category">
+                    <div class="facility-header">
+                        <i class="facility-icon fas fa-school"></i>
+                        <h4 class="facility-title" data-i18n="pd_schools">مدارس وجامعات</h4>
+                    </div>
+                    <div class="facility-list">
+                        <div class="facility-item">
+                            <div>
+                                <strong data-i18n="pd_brisith_school">المدرسة البريطانية (El Alamein
+                                    International
+                                    Schools)</strong>
+                                <p style="margin: 4px 0 0 0; font-size: 0.85em; opacity: 0.8; line-height: 1.4;"
+                                    data-i18n="pd_brisith_school_desc">مدرسة
+                                    دولية تقدم مناهج بريطانية (IGCSE/IB).</p>
+                            </div>
+                        </div>
+                        <div class="facility-item">
+                            <div>
+                                <strong data-i18n="pd_el_alamein_university">El Alamein University (AIU)</strong>
+                                <p style="margin: 4px 0 0 0; font-size: 0.85em; opacity: 0.8; line-height: 1.4;"
+                                    data-i18n="pd_el_alamein_university_desc">جامعة
+                                    وطنية غير ربحية بمدينة العلمين الجديدة، تأسست
+                                    عام 2020.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col 3: Malls/Markets -->
+                <div class="facility-category">
+                    <div class="facility-header">
+                        <i class="facility-icon fas fa-shopping-cart"></i>
+                        <h4 class="facility-title" data-i18n="pd_malls">مولات ومتاجر</h4>
+                    </div>
+                    <div class="facility-list">
+                        <div class="facility-item" data-i18n="pd_zahran_market">زهران ماركت</div>
+                        <div class="facility-item" data-i18n="pd_shell_out_station">محطة شيل أوت</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-header">
+            <h2 data-i18n="pd_image_gallery">معرض الصور</h2>
+            <div class="line"></div>
+        </div>
+        <div class="swiper gallery-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"
+                    style="background-image: url('assets/images/projects/porto-golf-marina/gallery/224.webp');"></div>
+                <div class="swiper-slide"
+                    style="background-image: url('assets/images/projects/porto-golf-marina/gallery/78.webp');"></div>
+                <div class="swiper-slide" style="background-image: url('assets/images/ui/logo-main.png');"></div>
+                <div class="swiper-slide"
+                    style="background-image: url('assets/images/projects/porto-golf-marina/gallery/interior.webp');">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <!-- Master Plan Section -->
+    <section class="master-plan-section pt-20 pb-10" id="masterplan">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="section-header text-center mb-12">
+                <h2 class="text-3xl font-bold text-navy-deep mb-4" data-i18n="pd_master_plan">المخطط العام (Master Plan)
+                </h2>
+                <div class="line mx-auto"></div>
+                <p class="text-gray-500 mt-6 max-w-2xl mx-auto" data-i18n="pd_master_plan_desc">استكشف توزيع المباني
+                    والمساحات الخضراء والخدمات في مشروع بورتو جولف مارينا من خلال المخطط العام الحديث.</p>
+            </div>
+
+            <div
+                class="bg-gray-50 rounded-[2.5rem] p-4 sm:p-10 border border-gold-main/10 shadow-2xl overflow-hidden group">
+                <div class="relative rounded-3xl overflow-hidden bg-white shadow-inner cursor-zoom-in"
+                    onclick="openFullPlan()">
+                    <img src="assets/images/projects/porto-golf-marina/master-plan/overview-2.jpg"
+                        alt="Porto Golf Marina Master Plan"
+                        class="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                        onerror="if(this.src.endsWith('.webp')) this.src=this.src.replace('.webp','.jpg'); else if(this.src.endsWith('.jpg')) this.src=this.src.replace('.jpg','.png');">
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function openFullPlan() {
+                // This will reuse the existing gallery/lightbox logic if available, 
+                // or we can implement a simple modal here.
+                const overlay = document.createElement('div');
+                overlay.className = 'fixed inset-0 bg-black/95 z-[2000] flex items-center justify-center p-4 cursor-zoom-out';
+                overlay.innerHTML = `
+                    <div class="absolute top-6 right-6 text-white text-3xl cursor-pointer"><i class="fas fa-times"></i></div>
+                    <img src="assets/images/projects/porto-golf-marina/master-plan/overview-2.jpg" class="max-w-full max-h-full object-contain">
+                `;
+                overlay.onclick = () => document.body.removeChild(overlay);
+                document.body.appendChild(overlay);
+            }
+        </script>
+    </section>
+
+
+
+
+
+
+    <!-- Booking Journey Section -->
+    <section class="booking-journey-section" style="background: var(--white);">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag" data-i18n="pd_ownership_journey">رحلة التملك</span>
+            <h2 data-i18n="pd_how_to_get_unit">كيف تحصل على وحدتك؟</h2>
+            <div class="line"></div>
+        </div>
+        <div class="container" style="max-width: 1100px; margin: 0 auto;">
+            <div class="booking-journey"
+                style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div class="step-card" data-aos="fade-up">
+                    <div class="step-num">1</div>
+                    <h4 data-i18n="pd_choose_unit">اختر وحدتك</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="pd_choose_unit_desc">تصفح
+                        الوحدات المتاحة واختر ما يناسبك.</p>
+                </div>
+                <div class="step-arrow" style="display: flex; align-items: center; opacity: 0.2;"><i
+                        class="fas fa-chevron-left"></i></div>
+                <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-num">2</div>
+                    <h4 data-i18n="pd_book_visit">احجز معاينة</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="pd_book_visit_desc">نسق
+                        موعداً
+                        لزيارة المشروع على أرض الواقع.
+                    </p>
+                </div>
+                <div class="step-arrow" style="display: flex; align-items: center; opacity: 0.2;"><i
+                        class="fas fa-chevron-left"></i></div>
+                <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-num">3</div>
+                    <h4 data-i18n="pd_pay_down_payment">ادفع المقدم</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="pd_pay_down_payment_desc">
+                        سدد
+                        مقدم التعاقد وابدأ إجراءات الحجز.</p>
+                </div>
+                <div class="step-arrow" style="display: flex; align-items: center; opacity: 0.2;"><i
+                        class="fas fa-chevron-left"></i></div>
+                <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-num">4</div>
+                    <h4 data-i18n="pd_receive_settle">استلم وسكن</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="pd_receive_settle_desc">وقع
+                        العقد واستلم مفتاحك في الموعد المحدد.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Comparison Tool Section -->
+    <section class="comparison-section" id="compare">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag" data-i18n="compare_tag">Comparison Tool</span>
+            <h2 data-i18n="compare_title">Compare Unit Types</h2>
+            <div class="line"></div>
+        </div>
+        <div class="container" style="max-width: 1100px; margin: 0 auto;">
+            <div class="compare-container" data-aos="fade-up">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="compare_specs">Specifications</th>
+                            <th data-i18n="compare_studio">30-Meter</th>
+                            <th data-i18n="compare_2br">60-Meter</th>
+                            <th data-i18n="compare_82">82-Meter</th>
+                            <th data-i18n="compare_3br">90-Meter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_area">Area</td>
+                            <td>30 m&sup2;</td>
+                            <td>60 m&sup2;</td>
+                            <td>82 m&sup2;</td>
+                            <td>90 m&sup2;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_rooms">Rooms</td>
+                            <td data-i18n="compare_1room">1 Bedroom</td>
+                            <td data-i18n="compare_1room">1 Bedroom</td>
+                            <td data-i18n="compare_1room">1 Bedroom</td>
+                            <td data-i18n="compare_2rooms">2 Bedrooms</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_bathrooms">Bathrooms</td>
+                            <td data-i18n="compare_1bath">1 Bathroom</td>
+                            <td data-i18n="compare_2bath">2 Bathrooms</td>
+                            <td data-i18n="compare_2bath">2 Bathrooms</td>
+                            <td data-i18n="compare_2bath">2 Bathrooms</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_kitchen">Kitchen</td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_living">Living</td>
+                            <td>-</td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_dining">Dining</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><i class="fas fa-check" style="color: #22c55e;"></i></td>
+                            <td>-</td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight:700;" data-i18n="compare_est_price">Estimated Price</td>
+                            <td>2.1M</td>
+                            <td>3.5M</td>
+                            <td>4.8M</td>
+                            <td>5.8M</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financing & Smart Features -->
+
+
+    <!-- Social Proof Section -->
+    <section class="social-proof-section" style="background: var(--white); padding: 50px 0;">
+        <div class="container" style="max-width: 1100px; margin: 0 auto; text-align: center;">
+            <div class="dev-stats" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="stat-item" data-aos="fade-up">
+                    <h3 style="font-size: 2.5rem;">500+</h3>
+                    <p data-i18n="pd_families_joined">عائلة انضمت إلينا</p>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                    <h3 style="font-size: 2.5rem;">156</h3>
+                    <p data-i18n="pd_units_sold_this_season">وحدة مباعة هذا الموسم</p>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                    <h3 style="font-size: 2.5rem;">4.8/5</h3>
+                    <p data-i18n="pd_customer_satisfaction_rating">تقييم رضا العملاء</p>
+                </div>
+            </div>
+            <div style="margin-top: 30px; font-weight: 700; color: var(--primary-gold);" data-aos="fade-up">
+                <i class="fas fa-clock"></i> <span data-i18n="pd_last_booking_info">آخر حجز تم منذ 45
+                    دقيقة من
+                    القاهرة</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Floating Widget -->
+    <a href="https://wa.me/201200666530" class="floating-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info" data-aos="fade-left">
+                <p style="font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; color: #1a1a1a; font-weight: 500;"
+                    data-i18n="inquiry_text">
+                    Robel Real Estate Investment is a leading real estate consultancy and operational partner with a
+                    strong on-ground presence across Egypt’s premier coastal developments.
+                </p>
+                <div style="margin-bottom: 30px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <i class="fas fa-phone" style="color: var(--primary-gold);"></i>
+                        <a href="tel:201200666530" style="text-decoration:none; color:inherit;">
+                            <span data-i18n="contact_phone_val">201200666530</span>
+                        </a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <i class="fas fa-globe" style="color: var(--primary-gold);"></i>
+                        <a href="https://www.robel-eg.com/" target="_blank"
+                            style="text-decoration:none; color:inherit;">
+                            <span data-i18n="contact_website">Visit our website</span>
+                        </a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary-gold);"></i>
+                        <span data-i18n="contact_address_val">375 El Geish Rd, Kased Kareem Tower, Gleem,
+                            Alexandria</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <i class="fab fa-whatsapp" style="color: #25d366;"></i>
+                        <a href="https://wa.me/201200666530" target="_blank"
+                            style="text-decoration:none; color:inherit;">
+                            <span data-i18n="whatsapp_send">Send a message via WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" id="projectContactForm" data-aos="fade-right" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="contactName" data-i18n="pd_form_name_label">Full Name</label>
+                    <input type="text" id="contactName" name="Full_Name" placeholder="Enter your name here" required
+                        data-i18n-placeholder="pd_form_name_placeholder">
+                    <!-- Added name alias for header key {{name}} -->
+                    <input type="hidden" name="name" id="contactNameAlias">
+                    <!-- Hidden email field to satisfy template {{email}} variable -->
+                    <input type="hidden" name="email" value="George.gamal139@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="contactPhone" data-i18n="pd_form_phone_label">Phone Number</label>
+                    <input type="tel" id="contactPhone" name="Phone_Number" placeholder="Mobile number" required
+                        data-i18n-placeholder="pd_form_phone_placeholder">
+                </div>
+                <div class="form-group">
+                    <label for="unitType" data-i18n="pd_preferred_unit_type">Preferred Project Type</label>
+                    <select id="unitType" name="Preferred_Project_Type">
+                        <option value="Porto Golf" data-i18n="nav_porto_golf">Porto Golf Marina</option>
+                        <option value="Porto Said" data-i18n="nav_porto_said">Porto Said</option>
+                        <option value="Celebration" data-i18n="Celebration">Celebration</option>
+                        <option value="Agent" data-i18n="join_agent_btn">Be an Agent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="additionalMessage" data-i18n="pd_additional_message">Additional Message</label>
+                    <textarea id="additionalMessage" name="Additional_Message" rows="4"
+                        placeholder="How can we help you?" data-i18n-placeholder="pd_form_msg_ph"></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%; border-radius: 8px;"
+                    data-i18n="pd_form_submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <a href="#"
+        style="position: fixed; bottom: 30px; left: 30px; background: var(--primary-gold); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Section 2: Quick Links -->
+                <div class="footer-section footer-links">
+                    <h3 data-i18n="footer_quick_links_title">Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#home"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_home">Home</span></a></li>
+                        <li><a href="index.html#about"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_about">About Robel</span></a></li>
+                        <li><a href="index.html#projects"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_projects">Our Projects</span></a></li>
+                        <li><a href="units.html"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_units">Available Units</span></a></li>
+                        <li><a href="#contact"><i class="fas fa-arrow-right"></i> <span
+                                    data-i18n="footer_contact">Contact Us</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Section 3: Projects -->
+                <div class="footer-section footer-links">
+                    <h3 data-i18n="footer_our_projects_title">Our Projects</h3>
+                    <ul>
+                        <li><a href="porto-golf-marina.html"><i class="fas fa-building"></i> <span
+                                    data-i18n="footer_porto_golf">Porto Golf Marina</span></a></li>
+                        <li><a href="porto-said.html"><i class="fas fa-building"></i> <span
+                                    data-i18n="footer_porto_said">Porto Said</span></a></li>
+                        <li><a href="celebration.html"><i class="fas fa-building"></i> <span
+                                    data-i18n="footer_celebration">Celebration</span></a></li>
+                        <li><a href="index.html#projects"><i class="fas fa-building"></i> <span
+                                    data-i18n="footer_all_projects">All Projects</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Section 4: Contact -->
+                <div class="footer-section footer-contact">
+                    <h3 data-i18n="footer_contact_info_title">Contact Us</h3>
+                    <div class="contact-grid-inner">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="contact-text" data-i18n="footer_location">North Coast – Egypt</div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="contact-text"><a href="tel:201200666530">201200666530</a></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <div class="contact-text"><a href="https://www.robel-eg.com/" target="_blank"><span
+                                        data-i18n="contact_website">Visit our website</span></a></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-text"><a href="mailto:info@robel-eg.com">info@robel-eg.com</a></div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div class="contact-text"><a href="https://wa.me/201200666530" target="_blank"
+                                    data-i18n="footer_whatsapp">WhatsApp Inquiries</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.facebook.com/share/18St5cZFSC/" target="_blank" aria-label="Facebook"><i
+                        class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <!-- Website Designer Section (Now Bottom) -->
+        <div class="footer-designer-attribution">
+            <div class="designer-card">
+                <div class="designer-info">
+                    <h3 data-i18n="footer_designer_title">Website Designer</h3>
+                    <div class="designer-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-user"></i>
+                            <span data-i18n="footer_designer_name">George Gamal Helmy</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>George.gamal139@gmail.com</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-phone"></i>
+                            <span>01270605528</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="designer-actions-bottom">
+                    <a href="https://www.linkedin.com/in/georgegamal1/" class="designer-pill" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://georgegamal.netlify.app/" class="designer-pill" target="_blank">
+                        <i class="fas fa-globe"></i> Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="trust-tagline" data-i18n="footer_trust_tagline">Real Expertise – Extended Trust – Tangible
+                Results</div>
+            <div class="copyright" data-i18n="footer_copyright">© 2026 Robel Real Estate Investment - Robel Urban
+                Development. All rights reserved.</div>
+            <div class="footer-stats">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span data-i18n="footer_stat_clients">Trusted by 1500+ Clients</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-building"></i>
+                    <span data-i18n="footer_stat_units">800+ Units Delivered</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-handshake"></i>
+                    <span data-i18n="footer_stat_partners">Strategic Partner of Leading Developers</span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>
+
+
+    <!-- Auth Selection Modal -->
+    <div id="auth-modal" class="modal-overlay" style="z-index: 99999;">
+        <div class="auth-modal-card">
+            <button class="modal-close" id="close-auth">&times;</button>
+            <div id="auth-step-selection" style="display:block;">
+                <div class="auth-header">
+                    <img src="assets/images/ui/logo-main.png" alt="Robel Real Estate Investment" width="100" height="35"
+                        loading="lazy">
+                    <h2 data-i18n="auth_title" style="margin-top: 15px; margin-bottom: 15px; font-size: 2rem;">Welcome
+                        to <span>Robel</span></h2>
+                    <p data-i18n="login_subtitle">Log in or Sign up to access your exclusive portfolio.</p>
+                </div>
+                <div class="auth-stack-container">
+                    <div class="auth-email-flow">
+                        <input type="email" id="quick-email-input" class="form-input-modal" placeholder="Email Address">
+                        <button class="btn-login-submit" onclick="if(window.AuthSystem) AuthSystem.handleQuickEmail()"
+                            data-i18n="continue_btn">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Sidebar -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <aside id="main-sidebar" class="main-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-container">
+                <img src="assets/images/ui/logo-main.png" alt="Robel Real Estate" width="120" height="40"
+                    loading="lazy">
+            </div>
+            <button id="sidebar-close" class="sidebar-close-btn" onclick="window.toggleSidebar(false)">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="sidebar-links">
+                <li style="--i:1">
+                    <a href="index.html#home" class="sidebar-link" onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-home"></i>
+                        <span data-i18n="nav_home">Home</span>
+                    </a>
+                </li>
+                <li style="--i:2">
+                    <a href="index.html#contact" class="sidebar-link agent-highlight"
+                        onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-user-tie"></i>
+                        <span data-i18n="topbar_agent">Be an agent</span>
+                    </a>
+                </li>
+                <li style="--i:3">
+                    <div class="sidebar-dropdown-wrapper">
+                        <div class="sidebar-link has-dropdown" onclick="this.parentElement.classList.toggle('open')">
+                            <i class="fas fa-city"></i>
+                            <span data-i18n="nav_all_projects">Projects</span>
+                            <i class="fas fa-chevron-down ms-auto"></i>
+                        </div>
+                        <ul class="sidebar-dropdown-list">
+                            <li><a href="#"
+                                    onclick="openProject('Porto Golf Marina'); toggleSidebar(false); return false;">Porto
+                                    Golf Marina</a></li>
+                            <li><a href="#"
+                                    onclick="openProject('Porto Said'); toggleSidebar(false); return false;">Porto
+                                    Said</a></li>
+                            <li><a href="#"
+                                    onclick="openProject('Celebration'); toggleSidebar(false); return false;">Celebration</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li style="--i:4">
+                    <div class="sidebar-dropdown-wrapper">
+                        <div class="sidebar-link has-dropdown" onclick="this.parentElement.classList.toggle('open')">
+                            <i class="fas fa-building"></i>
+                            <span data-i18n="nav_projects">Buildings</span>
+                            <i class="fas fa-chevron-down ms-auto"></i>
+                        </div>
+                        <ul class="sidebar-dropdown-list">
+                            <li><a href="#" onclick="openProject('B133'); toggleSidebar(false); return false;">B133</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('B136'); toggleSidebar(false); return false;">B136</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('B243'); toggleSidebar(false); return false;">B243</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('B230'); toggleSidebar(false); return false;">B230</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('78'); toggleSidebar(false); return false;">78</a></li>
+                            <li><a href="#" onclick="openProject('224'); toggleSidebar(false); return false;">224</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('121'); toggleSidebar(false); return false;">121</a>
+                            </li>
+                            <li><a href="#" onclick="openProject('15'); toggleSidebar(false); return false;">15</a></li>
+                            <li><a href="#" onclick="openProject('16'); toggleSidebar(false); return false;">16</a></li>
+                            <li><a href="#" onclick="openProject('17'); toggleSidebar(false); return false;">17</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li style="--i:5">
+                    <a href="javascript:void(0)" class="sidebar-link admin-link admin-only-ui" id="open-admin-btn"
+                        style="display:none !important;">
+                        <i class="fas fa-user-shield"></i>
+                        <span>ADMIN</span>
+                    </a>
+                </li>
+                <li style="--i:6">
+                    <a href="index.html#strategy" class="sidebar-link" onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-i18n="nav_strategy">Strategy</span>
+                    </a>
+                </li>
+                <li style="--i:7">
+                    <a href="index.html#process" class="sidebar-link" onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-tasks"></i>
+                        <span data-i18n="proc_subtitle">Process</span>
+                    </a>
+                </li>
+                <li style="--i:8">
+                    <a href="index.html#contact" class="sidebar-link" onclick="window.toggleSidebar(false)">
+                        <i class="fas fa-envelope"></i>
+                        <span data-i18n="nav_contact">Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer-new">
+
+            <div class="sidebar-bottom-row">
+                <div class="sidebar-social-icons">
+                    <a href="https://wa.me/201200666530" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+                <div class="sidebar-actions-pair" style="justify-content: center; padding: 15px 0;">
+                    <button class="action-pill-btn lang-toggle-btn" id="sidebar-lang-btn"
+                        style="padding: 6px 20px; font-size: 0.8rem; border-radius: 50px; background: #f8fafc; border: 1px solid #e1e8f0; color: #0f172a; font-weight: 700; transition: all 0.3s ease;">
+                        AR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Libraries JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js" defer></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
+
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+        defer></script>
+
+    <!-- Core App Logic (Bundled) -->
+    <script src="scripts/core-bundle.js?v=20260228032718" defer></script>
+    <script src="api/query-api.js?v=20260228032718" defer></script>
+    <script src="api/admin-api.js?v=20260228032718" defer></script>
+
+    <!-- Project Logic -->
+    <script src="utils/image-loader-utils.js?v=20260228032718" defer></script>
+    <script src="pages/project-detail.js?v=20260228032718" defer></script>
+    <script src="services/project-hero-mapping.js?v=20260228032718" defer></script>
+    <script src="services/available-units.js?v=20260228032718" defer></script>
+
+</body>
+
+</html>

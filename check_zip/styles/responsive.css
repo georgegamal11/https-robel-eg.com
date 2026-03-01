@@ -1,0 +1,379 @@
+/* =========================================
+   10-RESPONSIVE DESIGN (Comprehensive Fix)
+   ========================================= */
+
+/* ===== MOBILE-FIRST GLOBAL STYLES (ADDED) ===== */
+html {
+    font-size: 16px;
+    /* Base mobile size */
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+@media (min-width: 1024px) {
+    html {
+        font-size: 18px;
+        /* Larger on desktop */
+    }
+}
+
+/* Touch-friendly targets */
+button,
+a,
+input,
+select,
+textarea {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Prevent text overflow */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Responsive Container Padding */
+.container {
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding-left: 32px;
+        padding-right: 32px;
+        max-width: 1280px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .section-title {
+        font-size: 2.22rem;
+    }
+
+    .hero-title-center {
+        font-size: 3.2rem;
+    }
+}
+
+
+@media (max-width: 991px) {
+    body {
+        padding-top: var(--total-header-mobile) !important;
+    }
+
+    .section {
+        padding: 80px 0;
+    }
+
+    .grid-2col,
+    .grid-3col {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    /* Hero Section Responsive Spacing */
+    .hero-section {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        min-height: auto !important;
+    }
+
+    /* Fix overlapping logo padding on tablet */
+    .top-bar {
+        display: none !important;
+    }
+
+    .top-bar-left {
+        padding-inline-start: 0;
+    }
+
+    /* Mobile Logo Fix */
+    .logo {
+        top: 0 !important;
+        height: 70px !important;
+        min-width: auto !important;
+        left: 20px !important;
+    }
+
+    .logo img {
+        height: 55px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --navbar-height: 70px;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    /* Section Headers Scaling */
+    .section-header {
+        margin-bottom: 40px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    #projects .section-subtitle {
+        font-size: 1.8rem;
+        /* Dramatically reduced for mobile visibility */
+        letter-spacing: 1px;
+    }
+
+    .hero-title-center {
+        font-size: 2rem;
+        letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle-center {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+    }
+
+    /* Trust Strip Mobile Fix */
+    .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .trust-item {
+        padding: 20px 10px;
+    }
+
+    .trust-item h3 {
+        font-size: 1.4rem;
+    }
+
+    /* Grid & Card Mobile Fixes */
+    .projects-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px;
+    }
+
+    /* Force visibility of reveals on mobile to prevent "empty sections" issues */
+    .reveal,
+    .section,
+    .trust-strip {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        visibility: visible !important;
+    }
+
+    /* Hide desktop nav */
+    .nav-links {
+        display: none !important;
+    }
+
+    .header-utils {
+        padding-inline-end: 5px;
+        gap: 8px;
+    }
+
+    /* Adjust Admin Table for mobile */
+    .admin-table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 12px 10px;
+        font-size: 0.85rem;
+    }
+
+    /* Ensure sidebar is full width on mobile */
+    .main-sidebar {
+        width: 280px !important;
+        left: -280px !important;
+        right: auto !important;
+    }
+
+    [dir="rtl"] .main-sidebar {
+        left: auto !important;
+        right: -280px !important;
+    }
+
+    .main-sidebar.active {
+        left: 0 !important;
+        right: auto !important;
+    }
+
+    [dir="rtl"] .main-sidebar.active {
+        left: auto !important;
+        right: 0 !important;
+    }
+
+    /* Top bar adjustments for mobile - Handled in header.css now */
+    /* .top-bar { display: none; } */
+
+    /* Ensure all sections are visible on mobile */
+    .section {
+        min-height: auto;
+    }
+
+    /* Fix header on mobile */
+    .main-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000 !important;
+    }
+
+    /* Fixed Sections Spacing */
+    .section {
+        padding: 50px 0;
+    }
+
+    /* Removed redundant hero padding - handled by global flow and sticky nav */
+}
+
+
+@media (max-width: 480px) {
+    .hero-title-center {
+        font-size: 1.6rem;
+    }
+
+    .trust-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter__status-group {
+        flex-direction: row;
+        height: auto;
+        flex-wrap: nowrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .filter__status-btn {
+        flex: 1;
+        height: 40px;
+        padding: 5px 2px;
+        font-size: 0.7rem;
+    }
+
+    .btn-gold,
+    .btn-outline {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Smaller sidebar on very small screens */
+    .main-sidebar {
+        width: 260px !important;
+        left: -260px !important;
+        right: auto !important;
+    }
+
+    .main-sidebar.active {
+        left: 0 !important;
+        right: auto !important;
+    }
+
+    /* Adjust sidebar content for small screens */
+    .sidebar-item {
+        padding: 10px 15px !important;
+        font-size: 0.95rem !important;
+    }
+
+    .sidebar-submenu li a {
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Back to Top */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: var(--gold-muted);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    border: none;
+}
+
+.back-to-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--navy-deep);
+    transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    .img-frame {
+        height: 300px;
+        margin-top: 20px;
+    }
+
+    .timeline-container {
+        overflow-x: visible;
+        margin-top: 30px;
+        padding-bottom: 0;
+    }
+
+    .timeline {
+        flex-direction: column;
+        gap: 30px;
+        min-width: 100% !important;
+        /* Force fit mobile screen */
+        align-items: center;
+        /* Center items */
+    }
+
+    .timeline-item {
+        width: 100% !important;
+        padding: 20px !important;
+        text-align: center;
+        /* Better for vertical mobile flow */
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .timeline-item::before {
+        display: none;
+    }
+}

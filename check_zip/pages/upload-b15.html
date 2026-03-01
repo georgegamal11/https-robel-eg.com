@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رفع وحدات B15 - Porto Said</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            color: #0f766e;
+            margin-bottom: 10px;
+            font-size: 36px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(15, 118, 110, 0.3);
+        }
+
+        .stat-card h3 {
+            font-size: 42px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: #f0fdfa;
+            border-right: 4px solid #0f766e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            color: #0f766e;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-right: 0;
+        }
+
+        .info-box li {
+            padding: 5px 0;
+            color: #555;
+        }
+
+        .info-box li::before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(15, 118, 110, 0.3);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.5);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-size: 16px;
+        }
+
+        .status.success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+            display: block;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+            display: block;
+        }
+
+        .status.loading {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            color: #856404;
+            display: block;
+        }
+
+        .progress-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 12px;
+            height: 30px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .details {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #555;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            🏢 رفع وحدات مبنى B15
+        </h1>
+        <p class="subtitle">Porto Said - Building 15 <span class="feature-badge">NEW FIELDS</span></p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>68</h3>
+                <p>إجمالي الوحدات</p>
+            </div>
+            <div class="stat-card">
+                <h3>B15</h3>
+                <p>رقم المبنى</p>
+            </div>
+            <div class="stat-card">
+                <h3>3</h3>
+                <p>أنواع المساحات</p>
+            </div>
+            <div class="stat-card">
+                <h3>Ground</h3>
+                <p>الطابق الأرضي</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 الحقول الجديدة المضافة</h3>
+            <ul>
+                <li><strong>Total Area</strong> (إجمالي المساحة) - المساحة الكلية</li>
+                <li><strong>Net Area</strong> (صافي المساحة) - المساحة الصافية</li>
+                <li><strong>Garden Area</strong> (مساحة الحديقة) - مساحة الحديقة الخاصة</li>
+                <li>جميع الوحدات بحالة "Available" (متاح)</li>
+                <li>الإطلالات: Champs Elysees, Sea View Club1</li>
+                <li>المشروع: Porto Said</li>
+            </ul>
+        </div>
+
+        <button class="btn" id="uploadBtn" onclick="uploadUnits()">
+            🚀 ابدأ رفع الوحدات (68 وحدة)
+        </button>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-label" id="progressLabel">جاري الرفع...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+        </div>
+
+        <div class="status" id="statusBox"></div>
+
+        <div class="details" id="details" style="display: none;"></div>
+    </div>
+
+    <script src="../api/query-api.js?v=20260228032718"></script>
+    <script src="../api/admin-api.js?v=20260228032718"></script>
+    <script>
+        // B15 Units Data with NEW FIELDS: net_area and garden_area
+        const units = [
+            { code: "15001", floor: "Ground floor", area: 153, net_area: 108, garden_area: 45, view: "champs elysees", price: 9423000 },
+            { code: "15004", floor: "Ground floor", area: 61, net_area: 50, garden_area: 11, view: "Sea view club1", price: 4363000 },
+            { code: "15006", floor: "Ground floor", area: 45, net_area: 40, garden_area: 5, view: "Sea view club1", price: 3362000 },
+            { code: "15008", floor: "Ground floor", area: 45, net_area: 40, garden_area: 5, view: "Sea view club1", price: 3362000 },
+            { code: "15009", floor: "Ground floor", area: 67, net_area: 50, garden_area: 17, view: "champs elysees", price: 4267000 },
+            { code: "15010", floor: "Ground floor", area: 62, net_area: 51, garden_area: 11, view: "Sea view club1", price: 4455000 },
+            { code: "15013", floor: "Ground floor", area: 49, net_area: 40, garden_area: 9, view: "champs elysees", price: 3272000 },
+            { code: "15014", floor: "Ground floor", area: 45, net_area: 40, garden_area: 5, view: "Sea view club1", price: 3362000 },
+            { code: "15015", floor: "Ground floor", area: 70, net_area: 51, garden_area: 19, view: "champs elysees", price: 4406000 },
+            { code: "15021", floor: "Ground floor", area: 49, net_area: 40, garden_area: 9, view: "champs elysees", price: 3272000 },
+            { code: "15022", floor: "Ground floor", area: 45, net_area: 40, garden_area: 5, view: "Sea view club1", price: 3362000 },
+            { code: "15024", floor: "Ground floor", area: 64, net_area: 51, garden_area: 13, view: "Sea view club1", price: 4505000 },
+            { code: "15026", floor: "Ground floor", area: 64, net_area: 51, garden_area: 13, view: "Sea view club1", price: 4505000 },
+            { code: "15027", floor: "Ground floor", area: 50, net_area: 40, garden_area: 10, view: "champs elysees", price: 3298000 },
+            { code: "15030", floor: "Ground floor", area: 45, net_area: 40, garden_area: 5, view: "Sea view club1", price: 3362000 },
+            { code: "15032", floor: "Ground floor", area: 62, net_area: 50, garden_area: 12, view: "Sea view club1", price: 4391000 },
+            { code: "15033", floor: "Ground floor", area: 47, net_area: 40, garden_area: 7, view: "champs elysees", price: 3221000 },
+            { code: "15035", floor: "Ground floor", area: 49, net_area: 40, garden_area: 9, view: "champs elysees", price: 3272000 },
+            { code: "15037", floor: "Ground floor", area: 67, net_area: 50, garden_area: 17, view: "champs elysees", price: 4269000 },
+            { code: "15043", floor: "Ground floor", area: 67, net_area: 50, garden_area: 17, view: "champs elysees", price: 4267000 },
+            { code: "15045", floor: "Ground floor", area: 67, net_area: 50, garden_area: 17, view: "champs elysees", price: 4267000 },
+            { code: "15046", floor: "Ground floor", area: 64, net_area: 51, garden_area: 13, view: "Sea view club1", price: 4510000 },
+            { code: "15048", floor: "Ground floor", area: 66, net_area: 51, garden_area: 15, view: "Sea view club1", price: 4561000 },
+            { code: "15050", floor: "Ground floor", area: 47, net_area: 40, garden_area: 7, view: "Sea view club1", price: 3416000 },
+            { code: "15052", floor: "Ground floor", area: 47, net_area: 40, garden_area: 7, view: "Sea view club1", price: 3416000 },
+            { code: "15055", floor: "Ground floor", area: 49, net_area: 40, garden_area: 9, view: "champs elysees", price: 3272000 },
+            { code: "15056", floor: "Ground floor", area: 116, net_area: 92, garden_area: 24, view: "Sea view club1", price: 8146000 },
+            { code: "15059", floor: "Ground floor", area: 67, net_area: 50, garden_area: 17, view: "champs elysees", price: 4269000 },
+            { code: "15061", floor: "Ground floor", area: 118, net_area: 92, garden_area: 26, view: "champs elysees", price: 7731000 },
+            { code: "15062", floor: "Ground floor", area: 47, net_area: 40, garden_area: 7, view: "Sea view club1", price: 3416000 },
+            { code: "15063", floor: "Ground floor", area: 115, net_area: 92, garden_area: 23, view: "champs elysees", price: 7654000 },
+            { code: "15064", floor: "Ground floor", area: 47, net_area: 40, garden_area: 7, view: "Sea view club1", price: 3416000 },
+            { code: "15067", floor: "Ground floor", area: 47, net_area: 40, garden_area: 7, view: "champs elysees", price: 3221000 },
+            { code: "15069", floor: "Ground floor", area: 47, net_area: 40, garden_area: 7, view: "champs elysees", price: 3221000 }
+        ];
+
+        async function uploadUnits() {
+            const btn = document.getElementById('uploadBtn');
+            const statusBox = document.getElementById('statusBox');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressLabel = document.getElementById('progressLabel');
+            const details = document.getElementById('details');
+
+            btn.disabled = true;
+            btn.innerHTML = 'جاري الرفع... <span class="spinner"></span>';
+
+            statusBox.className = 'status loading';
+            statusBox.innerHTML = '⏳ جاري رفع 34 وحدة من مبنى B15 مع الحقول الجديدة...';
+            progressContainer.style.display = 'block';
+            details.style.display = 'block';
+            details.innerHTML = '';
+
+            let uploaded = 0;
+            let failed = 0;
+            const total = units.length;
+            const failedUnits = [];
+
+            try {
+                for (let i = 0; i < units.length; i++) {
+                    const unit = units[i];
+
+                    try {
+                        await window.robelAdminAPI.createUnit({
+                            code: unit.code,
+                            buildingId: 'B15',
+                            projectId: 'porto-said',
+                            floor: unit.floor,
+                            area: unit.area,
+                            net_area: unit.net_area,
+                            garden_area: unit.garden_area,
+                            view: unit.view,
+                            price: unit.price,
+                            status: 'Available',
+                            purpose: 'Buy',
+                            paymentPlan: 'Installments',
+                            specifications: {
+                                bedrooms: unit.area < 51 ? 1 : (unit.area < 96 ? 1 : (unit.area < 121 ? 2 : 3)),
+                                bathrooms: unit.area < 96 ? 1 : 2,
+                                kitchen: true,
+                                living: true
+                            },
+                            images: []
+                        });
+
+                        uploaded++;
+                        const msg = `✅ ${uploaded}/${total} - تم رفع الوحدة ${unit.code} (Net: ${unit.net_area}م², Garden: ${unit.garden_area}م²)`;
+                        details.innerHTML += `<p>${msg}</p>`;
+                        details.scrollTop = details.scrollHeight;
+
+                    } catch (err) {
+                        failed++;
+                        failedUnits.push(unit.code);
+                        const msg = `❌ ${uploaded + failed}/${total} - فشل رفع الوحدة ${unit.code}`;
+                        details.innerHTML += `<p style="color: #dc3545;">${msg}</p>`;
+                        details.scrollTop = details.scrollHeight;
+                        console.error(`فشل رفع الوحدة ${unit.code}:`, err);
+                    }
+
+                    // Update progress
+                    const percent = Math.round(((uploaded + failed) / total) * 100);
+                    progressFill.style.width = percent + '%';
+                    progressFill.textContent = percent + '%';
+                    progressLabel.textContent = `تم معالجة ${uploaded + failed} من ${total} وحدة`;
+
+                    // Small delay every 5 units
+                    if ((i + 1) % 5 === 0) {
+                        await new Promise(resolve => setTimeout(resolve, 200));
+                    }
+                }
+
+                // Show final results
+                if (uploaded === total) {
+                    statusBox.className = 'status success';
+                    statusBox.innerHTML = `
+                        ✅ <strong>نجاح كامل!</strong><br>
+                        تم رفع جميع الوحدات بنجاح (${uploaded}/${total})<br>
+                        🎉 مبنى B15 جاهز الآن مع الحقول الجديدة!<br>
+                        <small>✨ تم إضافة: صافي المساحة ومساحة الحديقة</small>
+                    `;
+                    btn.innerHTML = '✅ اكتمل الرفع بنجاح';
+                } else if (uploaded > 0) {
+                    statusBox.className = 'status error';
+                    statusBox.innerHTML = `
+                        ⚠️ <strong>رفع جزئي</strong><br>
+                        تم رفع ${uploaded} من ${total} وحدة<br>
+                        فشل رفع ${failed} وحدة<br>
+                        الوحدات الفاشلة: ${failedUnits.join(', ')}
+                    `;
+                    btn.disabled = false;
+                    btn.innerHTML = 'إعادة المحاولة';
+                } else {
+                    statusBox.className = 'status error';
+                    statusBox.innerHTML = `
+                        ❌ <strong>فشل كامل</strong><br>
+                        لم يتم رفع أي وحدة<br>
+                        تحقق من الاتصال بالخادم
+                    `;
+                    btn.disabled = false;
+                    btn.innerHTML = 'إعادة المحاولة';
+                }
+
+            } catch (error) {
+                console.error('خطأ:', error);
+                statusBox.className = 'status error';
+                statusBox.innerHTML = `❌ حدث خطأ: ${error.message}`;
+                btn.disabled = false;
+                btn.innerHTML = 'إعادة المحاولة';
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+

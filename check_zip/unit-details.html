@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- ZERO CACHE CONFIGURATION -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Details | Robel Real Estate</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c9a23f', // Gold
+                        'primary-dark': '#b08d2b',
+                        secondary: '#64748b',
+                        'navy-deep': '#0f172a',
+                        'bg-soft': '#f8fafd',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Tajawal', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'zoom-in': 'zoomIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: 0, transform: 'translateY(20px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        },
+                        zoomIn: {
+                            '0%': { transform: 'scale(1.1)' },
+                            '100%': { transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/unit-details.css?v=20260228032718">
+    <link rel="stylesheet" href="styles/app.bundle.css?v=20260228032718">
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="utils/email-service.js?v=20260228032718"></script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans antialiased pb-20 lg:pb-0">
+    <!-- Language Toggle (Moved to Gallery Header) -->
+
+    <!-- Loader -->
+    <div id="loader"
+        class="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative flex items-center justify-center mb-4">
+            <div class="absolute w-24 h-24 border-2 border-gray-100 rounded-full"></div>
+            <div class="absolute w-24 h-24 border-t-2 border-primary rounded-full animate-spin"
+                style="animation-duration: 1.5s;"></div>
+        </div>
+        <div class="text-[10px] font-bold tracking-[0.3em] text-primary uppercase animate-pulse"
+            data-i18n="details_loading">Loading</div>
+    </div>
+
+    <!-- Sticky Navigation Bar (Fixed for Mobile) -->
+    <nav id="sticky-nav"
+        class="fixed top-0 left-0 right-0 bg-white z-[100] shadow-lg lg:bg-white/95 lg:backdrop-blur-md lg:shadow-sm transform lg:-translate-y-full lg:transition-transform duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button onclick="window.history.back()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i data-lucide="arrow-left" class="w-6 h-6 text-gray-600"></i>
+                </button>
+                <div>
+                    <h3 class="font-bold text-gray-900 leading-tight" id="nav-title">Loading...</h3>
+                    <p class="text-[10px] text-primary font-bold uppercase tracking-wider" id="nav-price">...</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="lang-btn-nav"
+                    class="lang-btn w-10 h-10 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center font-bold text-primary text-xs hover:bg-primary hover:text-white transition-all">
+                    AR
+                </button>
+                <button onclick="scrollToContact()"
+                    class="px-6 py-3 bg-primary text-white text-xs font-bold rounded-xl shadow-lg hover:shadow-primary/20 transition-all uppercase tracking-widest"
+                    data-i18n="details_contact_agent">Contact</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Page Content -->
+    <main class="max-w-[1600px] mx-auto lg:px-8 py-0 lg:py-6 pt-20 lg:pt-6">
+
+        <!-- Hybrid Gallery Section -->
+        <div class="relative w-full lg:rounded-[2.5rem] overflow-hidden bg-gray-100 lg:shadow-2xl">
+            <div class="flex flex-col lg:flex-row h-auto lg:h-[55vh]">
+
+                <!-- PC Info Sidebar (Blue) -->
+                <div
+                    class="hidden lg:flex w-72 bg-[#3498db] text-white flex-col p-10 relative z-20 shadow-2xl overflow-hidden shrink-0">
+                    <div class="absolute -top-12 -left-12 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+
+                    <div class="relative z-10 space-y-6">
+                        <!-- Branding/Title -->
+                        <div>
+                            <h2 class="text-4xl font-extrabold tracking-tighter mb-1" id="overlay-building">...</h2>
+                            <p class="text-blue-100 font-bold uppercase tracking-widest text-xs opacity-80"
+                                data-i18n="details_unit">Unit Details</p>
+                        </div>
+
+                        <!-- Main ID -->
+                        <div class="space-y-1">
+                            <p class="text-xl font-black" id="overlay-unit">...</p>
+                            <div class="flex items-center gap-2 px-3 py-1 bg-white/20 rounded-lg w-fit">
+                                <i data-lucide="maximize" class="w-4 h-4 text-blue-100"></i>
+                                <span class="text-lg font-bold" id="overlay-area">... m&sup2;</span>
+                            </div>
+                        </div>
+
+                        <!-- Floor/Silhouette -->
+                        <div class="pt-6 flex flex-col items-center opacity-40">
+                            <div class="w-full h-32 border-l border-b border-white/30 relative">
+                                <div class="absolute bottom-0 left-0 w-full h-[20%] bg-white/40 border-t border-white/60"
+                                    id="floor-indicator"></div>
+                            </div>
+                            <p class="mt-4 text-[10px] font-bold uppercase tracking-[0.3em]" id="overlay-floor">Floor
+                                ...</p>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Nav Hints -->
+                    <div class="mt-auto">
+                        <button onclick="window.history.back()"
+                            class="flex items-center gap-2 hover:translate-x-1 transition-transform">
+                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest">Return</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Gallery Area -->
+                <div class="flex-1 relative group bg-black overflow-hidden">
+                    <img loading="lazy" id="main-hero-image" src="" alt="Property"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 active:scale-100 cursor-zoom-in"
+                        onclick="openLightbox()">
+
+                    <!-- Overlays -->
+                    <div
+                        class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/40 to-transparent pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/40 to-transparent pointer-events-none">
+                    </div>
+
+                    <!-- PC Nav Arrows -->
+                    <div
+                        class="hidden lg:flex absolute inset-x-8 top-1/2 -translate-y-1/2 justify-between pointer-events-none">
+                        <button onclick="moveGallery(-1)"
+                            class="p-5 bg-white/10 hover:bg-white backdrop-blur-md rounded-full text-white hover:text-[#3498db] transition-all pointer-events-auto shadow-2xl border border-white/20 hover:scale-110 active:scale-95 group/btn">
+                            <i data-lucide="chevron-left"
+                                class="w-8 h-8 group-hover/btn:-translate-x-1 transition-transform"></i>
+                        </button>
+                        <button onclick="moveGallery(1)"
+                            class="p-5 bg-white/10 hover:bg-white backdrop-blur-md rounded-full text-white hover:text-[#3498db] transition-all pointer-events-auto shadow-2xl border border-white/20 hover:scale-110 active:scale-95 group/btn">
+                            <i data-lucide="chevron-right"
+                                class="w-8 h-8 group-hover/btn:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <div class="hidden lg:flex absolute inset-0 pointer-events-none p-4 flex-col justify-between">
+                        <div class="flex justify-between items-start pointer-events-auto">
+                            <button onclick="window.history.back()"
+                                class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg text-gray-700 active:scale-95 transition-transform">
+                                <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                            </button>
+                            <button id="lang-btn-mobile"
+                                class="lang-btn w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg font-bold text-primary text-xs active:scale-95 transition-transform pointer-events-auto">
+                                AR
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Image Counter Overlay -->
+                    <div class="lg:hidden absolute bottom-6 right-6 z-40 pointer-events-none">
+                        <div class="px-3 py-1 bg-black/50 backdrop-blur rounded-full text-[10px] text-white">
+                            <span id="mobile-img-idx">1</span> / <span id="mobile-img-total">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Pagination Dots (PC & Mobile) -->
+                    <div class="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-30 pointer-events-none"
+                        id="thumbnail-track">
+                        <!-- Dots Injected Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- PC Global Info Bar (Row below gallery) -->
+        <div class="hidden lg:grid max-w-7xl mx-auto px-8 grid-cols-12 gap-10 items-center mt-6 mb-10">
+            <div class="col-span-8 flex items-end justify-between border-b pb-4 border-gray-100">
+                <div class="space-y-1">
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-black uppercase tracking-widest rounded-md"
+                            id="pc-unit-status">Available</span>
+                        <span
+                            class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest rounded-md"
+                            id="pc-unit-purpose">For Sale</span>
+                    </div>
+                    <h1 class="text-3xl font-extrabold text-[#0f172a] tracking-tight" id="unit-title-pc">...</h1>
+                    <div class="flex items-center text-gray-400 text-sm font-medium">
+                        <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-primary"></i>
+                        <span id="unit-location-pc">...</span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-2"
+                        data-i18n="details_guide_price">Guide Price</p>
+                    <p class="text-3xl font-black text-primary" id="unit-price-pc">...</p>
+                </div>
+            </div>
+            <div class="col-span-4">
+                <!-- Spacing for sales card alignment -->
+            </div>
+        </div>
+
+        <!-- Main Content Detail Grid -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+
+                <!-- Left: Specifications & Content -->
+                <div class="lg:col-span-8 space-y-12">
+
+                    <!-- Mobile Header (Standalone for small screens) -->
+                    <div class="lg:hidden space-y-4 pb-8 border-b border-gray-100 px-1">
+                        <div class="flex items-center gap-2">
+                            <span
+                                class="px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-700"
+                                id="mobile-unit-status">Available</span>
+                            <span
+                                class="px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-primary/10 text-primary"
+                                id="mobile-unit-purpose">For Sale</span>
+                        </div>
+                        <h1 class="text-3xl font-extrabold text-navy-deep tracking-tight" id="unit-title-mobile">...
+                        </h1>
+                        <div class="flex items-center text-gray-400 text-sm">
+                            <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-primary"></i>
+                            <span id="unit-location-mobile">...</span>
+                        </div>
+                        <div class="pt-2">
+                            <p class="text-4xl font-extrabold text-primary" id="mobile-price">...</p>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1"
+                                data-i18n="details_guide_price">Guide Price</p>
+                        </div>
+                    </div>
+
+                    <!-- Hidden but needed IDs for renderUnit function compatibility -->
+                    <div class="hidden">
+                        <span id="unit-title"></span>
+                        <span id="unit-location"></span>
+                        <span id="page-main-title"></span>
+                        <span id="page-location-text"></span>
+                        <span id="unit-status-badge"></span>
+                        <span id="unit-purpose-badge"></span>
+                        <span id="unit-title-desktop"></span>
+                        <span id="unit-location-desktop"></span>
+                        <span id="unit-price"></span>
+                    </div>
+
+                    <!-- Details Sections -->
+                    <div class="space-y-10">
+                        <!-- Key Features -->
+                        <div id="key-features-grid">
+                            <!-- Injected -->
+                        </div>
+
+                        <!-- Description -->
+                        <div class="space-y-8">
+                            <h2 class="text-2xl font-bold text-navy-deep flex items-center gap-4">
+                                <span class="w-2 h-10 bg-[#3498db] rounded-full"></span>
+                                <span data-i18n="details_about">Property Narrative</span>
+                            </h2>
+                            <div class="prose prose-lg prose-blue max-w-none text-gray-600 leading-relaxed font-medium"
+                                id="unit-description">
+                                <p class="h-12 w-full bg-gray-50 animate-pulse rounded-lg"></p>
+                            </div>
+                        </div>
+
+                        <!-- Amenities -->
+                        <div class="space-y-10">
+                            <h2 class="text-2xl font-bold text-navy-deep flex items-center gap-4">
+                                <span class="w-2 h-10 bg-[#3498db] rounded-full"></span>
+                                <span data-i18n="details_features">Premium Features</span>
+                            </h2>
+                            <div class="grid grid-cols-2 sm:grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-12"
+                                id="amenities-list">
+                                <!-- Injected -->
+                            </div>
+                        </div>
+
+                        <!-- Master Plan -->
+                        <div id="master-plan-section" class="pt-16 border-t border-gray-100 hidden">
+                            <h2 class="text-2xl font-bold text-navy-deep flex items-center gap-4 mb-10">
+                                <span class="w-2 h-10 bg-[#c9a23f] rounded-full"></span>
+                                <span data-i18n="pd_master_plan">Master Plan</span>
+                            </h2>
+                            <div class="bg-gray-50 rounded-[2.5rem] p-4 sm:p-12 border border-primary/10 cursor-zoom-in group"
+                                onclick="openLightbox('masterplan')">
+                                <div class="relative overflow-hidden rounded-3xl bg-white shadow-2xl">
+                                    <img loading="lazy" id="master-plan-img" src="" alt="Master Plan"
+                                        class="w-full h-auto object-contain max-h-[600px] transition-transform duration-1000 group-hover:scale-105">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floor Plan -->
+                        <div id="floor-plan-section" class="pt-16 border-t border-gray-100">
+                            <div class="flex items-center justify-between mb-10">
+                                <h2 class="text-2xl font-bold text-navy-deep flex items-center gap-4">
+                                    <span class="w-2 h-10 bg-[#3498db] rounded-full"></span>
+                                    <span data-i18n="details_floor_plan">Architectural Plan</span>
+                                </h2>
+                                <button
+                                    class="text-xs font-black uppercase tracking-widest text-primary px-6 py-4 bg-primary/5 rounded-2xl hover:bg-primary/10 transition-all flex items-center gap-3">
+                                    <i data-lucide="download" class="w-5 h-5"></i> <span
+                                        data-i18n="details_download">Download Plan</span>
+                                </button>
+                            </div>
+                            <div class="bg-gray-50 rounded-[2.5rem] p-4 sm:p-12 border border-blue-50 cursor-zoom-in group"
+                                onclick="openLightbox('floorplan')">
+                                <div class="relative overflow-hidden rounded-3xl bg-white shadow-2xl">
+                                    <img loading="lazy" id="floor-plan-img" src="" alt="Floor Plan"
+                                        class="w-full h-auto object-contain max-h-[600px] transition-transform duration-1000 group-hover:scale-105">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Map -->
+                        <div class="pt-16 border-t border-gray-100 space-y-8">
+                            <h2 class="text-2xl font-bold text-navy-deep flex items-center gap-4">
+                                <span class="w-2 h-10 bg-[#3498db] rounded-full"></span>
+                                <span data-i18n="details_location">Map Location</span>
+                            </h2>
+                            <div class="flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-primary mt-1"></i>
+                                <div>
+                                    <p class="font-bold text-navy-deep" id="full-address">...</p>
+                                    <p class="text-sm text-gray-500">Property exact location on map</p>
+                                </div>
+                            </div>
+                            <div id="map"
+                                class="w-full h-[400px] rounded-3xl z-0 border border-gray-200 shadow-inner overflow-hidden">
+                            </div>
+                        </div>
+
+                        <!-- Contact Form Section -->
+                        <section class="contact-section" id="contact"
+                            style="border-top: 1px solid #eee; padding-top: 60px;">
+                            <div class="contact-grid" style="gap: 40px; grid-template-columns: 1fr 1fr;">
+                                <div class="contact-info" data-aos="fade-left">
+                                    <h2 class="text-3xl font-bold text-navy-deep flex items-center gap-4 mb-6">
+                                        <span class="w-2 h-10 bg-primary rounded-full"></span>
+                                        <span data-i18n="details_contact_title">Request Details</span>
+                                    </h2>
+                                    <p style="font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; color: #1a1a1a; font-weight: 500;"
+                                        data-i18n="details_contact_desc">
+                                        Interested in this property? Leave your details and our team will contact you
+                                        shortly.
+                                    </p>
+                                    <div style="margin-bottom: 30px;">
+                                        <div
+                                            style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                                            <i class="fas fa-phone" style="color: var(--primary-gold);"></i>
+                                            <a href="tel:201200666530" style="text-decoration:none; color:inherit;">
+                                                <span data-i18n="contact_phone_val">201200666530</span>
+                                            </a>
+                                        </div>
+                                        <div
+                                            style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                                            <i class="fas fa-globe" style="color: var(--primary-gold);"></i>
+                                            <a href="https://www.robel-eg.com/" target="_blank"
+                                                style="text-decoration:none; color:inherit;">
+                                                <span data-i18n="contact_website">Visit our website</span>
+                                            </a>
+                                        </div>
+                                        <div
+                                            style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                                            <i class="fas fa-map-marker-alt" style="color: var(--primary-gold);"></i>
+                                            <span data-i18n="contact_address_val">375 El Geish Rd, Kased Kareem Tower,
+                                                Gleem,
+                                                Alexandria</span>
+                                        </div>
+                                        <div
+                                            style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                                            <i class="fab fa-whatsapp" style="color: #25d366;"></i>
+                                            <a href="https://wa.me/201200666530" target="_blank"
+                                                style="text-decoration:none; color:inherit;">
+                                                <span data-i18n="whatsapp_send">Send a message via WhatsApp</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form class="contact-form" id="projectContactForm" data-aos="fade-right"
+                                    onsubmit="return false;">
+                                    <div class="form-group">
+                                        <label for="contactName" data-i18n="pd_form_name_label">Full Name</label>
+                                        <input type="text" id="contactName" name="Full_Name"
+                                            placeholder="Enter your name here" required
+                                            data-i18n-placeholder="pd_form_name_placeholder">
+                                        <input type="hidden" name="name" id="contactNameAlias">
+                                        <input type="hidden" name="email" value="George.gamal139@gmail.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contactPhone" data-i18n="pd_form_phone_label">Phone Number</label>
+                                        <input type="tel" id="contactPhone" name="Phone_Number"
+                                            placeholder="Mobile number" required
+                                            data-i18n-placeholder="pd_form_phone_placeholder">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="unitType" data-i18n="pd_preferred_unit_type">Preferred Project
+                                            Type</label>
+                                        <select id="unitType" name="Preferred_Project_Type">
+                                            <option value="Porto Golf" data-i18n="nav_porto_golf">Porto Golf Marina
+                                            </option>
+                                            <option value="Porto Said" data-i18n="nav_porto_said">Porto Said</option>
+                                            <option value="Celebration" data-i18n="Celebration">Celebration</option>
+                                            <option value="Agent" data-i18n="join_agent_btn">Be an Agent</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="additionalMessage" data-i18n="pd_additional_message">Additional
+                                            Message</label>
+                                        <textarea id="additionalMessage" name="Additional_Message" rows="4"
+                                            placeholder="How can we help you?"
+                                            data-i18n-placeholder="pd_form_msg_ph"></textarea>
+                                    </div>
+                                    <button type="submit" class="cta-button" style="width: 100%; border-radius: 8px;"
+                                        data-i18n="pd_form_submit">Send Message</button>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Right: Sticky Advisor Sidebar -->
+                <div class="lg:col-span-4 space-y-10">
+                    <div class="sticky top-28 space-y-10">
+                        <!-- Sales Card -->
+                        <div
+                            class="bg-white rounded-[2.5rem] border border-gray-100 shadow-2xl overflow-hidden hover:shadow-blue-500/5 transition-all">
+                            <div class="p-10 space-y-10 text-center">
+                                <div class="relative w-32 h-32 mx-auto">
+                                    <div
+                                        class="absolute inset-0 bg-[#3498db] rounded-full blur-2xl opacity-20 animate-pulse">
+                                    </div>
+                                    <img loading="lazy" src="assets/images/ui/logo-gold.png"
+                                        class="relative w-full h-full rounded-full border-4 border-white shadow-xl bg-white object-contain p-2">
+                                </div>
+                                <div class="space-y-2">
+                                    <h3 class="text-2xl font-black text-navy-deep">Sales Advisory</h3>
+                                    <p class="text-xs font-black text-[#3498db] uppercase tracking-[0.2em]">Robel Real
+                                        Estate Team</p>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <a href="tel:+201200666530"
+                                        class="flex flex-col items-center gap-3 p-5 bg-gray-50 rounded-3xl hover:bg-gray-100 transition-all border border-transparent hover:border-blue-100">
+                                        <i data-lucide="phone" class="w-6 h-6 text-[#3498db]"></i>
+                                        <span
+                                            class="text-[10px] font-black uppercase tracking-widest text-navy-deep">Call
+                                            Now</span>
+                                    </a>
+                                    <a href="https://wa.me/201200666530" target="_blank"
+                                        class="flex flex-col items-center gap-3 p-5 bg-green-50 rounded-3xl hover:bg-green-100 transition-all border border-transparent hover:border-green-200">
+                                        <i class="fab fa-whatsapp w-6 h-6 text-green-600"></i>
+                                        <span
+                                            class="text-[10px] font-black uppercase tracking-widest text-navy-deep">WhatsApp</span>
+                                    </a>
+                                </div>
+
+                                <button onclick="scrollToContact()"
+                                    class="w-full py-6 bg-navy-deep text-white font-black rounded-3xl shadow-2xl hover:bg-[#3498db] transition-all uppercase tracking-[0.2em] text-xs">
+                                    Request Private Viewing
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Payment Summary Card (Now visible on mobile) -->
+                        <div
+                            class="bg-navy-deep rounded-[2.5rem] p-6 lg:p-10 text-white space-y-8 shadow-2xl shadow-navy-deep/20 mb-10">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center">
+                                    <i data-lucide="calculator" class="w-6 h-6 text-white"></i>
+                                </div>
+                                <h4 class="text-xl font-black text-white">Plan Options</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <!-- Dynamically injected by unit-details.js -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Similar Units Section -->
+        <div class="mt-24 pt-12 border-t border-gray-100">
+            <h2 class="text-3xl font-bold text-navy-deep mb-10 flex items-center gap-4">
+                <span class="w-2 h-10 bg-primary rounded-full"></span>
+                <span data-i18n="details_similar">Similar Properties</span>
+            </h2>
+            <div class="flex gap-6 overflow-x-auto pb-12 hide-scrollbar snap-x" id="similar-units-container">
+                <!-- Data Injected -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Fixed Bottom Bar -->
+    <div
+        class="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 p-4 pb-8 z-40 shadow-2xl flex items-center gap-3">
+        <div class="flex-1">
+            <span class="block text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-0.5">Price</span>
+            <span class="block text-xl font-extrabold text-primary" id="mobile-price-bottom">...</span>
+        </div>
+        <a href="https://wa.me/201200666530" target="_blank"
+            class="p-4 bg-green-500 text-white rounded-2xl shadow-lg ring-4 ring-green-500/10">
+            <i class="fab fa-whatsapp w-6 h-6"></i>
+        </a>
+        <button onclick="scrollToContact()"
+            class="px-8 py-4 bg-navy-deep text-white font-bold rounded-2xl shadow-xl text-xs uppercase tracking-widest">
+            Inquire
+        </button>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox"
+        class="fixed inset-0 bg-black/98 z-[200] hidden flex flex-col justify-center opacity-0 transition-opacity duration-300"
+        onclick="if(event.target === this) closeLightbox()">
+
+        <!-- Enhanced Close Button -->
+        <button onclick="closeLightbox()"
+            class="absolute top-6 right-6 lg:top-10 lg:right-10 flex items-center gap-3 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-3xl border border-white/20 rounded-full text-white transition-all z-[210] group shadow-2xl">
+            <span
+                class="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 group-hover:opacity-100 transition-opacity"
+                data-i18n="details_close">Close</span>
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="flex-1 flex items-center justify-center p-6 relative overflow-hidden" style="cursor: grab;"
+            onmousedown="startDrag(event)">
+            <img loading="lazy" id="lightbox-img" src=""
+                class="max-h-[85vh] max-w-full object-contain shadow-2xl transition-transform duration-200 ease-out origin-center"
+                style="transform: scale(1);">
+        </div>
+        <div class="absolute bottom-12 left-0 right-0 flex flex-col items-center gap-6 z-50 pointer-events-none">
+            <div
+                class="flex items-center gap-6 pointer-events-auto bg-white/5 backdrop-blur-2xl px-8 py-3 rounded-full border border-white/10 shadow-3xl">
+                <button onclick="zoomImage(0.2)" class="text-white/70 hover:text-white transition-colors"><i
+                        data-lucide="zoom-in" class="w-6 h-6"></i></button>
+                <div class="w-px h-6 bg-white/10"></div>
+                <button onclick="resetZoom()" class="text-white/70 hover:text-white transition-colors"><i
+                        data-lucide="maximize" class="w-6 h-6"></i></button>
+                <div class="w-px h-6 bg-white/10"></div>
+                <button onclick="zoomImage(-0.2)" class="text-white/70 hover:text-white transition-colors"><i
+                        data-lucide="zoom-out" class="w-6 h-6"></i></button>
+            </div>
+            <div class="flex gap-16 pointer-events-auto">
+                <button onclick="moveLightbox(-1)"
+                    class="p-4 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-md border border-white/10 transition-all hover:scale-110"><i
+                        data-lucide="arrow-left" class="w-7 h-7"></i></button>
+                <button onclick="moveLightbox(1)"
+                    class="p-4 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-md border border-white/10 transition-all hover:scale-110"><i
+                        data-lucide="arrow-right" class="w-7 h-7"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="unit-toast"
+        class="fixed top-24 right-6 transform translate-x-12 opacity-0 bg-navy-deep text-white px-8 py-4 rounded-2xl shadow-2xl z-[150] transition-all duration-500 flex items-center gap-4">
+        <i data-lucide="check-circle" class="w-6 h-6 text-green-400"></i>
+        <span id="toast-msg" class="font-bold text-sm">Success</span>
+    </div>
+
+    <!-- SDKs -->
+
+    <!-- Config & Scripts (Bundled) -->
+    <script src="scripts/core-bundle.js?v=20260228032718" defer></script>
+    <script src="api/query-api.js?v=20260228032718" defer></script>
+    <script src="pages/unit-templates.js?v=20260228032718" defer></script>
+    <script src="pages/unit-details.js?v=20260228032718" defer></script>
+    <script>
+        // Initialize Lucide Icons after DOM load
+        window.addEventListener('load', () => {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>
+
