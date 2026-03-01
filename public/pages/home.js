@@ -823,6 +823,16 @@ window.openProject = function (pName, forceViewUnits = false) {
         targetUrl += `&building=${encodeURIComponent(pName)}`;
     }
 
+    // ?? PERSIST CURRENT FILTERS TO UNITS PAGE
+    if (typeof filters !== 'undefined') {
+        if (filters.areas && filters.areas.length > 0) {
+            targetUrl += `&area=${encodeURIComponent(filters.areas.join(','))}`;
+        }
+        if (filters.delivery && filters.delivery.length > 0) {
+            targetUrl += `&delivery=${encodeURIComponent(filters.delivery.join(','))}`;
+        }
+    }
+
     // ?? NEW: Persist Area Filter from Homepage
     const areaCheckboxes = document.querySelectorAll('#area-options-list input[type="checkbox"]:checked');
     if (areaCheckboxes.length > 0) {
@@ -6310,6 +6320,16 @@ function renderProjectCards(filters = {}) {
     container.innerHTML = '';
     let projectsToRender = projectNames;
     if (typeof getSortedBuildingsList === 'function') projectsToRender = getSortedBuildingsList(projectsToRender);
+    // ?? FIX: Ensure B133, B136, B230, B243 mapping issues in Porto Golf are resolved
+    const portoGolfBuildings = ['B133', 'B136', 'B230', 'B243', 'B121', 'B224', 'B78'];
+    portoGolfBuildings.forEach(bId => {
+        if (!projectMetadata[bId]) {
+             projectMetadata[bId] = { projectArea: "Porto Golf Marina", delivery: "12/2026", status: "buy", constStatus: "Under Construction" };
+        }
+        if (!projectNames.includes(bId)) {
+             projectNames.push(bId);
+        }
+    });
 
     // Category mode filtering removed for unified search
 
