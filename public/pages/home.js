@@ -6300,8 +6300,10 @@ function renderProjectCards(filters = {}) {
     inventory.forEach(u => {
         // Index by pre-normalized building ID and project ID/Name
         const keys = new Set();
-        if (u.buildingId) keys.add(u.buildingId);
-        if (u.projectId) keys.add(u.projectId);
+        if (u.buildingId) keys.add(normalizeId(u.buildingId));
+        if (u.building_id) keys.add(normalizeId(u.building_id));
+        if (u.projectId) keys.add(normalizeId(u.projectId));
+        if (u.project_id) keys.add(normalizeId(u.project_id));
         if (u.project) keys.add(normalizeId(u.project));
 
         keys.forEach(k => {
@@ -6324,12 +6326,15 @@ function renderProjectCards(filters = {}) {
     const portoGolfBuildings = ['B133', 'B136', 'B230', 'B243', 'B121', 'B224', 'B78'];
     portoGolfBuildings.forEach(bId => {
         if (!projectMetadata[bId]) {
-             projectMetadata[bId] = { projectArea: "Porto Golf Marina", delivery: "12/2026", status: "buy", constStatus: "Under Construction" };
+            projectMetadata[bId] = { projectArea: "Porto Golf Marina", delivery: "12/2026", status: "buy", constStatus: "Under Construction" };
         }
         if (!projectNames.includes(bId)) {
-             projectNames.push(bId);
+            projectNames.push(bId);
         }
     });
+
+    // Sort again after adding missing buildings
+    if (typeof getSortedBuildingsList === 'function') projectsToRender = getSortedBuildingsList(projectsToRender);
 
     // Category mode filtering removed for unified search
 
