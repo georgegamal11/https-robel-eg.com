@@ -457,7 +457,6 @@ img {
 
 /* Performance Optimization */
 #projects,
-#featured-portfolio,
 .booking-journey-section {
     content-visibility: auto;
     contain-intrinsic-size: 800px;
@@ -5655,6 +5654,9 @@ p {
     background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
     overflow: hidden;
     position: relative;
+    opacity: 1 !important;
+    visibility: visible !important;
+    content-visibility: visible !important;
 }
 
 /* Subtle background elements for premium feel */
@@ -9372,4 +9374,22 @@ select {
         position: absolute !important;
         top: 60px !important;
     }
+}
+/* Custom View Transitions for Dark Mode Animation */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+    z-index: 1;
+}
+::view-transition-new(root) {
+    z-index: 9999;
+}
+[data-theme='dark']::view-transition-old(root) {
+    z-index: 9999;
+}
+[data-theme='dark']::view-transition-new(root) {
+    z-index: 1;
 }

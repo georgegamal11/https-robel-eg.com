@@ -4,6 +4,9 @@
     background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
     overflow: hidden;
     position: relative;
+    opacity: 1 !important;
+    visibility: visible !important;
+    content-visibility: visible !important;
 }
 
 /* Subtle background elements for premium feel */

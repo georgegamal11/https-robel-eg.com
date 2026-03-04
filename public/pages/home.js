@@ -47,12 +47,20 @@ function isUnitInTarget(u, target) {
     if (!u || !target) return false;
     const targets = Array.isArray(target) ? target.map(t => normalizeId(t)) : [normalizeId(target)];
 
-    // We already normalize fields during transform/sync, so use buildingId directly for speed
-    const uB = u.buildingId || normalizeId(u.building_id || u.buildingCode || u.building || u.Building) || '';
-    const uP = (u.projectId || u.project || '').toString();
+    // Robust ID extraction
+    const uB = normalizeId(u.buildingId || u.building_id || u.buildingCode || u.building || u.Building || '');
+    const uP = normalizeId(u.projectId || u.project || u.project_id || '');
 
     return targets.some(t => {
-        return uB === t || uP.toLowerCase() === t.toLowerCase() || (uB && uB.replace(/^B/i, '') === t.replace(/^B/i, ''));
+        const normT = normalizeId(t);
+        // Direct Match
+        if (uB === normT || uP === normT) return true;
+        // Generic project match (e.g. if target is "porto-golf-marina")
+        const areaMapping = normalizeProjectArea(uB) === normalizeProjectArea(normT);
+        if (areaMapping) return true;
+        // Numeric match (133 vs B133)
+        if (uB && uB.replace(/^B/i, '') === normT.replace(/^B/i, '')) return true;
+        return false;
     });
 }
 
@@ -70,6 +78,7 @@ let editingUnitId = null;
 let currentViewMode = 'buildings'; // 'buildings' | 'units'
 let selectedProject = null;
 window.activeSearchProject = null; // New global for strict search filtering
+window.searchTriggeredByHero = false; // Flag for manual search application 
 
 // Expose these for AdminUI and global access
 window.projectMetadata = {
@@ -111,6 +120,33 @@ window.projectDetailPages = {
 };
 
 
+// 🚿 SYSTEM CACHE PURGE (v2026_03_04)
+(function purgeLegacyCaches() {
+    const PURGE_VERSION = "v20260304025152_deploy";
+    if (sessionStorage.getItem('robel_purge_v') === PURGE_VERSION) return;
+
+    console.log("🚿 [Maintenance] Version check: Updating systemic caches...");
+    // Clear all possible legacy keys from localStorage to ensure fresh data start
+    const keys = [
+        'robelInventory', 'robelProjectMetadata', 'robel_inventory_backup',
+        'robel_units_v1', 'cf_cache_units', 'cf_cache_buildings',
+        'cf_cache_v2_units', 'cf_cache_v2_buildings', 'robelAreaMetadata'
+    ];
+    keys.forEach(k => localStorage.removeItem(k));
+
+    // Pattern match removal for any cloudflare cache keys
+    for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && (k.startsWith('cf_') || k.includes('cache'))) {
+            localStorage.removeItem(k);
+            i--;
+        }
+    }
+
+    sessionStorage.setItem('robel_purge_v', PURGE_VERSION);
+    console.log("🚿 [Maintenance] Purge complete. System will reload fresh data.");
+})();
+
 // 🧹 ONE-TIME CLEANUP: Delete old B-SHOPS duplicate from Cloudflare
 (function cleanupOldBShops() {
     const alreadyCleaned = localStorage.getItem('bshops_removed_v1');
@@ -122,11 +158,8 @@ window.projectDetailPages = {
                 method: 'DELETE',
                 headers: { 'Authorization': window.AUTH_KEY || 'G792001' }
             });
-            console.log('🧹 B-SHOPS cleanup result:', res.status);
             localStorage.setItem('bshops_removed_v1', '1');
-        } catch (e) {
-            console.warn('B-SHOPS cleanup skipped:', e.message);
-        }
+        } catch (e) { }
     }, 5000);
 })();
 
@@ -620,29 +653,34 @@ async function refreshGlobalCache() {
             safeLocalStorageSet('robelProjectMetadata', stripLargeAssets(window.projectMetadata));
         }
 
-        // 2. Get All Units (Heavier) - Uses fetchFromCloudflare internally
-        // We use a high-level search or projects to get units
-        const units = [];
-        for (const p of projects) {
-            const pUnits = await window.firebaseQueries.getUnitsByProject(p.id);
-            if (pUnits) units.push(...pUnits);
-        }
+        // 2. Get All Units (Robust Single Fetch)
+        // We fetch ALL units in one go to prevent partial data if project links are weak
+        console.log("?? [Background Sync] Fetching full inventory...");
+        const units = await window.firebaseQueries.getAllUnits(true);
 
-        if (units.length > 0) {
-            // Deduplicate units locally (B121 vs 121)
+        if (units && Array.isArray(units)) {
+            console.log(`?? [Background Sync] Received ${units.length} units.`);
+
+            // Deduplicate units locally (B133 vs 133)
             const uniqueMap = {};
             units.forEach(u => {
-                const normId = normalizeId(u.id || u.unit_id);
-                if (!uniqueMap[normId] || u.id.startsWith('B')) {
-                    uniqueMap[normId] = u;
+                const normId = normalizeId(u.id || u.unit_id || u.code);
+                if (normId) {
+                    // Priority to 'B' prefixed IDs if both exist
+                    if (!uniqueMap[normId] || (u.id && u.id.startsWith('B'))) {
+                        uniqueMap[normId] = u;
+                    }
                 }
             });
             const cleanUnits = Object.values(uniqueMap);
 
             await saveToIDB('robel_inventory_backup', cleanUnits);
             window.inventory.splice(0, window.inventory.length, ...cleanUnits);
+            inventory = window.inventory; // Sync local variable
 
-            console.log(`??[Background Sync] Updated Cache with ${cleanUnits.length} unique units via Cloudflare.`);
+            if (window.updateGlobalUnitStats) window.updateGlobalUnitStats();
+            console.log("? [Background Sync] Sync Complete. Inventory Updated.");
+            console.log(`?? [Background Sync] Updated Cache with ${cleanUnits.length} unique units via Cloudflare.`);
 
             // Refresh UI if it was empty
             if (document.getElementById('dynamic-total-units') && document.getElementById('dynamic-total-units').innerText.includes('0')) {
@@ -1901,19 +1939,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminDashboardOpener = adminOpenBtn || adminHeaderBtn;
     if (adminDashboardOpener) {
         adminDashboardOpener.addEventListener('click', async (e) => {
-            e.preventDefault();
-            console.log("Admin button clicked...");
-
-            // Lazy load admin resources
-            try {
-                await loadAdminResources();
-                if (adminDashboard) {
-                    adminDashboard.classList.add('active');
-                    console.log("Admin Dashboard opened.");
-                    if (typeof renderAdminProjectList === 'function') renderAdminProjectList();
-                }
-            } catch (err) {
-                console.error("Error opening admin dashboard:", err);
+            if (!window.location.pathname.includes('admin.html')) {
+                e.preventDefault();
+                window.location.href = 'admin.html';
             }
         });
     }
@@ -1924,7 +1952,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', () => adminDashboardOpener.click());
         }
     });
-
 
     if (adminCloseBtn) {
         adminCloseBtn.addEventListener('click', () => {
@@ -5199,7 +5226,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let projInv = inventory;
         if (currentStatus !== 'all') {
             projInv = projInv.filter(u => {
-                const isReady = (u.project.includes('121') || u.project === '224');
+                const meta = projectMetadata[u.buildingId || normalizeId(u.building_id || u.buildingCode)];
+                const isReady = meta ? (meta.constStatus || '').toLowerCase() === 'ready' : (u.project && (u.project.includes('121') || u.project === '224'));
                 return currentStatus === 'ready' ? isReady : !isReady;
             });
         }
@@ -5320,16 +5348,38 @@ document.addEventListener('DOMContentLoaded', () => {
             return true;
         });
 
+        // 🚀 SMART RESCUE: Ensure all buildings of the active project are ALWAYS in the list
+        // and only excluded if they belong to a DIFFERENT project.
+        if (effectiveActiveProject) {
+            const allBuildingsOfActiveProject = projectNames.filter(p => {
+                const meta = projectMetadata[p];
+                return meta && normalizeProjectArea(meta.projectArea) === normalizeProjectArea(effectiveActiveProject) && meta.category !== 'projects';
+            });
+
+            // Merge: Original matching buildings + all buildings of current project
+            // We use a Set to avoid duplicates
+            buildingsMatchingFilters = [...new Set([...buildingsMatchingFilters, ...allBuildingsOfActiveProject])];
+        }
+
         // 1. Update Projects Dropdown
         const projectList = document.getElementById('project-options-list');
         const projectDropdown = document.getElementById('project-multi-dropdown');
         if (projectList && (!projectDropdown || projectDropdown.style.display !== 'block')) {
-            // Sort projects: Active units first, then original order
+            // Sort projects: Active project buildings first, then active units, then original order
             const sortedProjectNames = [...projectNames].sort((a, b) => {
+                const metaA = projectMetadata[a];
+                const metaB = projectMetadata[b];
+                const isAInActive = metaA && effectiveActiveProject && normalizeProjectArea(metaA.projectArea) === normalizeProjectArea(effectiveActiveProject);
+                const isBInActive = metaB && effectiveActiveProject && normalizeProjectArea(metaB.projectArea) === normalizeProjectArea(effectiveActiveProject);
+
+                if (isAInActive && !isBInActive) return -1;
+                if (!isAInActive && isBInActive) return 1;
+
                 const hasUnitsA = inventory.some(u => isUnitInTarget(u, a));
                 const hasUnitsB = inventory.some(u => isUnitInTarget(u, b));
                 if (hasUnitsA && !hasUnitsB) return -1;
                 if (!hasUnitsA && hasUnitsB) return 1;
+
                 return projectNames.indexOf(a) - projectNames.indexOf(b);
             });
 
@@ -5339,20 +5389,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 const bId = p.toString().toLowerCase();
                 const cleanId = bId.replace(/^b/i, '');
 
-                let hasUnits = inventory.some(u => {
-                    const searchFields = [u.project, u.projectName, u.projectId, u.buildingId, u.building_id, u.building];
-                    const isMatch = searchFields.some(f => f && (f.toString().toLowerCase() === bId || f.toString().toLowerCase() === cleanId));
-                    if (!isMatch) return false;
+                const hasUnits = inventory.some(u => {
+                    if (!isUnitInTarget(u, p)) return false;
+
                     if (currentRentBuy) {
                         const rawI = (u.intent || 'buy').toLowerCase();
                         const i = (rawI === 'sale' || rawI === 'primary' || rawI === 'resale') ? 'buy' : rawI;
-                        const filter = (currentRentBuy.toLowerCase() === 'sale' || currentRentBuy.toLowerCase() === 'primary') ? 'buy' : currentRentBuy.toLowerCase();
-                        if (i !== filter) return false;
+                        const filterVal = (currentRentBuy.toLowerCase() === 'sale' || currentRentBuy.toLowerCase() === 'primary') ? 'buy' : currentRentBuy.toLowerCase();
+                        if (i !== filterVal) return false;
                     }
                     if (currentStatus !== 'all') {
-                        const isReady = (u.project && (u.project.includes('121') || u.project === '224')) || (u.status && u.status.toLowerCase() === 'ready');
+                        const meta = projectMetadata[p];
+                        const isReady = meta ? (meta.constStatus || '').toLowerCase() === 'ready' : (u.project && (u.project.includes('121') || u.project === '224')) || (u.status && u.status.toLowerCase() === 'ready');
                         if (currentStatus === 'ready' && !isReady) return false;
                         if (currentStatus === 'u-const' && isReady) return false;
+                    }
+                    if (selectedAreas.length > 0) {
+                        if (!matchesAreaRange(u.area, selectedAreas)) return false;
+                    }
+                    if (selectedDelivery.length > 0) {
+                        const meta = projectMetadata[p];
+                        if (meta && !selectedDelivery.includes(meta.delivery)) return false;
                     }
                     return true;
                 });
@@ -5501,9 +5558,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Project Select Button Logic (Centralized) ---
     document.querySelectorAll('.project-select-btn').forEach(btn => {
         btn.onclick = () => {
-            const proj = btn.getAttribute('data-project') || btn.innerText.trim();
+            const proj = btn.getAttribute('data-project');
             window.activeSearchProject = normalizeProjectArea(proj);
-            console.log('?? Project Selection Changed:', window.activeSearchProject);
+            window.searchTriggeredByHero = false; // Reset search flag on new selection
+            console.log('?? Project Selection Changed (Draft):', window.activeSearchProject);
 
             // Toggle active class
             document.querySelectorAll('.project-select-btn').forEach(b => b.classList.remove('active'));
@@ -5540,6 +5598,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         console.log('--- Search Triggered ---');
+        window.searchTriggeredByHero = true; // Enable filtering for this render
+
 
         // 1. Get Values from Multi-selects
         const projVals = (typeof getSelectedProjects === 'function') ? getSelectedProjects() : [];
@@ -5624,6 +5684,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Reset Active Project
             window.activeSearchProject = null;
+            window.searchTriggeredByHero = false; // Reset search flag on clear filters
             document.querySelectorAll('.project-select-btn').forEach(b => b.classList.remove('active'));
             const secRow = document.getElementById('secondary-filters-row');
             if (secRow) secRow.style.display = 'none';
@@ -5860,6 +5921,7 @@ window.setupProjectSelectionLogic = function () {
 
             // 2. Set State
             window.activeSearchProject = normalizeProjectArea(pName);
+            window.searchTriggeredByHero = false; // Hero buttons wait for Search
             console.log(`? Set window.activeSearchProject to: "${window.activeSearchProject}" (from button: "${pName}")`);
 
             // 3. Show Secondary Filters
@@ -5882,6 +5944,9 @@ window.setupProjectSelectionLogic = function () {
 
             // B. Reset Toggle Status Buttons (Rent/Buy, Ready/U-Const/All)
             // Reset to Defaults: Buy + All
+            const buyBtn = document.querySelector('.filter__toggle-btn[data-val="buy"]');
+            if (buyBtn && !buyBtn.classList.contains('active')) buyBtn.click();
+
             const statusAllBtn = document.querySelector('.filter__status-btn[data-val="all"]');
             if (statusAllBtn) statusAllBtn.click(); // This will trigger its logic
 
@@ -6042,11 +6107,15 @@ function renderFeaturedProjects() {
         card.className = 'portfolio-card';
         card.onclick = () => {
             const normalized = normalizeProjectArea(areaName);
+            // Celebration is disabled - show Coming Soon popup
+            if (normalized === 'Celebration') {
+                showCelebrationComingSoon();
+                return;
+            }
             if (window.projectDetailPages && window.projectDetailPages[normalized]) {
                 const slug = getProjectSlug(normalized);
                 window.location.href = `${window.projectDetailPages[normalized]}?project=${slug}`;
             } else if (representativeBuilding) {
-                // False flag allows redirection to Landing Page (Compound Guide) if available
                 openProject(representativeBuilding, false);
             }
         };
@@ -6135,9 +6204,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Toggle Logic
             if (activeAreaFilter === area) {
                 activeAreaFilter = null; // Deselect if already active
+                window.activeSearchProject = null;
                 btn.classList.remove('active');
             } else {
                 activeAreaFilter = area;
+                window.activeSearchProject = normalizeProjectArea(area);
+                window.searchTriggeredByHero = true; // Tabs take immediate effect
                 // Update UI classes
                 areaBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -6148,7 +6220,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
 
 
 // Helper to update Section Header (Project / Area Name)
@@ -6298,13 +6369,28 @@ function renderProjectCards(filters = {}) {
     // 🚀 PERFORMANCE OPTIMIZATION: High-speed project lookup cache
     const projectInventoryMap = new Map();
     inventory.forEach(u => {
-        // Index by pre-normalized building ID and project ID/Name
         const keys = new Set();
-        if (u.buildingId) keys.add(normalizeId(u.buildingId));
-        if (u.building_id) keys.add(normalizeId(u.building_id));
-        if (u.projectId) keys.add(normalizeId(u.projectId));
-        if (u.project_id) keys.add(normalizeId(u.project_id));
-        if (u.project) keys.add(normalizeId(u.project));
+
+        // Extract raw fields
+        const rawBuilding = u.buildingId || u.building_id || u.buildingCode || u.building || u.Building;
+        const rawProject = u.projectId || u.project || u.project_id;
+
+        if (rawBuilding) {
+            const b = normalizeId(rawBuilding);
+            if (b) {
+                keys.add(b);
+                keys.add(b.replace(/^B/i, ''));
+            }
+        }
+        if (rawProject) {
+            const p = normalizeId(rawProject);
+            if (p) {
+                keys.add(p);
+                // Also add friendly name if it's a known project ID
+                const area = normalizeProjectArea(p);
+                if (area) keys.add(normalizeId(area));
+            }
+        }
 
         keys.forEach(k => {
             if (!k) return;
@@ -6314,8 +6400,13 @@ function renderProjectCards(filters = {}) {
     });
 
     const getUnitsInProjectFast = (pName) => {
+        if (!pName) return [];
         const norm = normalizeId(pName);
-        return projectInventoryMap.get(norm) || [];
+        const numeric = norm.replace(/^B/i, '');
+
+        const units = projectInventoryMap.get(norm) || projectInventoryMap.get(numeric) || projectInventoryMap.get(pName) || [];
+        // Optional: Deduplicate if same units added to multiple keys
+        return [...new Set(units)];
     };
 
     const t = translations[currentLang];
@@ -6344,10 +6435,14 @@ function renderProjectCards(filters = {}) {
     projectsToRender = projectsToRender.filter(p => !excludedProjects.includes(p.toLowerCase()));
 
     // 1. Strict Active Project Filter (Global State)
-    if (window.activeSearchProject) {
+    // ONLY APPLY if Search was explicitly triggered (via Tabs or Search Button)
+    if (window.activeSearchProject && window.searchTriggeredByHero) {
+        const targetArea = normalizeProjectArea(window.activeSearchProject).toLowerCase();
         projectsToRender = projectsToRender.filter(p => {
             const meta = projectMetadata[p];
-            return meta && normalizeProjectArea(meta.projectArea) === window.activeSearchProject;
+            if (!meta) return false;
+            const metaArea = normalizeProjectArea(meta.projectArea).toLowerCase();
+            return metaArea === targetArea;
         });
     }
 
@@ -6363,7 +6458,7 @@ function renderProjectCards(filters = {}) {
     if (filters.rentBuy) {
         projectsToRender = projectsToRender.filter(pName => {
             // ?? BYPASS: Always show if explicitly selected via tab OR dropdown
-            if (activeSearchProject && normalizeId(pName) === normalizeId(activeSearchProject)) return true;
+            if (window.activeSearchProject && normalizeId(pName) === normalizeId(window.activeSearchProject)) return true;
             if (filters.projects && filters.projects.includes(pName)) return true;
 
             const filter = filters.rentBuy.toLowerCase();
@@ -6373,7 +6468,7 @@ function renderProjectCards(filters = {}) {
             const projectUnits = getUnitsInProjectFast(pName);
             if (projectUnits.length > 0) {
                 return projectUnits.some(u => {
-                    const i = (u.intent || 'buy').toLowerCase();
+                    const i = (u.intent || 'buy').toLowerCase().trim();
                     const uIntent = (i === 'sale' || i === 'primary' || i === 'resale') ? 'buy' : i;
                     return uIntent === normalizedFilter;
                 });
@@ -6382,7 +6477,7 @@ function renderProjectCards(filters = {}) {
             // 2. Fallback to Metadata (if units empty)
             const meta = projectMetadata[pName];
             if (meta && meta.status) {
-                const mStatus = meta.status.toLowerCase();
+                const mStatus = meta.status.toLowerCase().trim();
                 const metaIntent = (mStatus === 'sale' || mStatus === 'primary') ? 'buy' : mStatus;
                 return metaIntent === normalizedFilter;
             }
@@ -6402,11 +6497,11 @@ function renderProjectCards(filters = {}) {
     // Rule: Status logic (Dynamic from Firebase Metadata)
     if (filters.status && filters.status !== 'all') {
         projectsToRender = projectsToRender.filter(p => {
-            if (activeSearchProject && normalizeId(p) === normalizeId(activeSearchProject)) return true;
+            if (window.activeSearchProject && normalizeId(p) === normalizeId(window.activeSearchProject)) return true;
             if (filters.projects && filters.projects.includes(p)) return true;
             const meta = projectMetadata[p];
             // Fallback to legacy logic if metadata not yet loaded
-            const isReady = meta ? (meta.constStatus || '').toLowerCase() === 'ready' : (p.includes('121') || p === '224');
+            const isReady = meta ? (meta.constStatus || '').toLowerCase().trim() === 'ready' : (p.includes('121') || p === '224');
 
             if (filters.status === 'ready') return isReady;
             if (filters.status === 'u-const') return !isReady;
@@ -6417,7 +6512,7 @@ function renderProjectCards(filters = {}) {
     // Rule: Delivery Filtering
     if (filters.delivery && filters.delivery.length > 0) {
         projectsToRender = projectsToRender.filter(p => {
-            if (activeSearchProject && normalizeId(p) === normalizeId(activeSearchProject)) return true;
+            if (window.activeSearchProject && normalizeId(p) === normalizeId(window.activeSearchProject)) return true;
             if (filters.projects && filters.projects.includes(p)) return true;
             const meta = projectMetadata[p];
             return meta && filters.delivery.includes(meta.delivery);
@@ -6447,9 +6542,7 @@ function renderProjectCards(filters = {}) {
     if (filters.areas && filters.areas.length > 0) {
         projectsToRender = projectsToRender.filter(pName => {
             // ?? BYPASS: If this is the explicitly selected building, ALWAYS show it
-            // This allows users to click "View Units" and see filtered results on the next page
-            // even if the homepage check fails (e.g. data sync issues or strict filtering)
-            if (activeSearchProject && normalizeId(pName) === normalizeId(activeSearchProject)) return true;
+            if (window.activeSearchProject && normalizeId(pName) === normalizeId(window.activeSearchProject)) return true;
             if (filters.projects && filters.projects.includes(pName)) {
                 return true;
             }
@@ -6544,9 +6637,16 @@ function renderProjectCards(filters = {}) {
         card.setAttribute('data-delay', (index % 4) * 100);
 
         let count = getUnitsInProjectFast(pName).filter(u => {
-            // ONLY count 'Available' units for public display if status exists
-            if (u.status && u.status.toLowerCase() !== 'available') return false;
-            return true;
+            // ONLY count 'Available' units for public display
+            const rawStatus = (u.status || 'Available').toString().toLowerCase().trim();
+            const availableKeywords = ['available', 'متاح', 'موجود', 'ready', 'جاهز', 'yes', '1', 'true', 'active', 'ok'];
+            const isAvailable = availableKeywords.some(key => rawStatus.includes(key));
+
+            // Also ensure it has a price or area
+            const hasPrice = parseFloat(u.price) > 0;
+            const hasArea = parseFloat(u.area) > 0;
+
+            return isAvailable && (hasPrice || hasArea);
         }).length;
 
         // Fallback to Metadata adminCount if inventory match failed but meta has a count (e.g. from Firestore Buildings doc)
@@ -6895,7 +6995,7 @@ function renderProjectUnits(projectName) {
                     border: none;
                     width: 48px; height: 48px; 
                     border-radius: 14px; 
-                    display: flex; align-items: center; justify-content: center;
+                    display: flex; align-items: center; justify: center;
                     cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                     box-shadow: 0 4px 15px rgba(15, 23, 42, 0.25);">
                     <i class="fas fa-arrow-${currentLang === 'ar' ? 'right' : 'left'}" style="font-size: 1.2rem;"></i>
@@ -7444,9 +7544,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (projectBtns.length > 0) {
         projectBtns.forEach(btn => {
+            const projectToSelect = btn.getAttribute('data-project'); // Corrected this line
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const projectToSelect = btn.getAttribute('data-project');
+                // The original instruction had a malformed line here. Assuming it meant to set projectToSelect.
+                // const projectToSelect = btn.getAttribute('data-project'); // This line was already defined outside the event listener.
 
                 // 1. UI: Toggle Active State
                 projectBtns.forEach(b => b.classList.remove('active'));
@@ -7693,13 +7795,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Global execution logic
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        if (typeof window.loadData === 'function') window.loadData();
-        if (typeof window.initUnitImageUpload === 'function') window.initUnitImageUpload();
-    });
-} else {
-    if (typeof window.loadData === 'function') window.loadData();
+const initApp = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceRefresh = urlParams.get('nocache') === 'true' || urlParams.get('refresh') === 'true';
+
+    if (typeof window.loadData === 'function') window.loadData(forceRefresh);
     if (typeof window.initUnitImageUpload === 'function') window.initUnitImageUpload();
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
 }
 

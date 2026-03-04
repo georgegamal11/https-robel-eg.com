@@ -258,19 +258,6 @@
 }
 
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
 @media (max-width: 1024px) {
     .hero-title-center {
         font-size: 2.8rem;

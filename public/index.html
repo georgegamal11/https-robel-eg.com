@@ -157,8 +157,8 @@
     <meta name="twitter:image" content="https://robel-eg.com/assets/images/face-main/home-hero.webp">
 
     <!-- Optimized CSS Loading -->
-    <link rel="stylesheet" href="styles/app.bundle.css?v=20260228032718">
-    <link rel="stylesheet" href="styles/filters.css?v=20260228032718">
+    <link rel="stylesheet" href="styles/app.bundle.css?v=20260304025152">
+    <link rel="stylesheet" href="styles/filters.css?v=20260304025152">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         media="print" onload="this.media='all'">
     <noscript>
@@ -1172,7 +1172,7 @@
         </div>
     </section>
 
-    <section id="featured-portfolio" class="featured-portfolio reveal">
+    <section id="featured-portfolio" class="featured-portfolio">
         <div class="container">
             <div class="portfolio-header">
                 <div class="section-header" style="margin-bottom: 0;">
@@ -1200,7 +1200,7 @@
         <div class="container">
             <!-- Header -->
             <div class="about-header" data-aos="fade-up">
-                <span class="about-tag" data-i18n="about_robel_tag">???? ???</span>
+                <span class="about-tag" data-i18n="about_robel_tag">About Us</span>
                 <h2 class="about-title" data-i18n="about_robel_title">Scale. Credibility. Proven Delivery.</h2>
                 <div style="width: 80px; height: 4px; background: var(--primary-gold); margin: 25px auto;"></div>
             </div>
@@ -1231,30 +1231,28 @@
                         <i class="fas fa-building"
                             style="font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 20px;"></i>
                         <h4 style="color: var(--navy-deep); font-weight: 800; margin-bottom: 12px; font-size: 1.2rem;"
-                            data-i18n="porto_golf_title">????? ???? ??????</h4>
+                            data-i18n="porto_golf_title">Porto Golf Marina</h4>
                         <p style="font-weight: 500; font-size: 0.95rem; line-height: 1.7; color: #64748b;"
-                            data-i18n="porto_golf_buildings_list">???????: 51? 52? 78? 121? 133? 136? 223?
-                            224? 225?
-                            226? 230? 243</p>
+                            data-i18n="porto_golf_buildings_list">Buildings: 51, 52, 78, 121, 133, 136, 223, 224, 225,
+                            226, 230, 243</p>
                     </a>
                     <a href="porto-said.html" class="achieve-card"
                         style="text-align: right; padding: 30px; border-radius: 20px;">
                         <i class="fas fa-city"
                             style="font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 20px;"></i>
                         <h4 style="color: var(--navy-deep); font-weight: 800; margin-bottom: 12px; font-size: 1.2rem;"
-                            data-i18n="porto_said_title">????? ????</h4>
+                            data-i18n="porto_said_title">Porto Said</h4>
                         <p style="font-weight: 500; font-size: 0.95rem; line-height: 1.7; color: #64748b;"
-                            data-i18n="porto_said_buildings_list">???????: 9? 10? 15? 16? 33</p>
+                            data-i18n="porto_said_buildings_list">Buildings: 9, 10, 15, 16, 33</p>
                     </a>
                     <a href="celebration.html" class="achieve-card"
                         style="text-align: right; padding: 30px; border-radius: 20px;">
                         <i class="fas fa-umbrella-beach"
                             style="font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 20px;"></i>
                         <h4 style="color: var(--navy-deep); font-weight: 800; margin-bottom: 12px; font-size: 1.2rem;"
-                            data-i18n="celebration_title">????????</h4>
+                            data-i18n="celebration_title">Celebration</h4>
                         <p style="font-weight: 500; font-size: 0.95rem; line-height: 1.7; color: #64748b;"
-                            data-i18n="celebration_buildings_list">????? ????? ?????? ???
-                            ??????? ??????</p>
+                            data-i18n="celebration_buildings_list">Multiple residential units</p>
                     </a>
                 </div>
             </div>
@@ -1587,11 +1585,63 @@
                     <div>
                         <h4 style="margin:0;" data-i18n="btn_pricelist">Price List</h4>
                         <p style="font-size:0.8rem; opacity:0.6; margin:0;" data-i18n="downloads_update">Updated
-                            February 2026</p>
+                            March 2026</p>
                     </div>
                 </a>
                 <script>
                     var _comingSoonTimer = null;
+
+                    // Deferred Libraries State
+                    let _heavyLibsLoaded = false;
+                    let _heavyLibsReady = false;
+
+                    function loadHeavyLibraries() {
+                        if (_heavyLibsLoaded) return;
+                        _heavyLibsLoaded = true;
+
+                        console.log('🔄 Loading PDF libraries...');
+
+                        const scripts = [
+                            'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+                            'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js',
+                            'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
+                        ];
+
+                        let loadedCount = 0;
+                        let idx = 0;
+                        function loadNext() {
+                            if (idx >= scripts.length) {
+                                _heavyLibsReady = true;
+                                console.log('✅ All PDF libs ready');
+                                return;
+                            }
+                            const s = document.createElement('script');
+                            s.src = scripts[idx];
+                            s.onload = () => {
+                                console.log(`📦 Loaded: ${scripts[idx]}`);
+                                idx++;
+                                // Check if the first script (jspdf.umd.min.js) has just loaded
+                                // and set the global alias for compatibility with plugins.
+                                if (idx === 1 && window.jspdf && window.jspdf.jsPDF) {
+                                    window.jsPDF = window.jspdf.jsPDF; // Global alias for plugins
+                                }
+                                loadNext();
+                            };
+                            s.onerror = () => {
+                                console.error(`❌ Failed: ${scripts[idx]}`);
+                                idx++;
+                                loadNext();
+                            };
+                            document.body.appendChild(s);
+                        }
+                        loadNext();
+                    }
+
+                    // Load on scroll OR after 1.5 seconds
+                    window.addEventListener('scroll', loadHeavyLibraries, { once: true });
+                    setTimeout(loadHeavyLibraries, 1500);
+
+                    // Logo is pre-injected into pdf-export.js directly now
 
                     function showComingSoon(e, title, subtitle) {
                         e.preventDefault();
@@ -2287,7 +2337,7 @@
                 <!-- State A: Input Number -->
                 <div id="phone-input-state">
                     <div class="phone-input-group">
-                        <span class="country-code">???? +20</span>
+                        <span class="country-code">🇪🇬 +20</span>
                         <input type="tel" id="auth-phone-num" class="form-input-modal" placeholder="10xxxxxxxx"
                             maxlength="11">
                     </div>
@@ -2454,985 +2504,35 @@
                 <div class="sidebar-actions-pair" style="justify-content: center; padding: 15px 0;">
                     <button class="action-pill-btn" id="sidebar-lang-btn"
                         style="padding: 6px 20px; font-size: 0.8rem; border-radius: 50px; background: #f8fafc; border: 1px solid #e1e8f0; color: #0f172a; font-weight: 700; transition: all 0.3s ease;">
-                        ???????
+                        <span data-i18n="lang_switch_text">English</span>
                     </button>
                 </div>
             </div>
         </div>
     </aside>
 
-    <!-- Project Admin Dashboard (Moved Outside Auth Modal) -->
-    <div id="sys-cfg-2026" class="admin-dashboard-overlay">
-        <div class="admin-panel flex flex-col h-screen bg-gray-50 overflow-hidden">
-            <!-- Mobile Header - Only visible on mobile < 1024px -->
-            <header
-                class="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-sm z-50 px-4 py-3 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <button id="admin-mobile-menu-toggle" class="p-2 hover:bg-gray-100 rounded">
-                        <i class="fas fa-bars text-xl" id="admin-menu-icon" aria-hidden="true"></i>
-                    </button>
-                    <h1 class="text-lg font-bold text-gray-900" data-i18n="admin_panel">Admin Panel</h1>
-                </div>
-                <button id="close-admin-mobile" class="p-2 hover:bg-gray-100 rounded text-gray-500">
-                    <i class="fas fa-times text-xl" aria-hidden="true"></i>
-                </button>
-            </header>
 
-            <div class="admin-header hidden lg:flex">
-                <h2><i class="fas fa-tools"></i> <span data-i18n="admin_panel">Inventory Management</span></h2>
-                <button id="close-admin" class="close-btn">&times;</button>
-            </div>
+    <!-- Admin Panel Removed (See admin.html) -->
 
-            <div class="admin-content flex flex-1 overflow-hidden pt-14 lg:pt-0">
-                <!-- Project Sidebar -->
-                <aside id="admin-sidebar"
-                    class="admin-sidebar fixed lg:static top-0 left-0 h-full bg-white shadow-lg lg:shadow-none z-40 w-64 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto">
-                    <div class="sidebar-header flex flex-col items-center gap-4 p-6 lg:mt-0 mt-14">
-                        <h3 data-i18n="admin_select_project"
-                            class="text-xs font-extrabold uppercase tracking-widest opacity-60" style="margin:0;">
-                            Select a Project</h3>
-                        <button id="show-add-project-form"
-                            class="btn-icon opacity-20 hover:opacity-100 transition-opacity" title="Add Building"
-                            style="background:transparent; color:inherit; border:none; width:auto; height:auto; transform: scale(1.5);">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                    <div id="admin-project-list" class="admin-project-list flex-1 overflow-y-auto px-4">
-                        <!-- Dynamic Project List -->
-                    </div>
-
-                    <div class="sidebar-footer p-4 border-t border-gray-100 hidden lg:block">
-                        <button id="admin-settings-btn"
-                            class="btn btn-outline small-btn w-full flex items-center justify-center gap-2">
-                            <i class="fas fa-cog"></i>
-                            <span data-i18n="admin_settings">Settings</span>
-                        </button>
-                        <button id="save-inventory-btn"
-                            class="btn btn-gold small-btn w-full mt-3 flex items-center justify-center gap-2">
-                            <i class="fas fa-save"></i>
-                            <span data-i18n="admin_save">Save Changes</span>
-                        </button>
-                    </div>
-                </aside>
-
-                <!-- Overlay - Only on mobile when sidebar is open -->
-                <div id="admin-sidebar-overlay"
-                    class="lg:hidden fixed inset-0 bg-black/50 z-30 hidden transition-opacity duration-300"></div>
-
-                <!-- Project Management Area -->
-                <main class="admin-main">
-                    <!-- Global Settings View -->
-                    <!-- Global Settings View -->
-                    <div id="admin-settings-view" style="display:none;">
-                        <div class="admin-toolbar">
-                            <div class="toolbar-left">
-                                <h2>Management Dashboard</h2>
-                                <p style="font-size:0.9rem; opacity:0.6;">System Administration & Global Property
-                                    Control</p>
-                            </div>
-                        </div>
-
-                        <!-- Quick Actions Grid (4 Cards) -->
-                        <!-- Row 1: Creation & Management -->
-                        <h3
-                            style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.7; margin-bottom: 15px; border-left: 3px solid var(--gold-main); padding-left: 10px;">
-                            Creation & Management
-                        </h3>
-                        <div class="settings-grid">
-
-                            <!-- 1. ADD PROJECT CARD -->
-                            <div class="settings-card action-card"
-                                style="border-top: 4px solid var(--gold-main); display: flex; flex-direction: column; justify-content: space-between;">
-                                <div>
-                                    <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                                        <div
-                                            style="width:45px; height:45px; border-radius:12px; background:rgba(201, 162, 63, 0.1); display:flex; align-items:center; justify-content:center; color:var(--gold-main); font-size:1.2rem;">
-                                            <i class="fas fa-folder-plus"></i>
-                                        </div>
-                                        <h3 style="margin:0; font-size:1.1rem; color: var(--navy-deep);">Add New Project
-                                        </h3>
-                                    </div>
-                                    <div style="display:flex; gap:10px;">
-                                        <input type="text" id="sidebar-new-area-input" placeholder="e.g. Porto Said"
-                                            style="flex:1; padding: 12px; border-radius: 12px; border: 1px solid var(--border-light); background:var(--bg-secondary); color:inherit;">
-                                        <button id="add-new-area-btn" class="btn btn-gold"
-                                            style="padding: 0 20px; border-radius: 12px;">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <p style="font-size:0.75rem; opacity:0.5; margin-top:10px;">Create a new
-                                        category/area for your buildings.</p>
-                                </div>
-                            </div>
-
-                            <!-- 2. ADD BUILDING CARD -->
-                            <div class="settings-card action-card" id="settings-add-building-trigger"
-                                style="border-top: 4px solid #3b82f6; cursor:pointer; min-height:160px;">
-                                <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                                    <div
-                                        style="width:45px; height:45px; border-radius:12px; background:rgba(59, 130, 246, 0.1); display:flex; align-items:center; justify-content:center; color:#3b82f6; font-size:1.2rem;">
-                                        <i class="fas fa-building"></i>
-                                    </div>
-                                    <h3 style="margin:0; font-size:1.1rem; color: var(--navy-deep);">Add New Building
-                                    </h3>
-                                </div>
-                                <div
-                                    style="display:flex; align-items:center; justify-content:space-between; background:var(--bg-secondary); padding:12px; border-radius:12px; border: 1px solid var(--border-light);">
-                                    <span style="font-size:0.85rem; opacity:0.7;">Initialize structure</span>
-                                    <i class="fas fa-arrow-right" style="color:#3b82f6;"></i>
-                                </div>
-                                <p style="font-size:0.75rem; opacity:0.5; margin-top:10px;">Assign a new building to a
-                                    project.</p>
-                            </div>
-
-                            <!-- 3. BULK UPLOAD CARD -->
-                            <div class="settings-card action-card"
-                                style="border-top: 4px solid #10b981; cursor:pointer; min-height:160px;">
-                                <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                                    <div
-                                        style="width:45px; height:45px; border-radius:12px; background:rgba(16, 185, 129, 0.1); display:flex; align-items:center; justify-content:center; color:#10b981; font-size:1.2rem;">
-                                        <i class="fas fa-file-upload"></i>
-                                    </div>
-                                    <h3 style="margin:0; font-size:1.1rem; color: var(--navy-deep);">Bulk Upload</h3>
-                                </div>
-                                <div style="display:flex; flex-direction:column; gap:10px;">
-                                    <button onclick="document.getElementById('bulk-upload-input').click()" class="btn"
-                                        style="background:var(--bg-secondary); color:var(--text-main); border:1px solid var(--border-light); width:100%; border-radius:12px; padding:12px; display:flex; justify-content:space-between; align-items:center;">
-                                        <span style="font-size:0.85rem;">Select JSON File</span>
-                                        <i class="fas fa-upload" style="color:#10b981;"></i>
-                                    </button>
-                                    <input type="file" id="bulk-upload-input" accept=".json" style="display:none;">
-                                </div>
-                                <p style="font-size:0.75rem; opacity:0.5; margin-top:10px;">Upload many units at once
-                                    via JSON file.</p>
-                            </div>
-
-                        </div>
-
-                        <!-- Row 2: Danger Zone -->
-
-                        <!-- BRANDING SETTINGS -->
-                        <h3
-                            style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.7; margin-bottom: 15px; border-left: 3px solid var(--gold-main); padding-left: 10px;">
-                            Company Branding
-                        </h3>
-                        <div class="settings-grid" style="margin-bottom: 40px;">
-                            <!-- Logo Management Card -->
-                            <div class="settings-card">
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                                    <div style="display: flex; align-items: center; gap: 15px;">
-                                        <div
-                                            style="width: 45px; height: 45px; background: #fffbeb; color: #d97706; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
-                                            <i class="fas fa-image"></i>
-                                        </div>
-                                        <div>
-                                            <h3 style="margin:0; font-size: 1.1rem; color: var(--navy-deep);">Company
-                                                Logo</h3>
-                                            <p style="margin:5px 0 0; font-size: 0.85rem; color: #64748b;">Manage
-                                                official branding for reports</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="logo-preview-area"
-                                    style="margin-bottom: 20px; text-align: center; padding: 20px; background: white; border: 2px dashed #e2e8f0; border-radius: 16px;">
-                                    <img loading="lazy" id="admin-logo-preview" src="assets/images/ui/logo-report.png"
-                                        style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;">
-                                    <p id="logo-status-text"
-                                        style="font-size: 0.8rem; margin-top: 10px; color: #94a3b8;">Local version
-                                        active</p>
-                                </div>
-
-                                <div style="display: flex; gap: 10px;">
-                                    <label class="btn btn-outline"
-                                        style="flex: 1; text-align: center; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700;">
-                                        <i class="fas fa-upload"></i> Upload to Cloud
-                                        <input type="file" id="logo-upload-input" accept="image/*"
-                                            style="display: none;">
-                                    </label>
-                                    <button id="sync-logo-firebase" class="btn btn-gold"
-                                        style="flex: 1; font-weight: 700;">
-                                        <i class="fas fa-sync"></i> Refresh from Cloud
-                                    </button>
-                                </div>
-                                <p style="font-size: 0.7rem; color: #94a3b8; margin-top: 15px;">
-                                    <i class="fas fa-info-circle"></i> Once uploaded, the logo is synced across all
-                                    devices.
-                                </p>
-                            </div>
-                        </div>
-
-                        <h3
-                            style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.7; margin-bottom: 15px; border-left: 3px solid #ef4444; padding-left: 10px;">
-                            Danger Zone
-                        </h3>
-                        <div class="settings-grid">
-
-                            <!-- 1. DELETE PROJECT CARD -->
-                            <div class="settings-card action-card"
-                                style="border-top: 4px solid #ef4444; display: flex; flex-direction: column; justify-content: space-between;">
-                                <div>
-                                    <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                                        <div
-                                            style="width:45px; height:45px; border-radius:12px; background:rgba(239, 68, 68, 0.1); display:flex; align-items:center; justify-content:center; color:#ef4444; font-size:1.2rem;">
-                                            <i class="fas fa-folder-minus"></i>
-                                        </div>
-                                        <h3 style="margin:0; font-size:1.1rem; color: var(--navy-deep);">Delete Project
-                                        </h3>
-                                    </div>
-                                    <div style="display:flex; gap:10px;">
-                                        <select id="delete-area-select"
-                                            style="flex:1; padding: 12px; border-radius: 12px; border: 1px solid var(--border-light); background:var(--bg-secondary); color:inherit;">
-                                            <option value="">Select Project</option>
-                                        </select>
-                                        <button id="delete-area-btn-trigger" class="btn"
-                                            style="background:#ef4444; color:white; border:none; padding: 0 20px; border-radius:12px;">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                    <p style="font-size:0.75rem; opacity:0.5; margin-top:10px;">Warning: This removes
-                                        all child buildings and units.</p>
-                                </div>
-                            </div>
-
-                            <!-- 2. DELETE BUILDING CARD -->
-                            <div class="settings-card action-card" style="border-top: 4px solid #f97316;">
-                                <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                                    <div
-                                        style="width:45px; height:45px; border-radius:12px; background:rgba(249, 115, 22, 0.1); display:flex; align-items:center; justify-content:center; color:#f97316; font-size:1.2rem;">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </div>
-                                    <h3 style="margin:0; font-size:1.1rem; color: var(--navy-deep);">Delete Building
-                                    </h3>
-                                </div>
-                                <div style="display:flex; gap:10px;">
-                                    <select id="delete-building-select"
-                                        style="flex:1; padding: 12px; border-radius: 12px; border: 1px solid var(--border-light); background:var(--bg-secondary); color:inherit;">
-                                        <option value="">Select Building</option>
-                                    </select>
-                                    <button id="delete-building-btn-trigger" class="btn"
-                                        style="background:#f97316; color:white; border:none; padding: 0 20px; border-radius:12px;">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </div>
-                                <p style="font-size:0.75rem; opacity:0.5; margin-top:10px;">Remove a specific building
-                                    from the system.</p>
-                            </div>
-
-                        </div>
-
-                        <div class="toolbar-left" style="margin-bottom:20px;">
-                            <h2 style="font-size:1.5rem;">Hierarchy View</h2>
-                            <p style="font-size:0.8rem; opacity:0.6;">Visual structure of your current projects</p>
-                        </div>
-
-                        <!-- HIERARCHY FILTERS -->
-                        <div class="admin-filters-bar">
-                            <div style="position: relative;">
-                                <i class="fas fa-search"
-                                    style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.5;"></i>
-                                <input type="text" id="admin-filter-search" placeholder="Search Buildings..."
-                                    style="width: 100%; padding: 10px 10px 10px 35px; border-radius: 8px; border: 1px solid var(--border-light); background: var(--white);">
-                            </div>
-                            <select id="admin-filter-project"
-                                style="padding: 10px; border-radius: 8px; border: 1px solid var(--border-light);">
-                                <option value="">All Projects</option>
-                                <!-- Populated dynamically -->
-                            </select>
-                            <select id="admin-filter-building"
-                                style="padding: 10px; border-radius: 8px; border: 1px solid var(--border-light);">
-                                <option value="">All Buildings</option>
-                            </select>
-                            <select id="admin-filter-delivery"
-                                style="padding: 10px; border-radius: 8px; border: 1px solid var(--border-light);">
-                                <option value="">All Dates</option>
-                            </select>
-                            <select id="admin-filter-status"
-                                style="padding: 10px; border-radius: 8px; border: 1px solid var(--border-light);">
-                                <option value="">All Status</option>
-                                <option value="Ready">Ready</option>
-                                <option value="Under Construction">Under Const.</option>
-                            </select>
-                        </div>
-
-                        <div id="settings-project-list" class="settings-grid" style="grid-template-columns: 1fr;">
-                            <!-- Hierarchical list displays structure -->
-                        </div>
-                    </div>
-
-                    <!-- Dedicated Add/Edit Project View -->
-                    <div id="add-project-view" style="display:none;">
-                        <input type="hidden" id="edit-project-original-name">
-                        <div class="admin-toolbar">
-                            <div class="toolbar-left">
-                                <h2 id="project-form-title">Add New Building</h2>
-                                <p style="font-size:0.9rem; opacity:0.6;">Create or edit a building entry and assign it
-                                    to a project</p>
-                            </div>
-                        </div>
-
-                        <div class="add-unit-form"
-                            style="max-width:800px; margin: 0 auto; border-top: 5px solid var(--gold-main);">
-                            <form id="addProjectForm">
-                                <div class="form-grid">
-                                    <div class="form-item">
-                                        <label>Building Name</label>
-                                        <input type="text" id="new-proj-name" placeholder="e.g. B250" required>
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Select Project</label>
-                                        <select id="new-proj-area-loc" required>
-                                            <!-- Dynamic projects will load here -->
-                                        </select>
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Construction Status</label>
-                                        <select id="new-proj-const" required>
-                                            <option value="" disabled selected>Select Status</option>
-                                            <option value="Under Construction">Under Construction</option>
-                                            <option value="Ready">Ready</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Delivery Date</label>
-                                        <input type="text" id="new-proj-delivery" placeholder="Select Status First"
-                                            required disabled style="cursor: not-allowed; opacity: 0.6;">
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Sales Status</label>
-                                        <select id="new-proj-status" required>
-                                            <option value="buy">For Sale</option>
-                                            <option value="rent">For Rent</option>
-                                        </select>
-                                    </div>
-                                    <!-- Building Image Section -->
-                                    <div class="form-item" style="grid-column: span 2;">
-                                        <label>Building Image</label>
-                                        <div class="image-upload-section">
-                                            <div class="image-drop-zone" id="building-image-drop-zone">
-                                                <i class="fas fa-cloud-upload-alt"
-                                                    style="font-size: 2.5rem; color: var(--gold-muted); margin-bottom: 10px;"></i>
-                                                <p style="font-size: 0.95rem; margin-bottom: 8px;">Drag & Drop image
-                                                    here</p>
-                                                <p style="font-size: 0.75rem; opacity: 0.6; margin-bottom: 15px;">or</p>
-                                                <button type="button" class="btn btn-outline"
-                                                    onclick="document.getElementById('building-image-input').click()">
-                                                    <i class="fas fa-folder-open"></i> Browse Files
-                                                </button>
-                                                <input type="file" id="building-image-input" multiple accept="image/*"
-                                                    style="display: none;">
-                                            </div>
-                                            <div class="images-grid" id="building-image-preview" style="display: none;">
-                                                <!-- Preview -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-actions" style="justify-content: flex-end; margin-top:30px;">
-                                    <button type="button" id="cancel-add-project"
-                                        class="btn btn-outline">Discard</button>
-                                    <button type="submit" class="btn btn-gold">Save Building</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Edit Area View (Hidden) -->
-                    <div id="edit-area-view" style="display:none; margin-bottom: 30px;">
-                        <div class="admin-card">
-                            <div class="form-header">
-                                <h4>Edit Project Details</h4>
-                                <p style="font-size:0.8rem; opacity:0.7;">Upload a cover image for the entire project
-                                    area.</p>
-                            </div>
-                            <form id="editAreaForm" onsubmit="event.preventDefault(); window.saveAreaDetails();">
-                                <div class="form-grid">
-                                    <!-- Single col since mainly image -->
-                                    <div class="form-item">
-                                        <label>Project Area Name</label>
-                                        <input type="text" id="edit-area-name" readonly
-                                            style="background: rgba(255,255,255,0.05); color: var(--text-muted); cursor: not-allowed;">
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Project Cover Image</label>
-                                        <div class="image-upload-section">
-                                            <div class="image-drop-zone" id="area-image-drop-zone">
-                                                <i class="fas fa-cloud-upload-alt"
-                                                    style="font-size: 2.5rem; color: var(--gold-muted); margin-bottom: 10px;"></i>
-                                                <p>Drag & Drop image here</p>
-                                                <button type="button" class="btn btn-outline"
-                                                    onclick="document.getElementById('area-image-input').click()">
-                                                    Browse Files
-                                                </button>
-                                                <input type="file" id="area-image-input" multiple accept="image/*"
-                                                    style="display: none;">
-                                            </div>
-                                            <div class="images-grid" id="area-image-preview" style="display: none;">
-                                                <!-- Preview Imgs -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-actions" style="margin-top: 20px;">
-                                    <button type="button" class="btn btn-outline"
-                                        onclick="document.getElementById('edit-area-view').style.display='none'; document.getElementById('admin-settings-view').style.display='block';">Cancel</button>
-                                    <button type="submit" class="btn btn-gold">Save Project Details</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Permissions & User Roles View (Hidden) -->
-                    <div id="admin-permissions-view" style="display:none; margin-bottom: 30px;">
-                        <div class="admin-toolbar">
-                            <div class="toolbar-left">
-                                <h2>Security & Permissions</h2>
-                                <p style="font-size:0.9rem; opacity:0.6;">Manage staff accounts and their access levels
-                                </p>
-                            </div>
-                            <button class="btn btn-outline"
-                                onclick="document.getElementById('admin-permissions-view').style.display='none'; document.getElementById('admin-settings-view').style.display='block';">
-                                <i class="fas fa-chevron-left"></i> Back to Settings
-                            </button>
-                        </div>
-
-                        <!-- View Tabs -->
-                        <div
-                            style="display:flex; gap:20px; border-bottom:1px solid var(--border-light); margin-top:20px;">
-                            <button onclick="window.AdminUI.switchPermissionTab('management')"
-                                class="perm-tab-btn active" id="tab-btn-management"
-                                style="padding:10px 20px; background:none; border:none; border-bottom:2px solid var(--gold-main); font-weight:700; cursor:pointer; color:var(--navy-deep);">User
-                                Management</button>
-                            <button onclick="window.AdminUI.switchPermissionTab('audit')" class="perm-tab-btn"
-                                id="tab-btn-audit"
-                                style="padding:10px 20px; background:none; border:none; border-bottom:2px solid transparent; font-weight:600; cursor:pointer; opacity:0.6;">Security
-                                Audit Trail</button>
-                        </div>
-
-                        <div id="perm-view-management" class="perm-tab-content active" style="display: block;">
-                            <div class="settings-grid"
-                                style="grid-template-columns: 1fr 1.5fr; gap: 30px; margin-top: 25px;">
-                                <!-- Add User Form -->
-                                <div class="admin-card" style="border-top: 4px solid #8b5cf6;">
-                                    <div class="form-header" style="margin-bottom: 25px;">
-                                        <h4 style="margin:0; font-size: 1.1rem; color: var(--navy-deep);">Create New
-                                            Account
-                                        </h4>
-                                        <p style="font-size:0.8rem; opacity:0.6;">Configure staff roles and granular
-                                            access</p>
-                                    </div>
-                                    <form id="addUserForm"
-                                        onsubmit="event.preventDefault(); window.AdminUI.handleAddUser();">
-                                        <div class="form-item" style="margin-bottom: 20px;">
-                                            <label>Email Address</label>
-                                            <input type="email" id="new-user-email" placeholder="staff@robel.com"
-                                                required
-                                                style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border-light); background: var(--bg-secondary);">
-                                        </div>
-                                        <div class="form-item" style="margin-bottom: 20px;">
-                                            <label>Password</label>
-                                            <input type="password" id="new-user-password" placeholder="" required
-                                                style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border-light); background: var(--bg-secondary);">
-                                        </div>
-                                        <div
-                                            style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:20px;">
-                                            <div class="form-item">
-                                                <label>Role</label>
-                                                <select id="new-user-role" required
-                                                    style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border-light); background: var(--bg-secondary);">
-                                                    <option value="admin">Admin (Full Access)</option>
-                                                    <option value="pm">Project Manager</option>
-                                                    <option value="finance">Finance Officer</option>
-                                                    <option value="sales">Sales Agent</option>
-                                                    <option value="reporter" selected>Reporter</option>
-                                                    <option value="viewer">Viewer (Read-Only)</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-item">
-                                                <label>Account Expiry</label>
-                                                <input type="date" id="new-user-expiry"
-                                                    style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border-light); background: var(--bg-secondary);">
-                                            </div>
-                                        </div>
-                                        <div class="form-item" style="margin-bottom: 25px;">
-                                            <label>Parts Controlled (Projects)</label>
-                                            <div id="new-user-projects-list"
-                                                style="max-height: 150px; overflow-y: auto; background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 8px;">
-                                                <!-- Dynamic Project List -->
-                                                <p
-                                                    style="font-size: 0.75rem; opacity: 0.5; padding: 10px; text-align: center;">
-                                                    Loading projects...</p>
-                                            </div>
-                                            <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 5px;">* Admins/PMs
-                                                have access to all parts.</p>
-                                        </div>
-                                        <button type="submit" id="add-user-submit-btn" class="btn btn-gold"
-                                            style="width: 100%; padding: 15px; border-radius: 12px;">
-                                            Create Account
-                                        </button>
-                                    </form>
-                                </div>
-
-                                <!-- Users List -->
-                                <div class="admin-card">
-                                    <div class="form-header" style="margin-bottom: 20px;">
-                                        <h4 style="margin:0; font-size: 1.1rem; color: var(--navy-deep);">Authorized
-                                            Access List
-                                        </h4>
-                                        <p style="font-size:0.8rem; opacity:0.6;">Manage active sessions and permissions
-                                        </p>
-                                    </div>
-                                    <div id="users-list-container"
-                                        style="display: flex; flex-direction: column; gap: 10px;">
-                                        <div style="text-align: center; padding: 40px; opacity: 0.5;">
-                                            <i class="fas fa-users" style="font-size: 2rem; margin-bottom: 15px;"></i>
-                                            <p>Fetching authorized accounts...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="perm-view-audit" class="perm-tab-content" style="display: none; padding-top: 25px;">
-                            <div class="admin-card">
-                                <div class="form-header" style="margin-bottom: 20px;">
-                                    <h4 style="margin:0; font-size: 1.1rem; color: var(--navy-deep);">System Activity
-                                        Log</h4>
-                                    <p style="font-size:0.8rem; opacity:0.6;">Traceable record of all modifications and
-                                        access attempts</p>
-                                </div>
-                                <div id="audit-logs-container"
-                                    style="display: flex; flex-direction: column; gap: 5px; max-height: 600px; overflow-y: auto;">
-                                    <p style="text-align:center; padding:20px; opacity:0.5;">Loading activity logs...
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="unit-mgmt-header" class="bg-white p-4 lg:p-0 shadow-sm lg:shadow-none mb-6">
-                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                            <div class="toolbar-left">
-                                <h2 id="mgr-project-name" class="text-2xl lg:text-3xl font-bold text-gray-900">Select
-                                    Building</h2>
-                                <div id="mgr-stats-brief" class="flex flex-wrap gap-2 mt-3"></div>
-                            </div>
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <!-- Export Dropdown -->
-                                <div class="export-dropdown relative">
-                                    <button id="export-report-btn"
-                                        class="w-full sm:w-auto btn btn-outline flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-gray-200">
-                                        <i class="fas fa-file-export"></i>
-                                        <span>Export Report</span>
-                                        <i class="fas fa-chevron-down text-xs opacity-50"></i>
-                                    </button>
-                                    <div id="export-menu"
-                                        class="hidden absolute top-full right-0 mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-xl z-50 overflow-hidden">
-                                        <!-- Status Filter Section -->
-                                        <div class="px-4 py-3 border-b border-gray-100 bg-gray-50">
-                                            <p class="text-xs font-bold text-gray-500 uppercase mb-2">Export Units:</p>
-                                            <div class="px-4 pb-2 space-y-2">
-                                                <label
-                                                    class="flex items-center gap-2 cursor-pointer pb-2 border-b border-gray-50 mb-2">
-                                                    <input type="checkbox" id="export-filtered-only" checked
-                                                        class="rounded border-gray-300 text-gold-main focus:ring-gold-main">
-                                                    <span class="text-sm font-bold text-gray-800">Filtered View
-                                                        Only</span>
-                                                </label>
-                                                <label class="flex items-center gap-2 cursor-pointer">
-                                                    <input type="checkbox" id="export-all" checked
-                                                        class="rounded border-gray-300 text-gold-main focus:ring-gold-main">
-                                                    <span class="text-sm text-gray-700">All Units</span>
-                                                </label>
-                                                <label class="flex items-center gap-2 cursor-pointer">
-                                                    <input type="checkbox" id="export-available"
-                                                        class="rounded border-gray-300 text-green-600 focus:ring-green-600">
-                                                    <span class="text-sm text-gray-700">Available Only</span>
-                                                </label>
-                                                <label class="flex items-center gap-2 cursor-pointer">
-                                                    <input type="checkbox" id="export-reserved"
-                                                        class="rounded border-gray-300 text-orange-600 focus:ring-orange-600">
-                                                    <span class="text-sm text-gray-700">Reserved Only</span>
-                                                </label>
-                                                <label class="flex items-center gap-2 cursor-pointer">
-                                                    <input type="checkbox" id="export-sold"
-                                                        class="rounded border-gray-300 text-red-600 focus:ring-red-600">
-                                                    <span class="text-sm text-gray-700">Sold Only</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- Export Format Options -->
-                                        <a href="#" onclick="handleExport('pdf'); return false;"
-                                            class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
-                                            <i class="fas fa-file-pdf text-red-500"></i> Export PDF
-                                        </a>
-                                        <a href="#" onclick="handleExport('excel'); return false;"
-                                            class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3 border-t border-gray-50">
-                                            <i class="fas fa-file-excel text-green-500"></i> Export Excel
-                                        </a>
-                                        <a href="#" onclick="handleExport('print'); return false;"
-                                            class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3 border-t border-gray-50">
-                                            <i class="fas fa-print text-indigo-500"></i> Print Preview
-                                        </a>
-                                    </div>
-                                </div>
-                                <button id="repair-specs-btn" onclick="repairSpecifications()"
-                                    class="w-full sm:w-auto btn btn-outline flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50"
-                                    title="Fix all cloud specifications based on area rules">
-                                    <i class="fas fa-magic"></i> <span>Fix Specs</span>
-                                </button>
-                                <button onclick="downloadDatabaseBackup()"
-                                    class="w-full sm:w-auto btn btn-outline flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50"
-                                    title="Save a backup of all data before cleaning">
-                                    <i class="fas fa-download"></i> <span>Backup DB</span>
-                                </button>
-                                <button onclick="deduplicateDatabase()"
-                                    class="w-full sm:w-auto btn btn-outline flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-red-200 text-red-600 hover:bg-red-50"
-                                    title="Remove duplicate entries from Cloudflare (Safe 222)">
-                                    <i class="fas fa-trash-alt"></i> <span>Clean DB</span>
-                                </button>
-                                <button id="show-add-unit-form"
-                                    class="w-full sm:w-auto btn btn-gold flex items-center justify-center gap-2 px-6 py-2 rounded-lg bg-gold-main text-white shadow-md">
-                                    <i class="fas fa-plus"></i> <span data-i18n="admin_add_unit">Add Unit</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="add-unit-container" style="display:none;">
-                        <div class="add-unit-form">
-                            <div class="form-header">
-                                <h4 data-i18n="admin_create_unit">Create New Unit</h4>
-                                <p data-i18n="admin_unit_desc" style="font-size:0.8rem; opacity:0.7;">Fill in unit
-                                    details below</p>
-                            </div>
-                            <form id="addUnitForm">
-                                <div class="form-grid">
-                                    <div class="form-item">
-                                        <label>Selected Building</label>
-                                        <input type="text" id="new-unit-building-display" readonly disabled
-                                            style="background:#e2e8f0; cursor:not-allowed; font-weight:bold; color:#475569;">
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Unit Code (e.g. B133424)</label>
-                                        <input type="text" id="new-unit-code" placeholder="Example: B133424"
-                                            maxlength="10" required lang="en" dir="ltr"
-                                            style="font-family: monospace; letter-spacing: 1px; font-weight: bold;">
-                                        <div id="unit-code-feedback"
-                                            style="font-size: 0.75rem; margin-top: 4px; min-height: 1.2em; font-weight: 600;">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-item">
-                                        <label>Floor</label>
-                                        <input type="text" id="new-unit-floor" placeholder="Auto-detected" readonly
-                                            lang="en" dir="ltr"
-                                            style="background:#f8fafc; color:#64748b; cursor:default;">
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Unit Number</label>
-                                        <input type="text" id="new-unit-number" placeholder="Auto-detected" readonly
-                                            lang="en" dir="ltr"
-                                            style="background:#f8fafc; color:#64748b; cursor:default;">
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Area (m&sup2;)</label>
-                                        <input type="text" id="new-unit-area" placeholder="60" required lang="en"
-                                            dir="ltr" inputmode="numeric">
-                                    </div>
-                                    <div class="form-item">
-                                        <label>View</label>
-                                        <select id="new-unit-view" required>
-                                            <option value="" disabled selected>Select View</option>
-                                            <option value="Villa View">Villa View</option>
-                                            <option value="Garden View">Garden View</option>
-                                            <option value="Swimming Pool View">Swimming Pool View</option>
-                                            <option value="Lazy River View">Lazy River View</option>
-                                            <option value="Main Road View">Main Road View</option>
-                                            <option value="Champs Elysees View">Champs Elysees View</option>
-                                            <option value="Sea View">Sea View</option>
-                                            <option value="Golf View">Golf View</option>
-                                            <option value="Lake View">Lake View</option>
-                                            <option value="add-new-view">+ Add New View...</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Price (EGP)</label>
-                                        <input type="text" id="new-unit-price" placeholder="2500000" required lang="en"
-                                            dir="ltr" inputmode="numeric">
-                                    </div>
-                                    <div class="form-item">
-                                        <label>Purpose</label>
-                                        <select id="new-unit-intent" required>
-                                            <option value="buy">Buy</option>
-                                            <option value="rent">Rent</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-item" style="grid-column: span 2; display: none;">
-                                        <label>Payment Plan</label>
-                                        <input type="text" id="new-unit-payment"
-                                            placeholder="Managed via Building Settings" disabled>
-                                    </div>
-
-                                    <!-- Unit Images Section -->
-                                    <div class="form-item" style="grid-column: span 2;">
-                                        <label>Unit Images</label>
-                                        <div class="image-upload-section">
-                                            <!-- Drag and Drop Area -->
-                                            <div class="image-drop-zone" id="image-drop-zone">
-                                                <i class="fas fa-cloud-upload-alt"
-                                                    style="font-size: 2.5rem; color: var(--gold-muted); margin-bottom: 10px;"></i>
-                                                <p style="font-size: 0.95rem; margin-bottom: 8px;">Drag & Drop images
-                                                    here</p>
-                                                <p style="font-size: 0.75rem; opacity: 0.6; margin-bottom: 15px;">or</p>
-                                                <button type="button" class="btn btn-outline"
-                                                    onclick="document.getElementById('unit-images-input').click()">
-                                                    <i class="fas fa-folder-open"></i> Browse Files
-                                                </button>
-                                                <input type="file" id="unit-images-input" multiple accept="image/*"
-                                                    style="display: none;">
-                                                <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 10px;">Supports:
-                                                    JPG, PNG, WEBP (Max 5MB per image)</p>
-                                            </div>
-
-                                            <!-- Images Grid Preview -->
-                                            <div class="images-grid" id="unit-images-grid" style="display: none;">
-                                                <!-- Uploaded images will appear here -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-gold" data-i18n="admin_save_unit">Save
-                                        Unit</button>
-                                    <button type="button" id="cancel-add-unit" class="btn btn-outline"
-                                        data-i18n="admin_cancel">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div id="unit-table-area">
-                        <!-- Unit Filters for Building -->
-                        <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm mb-6">
-                            <div class="grid grid-cols-1 lg:grid-cols-6 gap-4">
-                                <!-- Search -->
-                                <div class="lg:col-span-1 relative">
-                                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                    <input type="text" id="admin-unit-search" placeholder="Search Code or View..."
-                                        class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm">
-                                </div>
-
-                                <div class="grid grid-cols-2 lg:grid-cols-5 lg:col-span-5 gap-3">
-                                    <select id="admin-unit-filter-floor"
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
-                                        <option value="">All Floors</option>
-                                        <option value="G">Ground</option>
-                                        <option value="1st">1st Floor</option>
-                                        <option value="2nd">2nd Floor</option>
-                                        <option value="3rd">3rd Floor</option>
-                                        <option value="4th">4th Floor</option>
-                                        <option value="5th">5th Floor</option>
-                                        <option value="6th">6th Floor</option>
-                                        <option value="7th">7th Floor</option>
-                                        <option value="8th">8th Floor</option>
-                                        <option value="9th">9th Floor</option>
-                                    </select>
-
-                                    <select id="admin-unit-filter-view"
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
-                                        <option value="">All Views</option>
-                                    </select>
-
-                                    <!-- Area Dropdown - Single select for available areas -->
-                                    <select id="admin-unit-filter-area"
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
-                                        <option value="">All Areas</option>
-                                        <!-- Will be populated dynamically based on project -->
-                                    </select>
-
-                                    <select id="admin-unit-filter-status"
-                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
-                                        <option value="">All Status</option>
-                                        <option value="Available">Available</option>
-                                        <option value="Reserved">Reserved</option>
-                                        <option value="Sold">Sold</option>
-                                    </select>
-
-                                    <button
-                                        onclick="renderAdminUnits(document.getElementById('mgr-project-name').textContent)"
-                                        class="col-span-2 sm:col-span-1 bg-gold-main text-white px-4 py-2 rounded-lg font-bold hover:bg-gold-dark transition-colors flex items-center justify-center gap-2">
-                                        <i class="fas fa-filter"></i>
-                                        <span>Filter</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="admin-table-wrapper hidden lg:block border border-gray-100 rounded-xl overflow-hidden shadow-sm">
-                            <table class="admin-table w-full text-left border-collapse">
-                                <thead class="bg-gray-50 border-b border-gray-100">
-                                    <tr>
-                                        <th
-                                            class="px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">
-                                            <div class="flex items-center justify-between">
-                                                <div class="flex flex-col">
-                                                    <span data-i18n="unit_code">Unit Code</span>
-                                                    <span id="header-total-units"
-                                                        class="text-[10px] opacity-60 mt-1">Units: -</span>
-                                                </div>
-                                                <button onclick="toggleAdminUnitSort()"
-                                                    class="p-1 hover:bg-gray-100 rounded transition-colors"
-                                                    title="Sort Units">
-                                                    <i id="sort-icon-unit" class="fas fa-sort text-gray-400"></i>
-                                                </button>
-                                            </div>
-                                        </th>
-
-                                        <th class="px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-500"
-                                            data-i18n="floor">Floor</th>
-                                        <th
-                                            class="px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">
-                                            <div class="flex flex-col">
-                                                <span data-i18n="area">Area</span>
-                                                <span id="header-total-area" class="text-[10px] opacity-60 mt-1">Total:
-                                                    - m</span>
-                                            </div>
-                                        </th>
-                                        <th class="px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-500"
-                                            data-i18n="view">View</th>
-                                        <th class="px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-500"
-                                            data-i18n="purpose">Purpose</th>
-                                        <th
-                                            class="px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-500">
-                                            <div class="flex flex-col">
-                                                <span>Price</span>
-                                                <span id="header-total-price" class="text-[10px] opacity-60 mt-1">Sum:
-                                                    -</span>
-                                            </div>
-                                        </th>
-                                        <th class="px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-500"
-                                            data-i18n="status">Status</th>
-                                        <th class="px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-500"
-                                            data-i18n="action">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="admin-unit-list" class="divide-y divide-gray-50 bg-white">
-                                    <tr>
-                                        <td colspan="8" class="px-6 py-20 text-center text-gray-400">
-                                            <div class="flex flex-col items-center gap-4">
-                                                <i class="fas fa-arrow-left text-4xl opacity-20"></i>
-                                                <span data-i18n="admin_select_hint">Select a project from the left to
-                                                    manage units.</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Mobile Card View - Visible < 1024px -->
-                        <div id="admin-unit-cards-list" class="lg:hidden space-y-4 pb-24">
-                            <!-- Cards injected by JS -->
-                            <div class="flex flex-col items-center justify-center py-20 text-gray-400">
-                                <i class="fas fa-building text-5xl opacity-10 mb-4"></i>
-                                <span class="text-sm">Select a project to see units</span>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-
-            <!-- Mobile Action Bar - Fixed Bottom -->
-            <div
-                class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-50 p-4 pb-safe">
-                <div class="flex gap-3">
-                    <button id="admin-settings-mobile"
-                        class="flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">
-                        <i class="fas fa-cog text-gray-600"></i>
-                        <span class="text-sm font-bold text-gray-700">Settings</span>
-                    </button>
-                    <button id="save-inventory-mobile"
-                        class="flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-gold-main hover:bg-gold-dark text-white rounded-xl shadow-lg shadow-gold-main/20 transition-all">
-                        <i class="fas fa-save"></i>
-                        <span class="text-sm font-bold">Save Changes</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hidden Assets for Export Branding -->
-    <div id="export-assets-container" style="display:none;" aria-hidden="true">
-        <img loading="lazy" src="assets/images/ui/logo-report.png">
-    </div>
 
     <!-- External Libraries -->
-    <!-- Deferred Libraries - Only loaded when strictly needed -->
-    <script>
-        let _heavyLibsLoaded = false;
-        let _heavyLibsReady = false;
-
-        function loadHeavyLibraries() {
-            if (_heavyLibsLoaded) return;
-            _heavyLibsLoaded = true;
-
-            // Load sequentially: jsPDF -> autoTable -> xlsx
-            function loadScript(src, onDone) {
-                const s = document.createElement('script');
-                s.src = src;
-                s.onload = onDone || function () { };
-                s.onerror = function () { console.warn('Failed to load:', src); if (onDone) onDone(); };
-                document.body.appendChild(s);
-            }
-
-            loadScript(
-                'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
-                function () {
-                    loadScript(
-                        'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js',
-                        function () {
-                            loadScript(
-                                'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
-                                function () {
-                                    _heavyLibsReady = true;
-                                    console.log('✅ PDF libs ready');
-                                }
-                            );
-                        }
-                    );
-                }
-            );
-        }
-
-        // Load on scroll OR after 1 second (whichever comes first)
-        window.addEventListener('scroll', loadHeavyLibraries, { once: true });
-        setTimeout(loadHeavyLibraries, 1000);
-    </script>
+    <!-- Admin Export Libs Moved -->
 
     <!-- UI & Icons -->
-    <script src=" https://unpkg.com/lucide@latest" defer></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script>window.addEventListener('load', () => lucide.createIcons());</script>
     <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
 
-    <!-- Core App Logic (Bundled) -->
-    <script src="scripts/core-bundle.js?v=20260228032718" defer></script>
-    <script src="api/query-api.js?v=20260228032718" defer></script> <!-- API & Services -->
-    <script src="api/admin-api.js?v=20260228032718" defer></script>
+    <!-- Core App Logic (Bundled - includes query-api) -->
+    <script src="scripts/core-bundle.js?v=20260304025152" defer></script>
+    <script src="api/admin-api.js?v=20260304025152" defer></script>
 
     <!-- Pages Logic -->
-    <script src="pages/admin-ui.js?v=20260228032718" defer></script>
-    <script src="pages/admin-smart-entry.js?v=20260228032718" defer></script>
-    <script src="pages/admin-export.js?v=20260228032718" defer></script>
-    <script src="pages/admin-manual-unit.js?v=20260228032718" defer></script>
-    <script src="pages/promotions.js?v=20260228032718" defer></script>
-    <script src="pages/home.js?v=20260228032718" defer></script>
+    <script src="pages/promotions.js?v=20260304025152" defer></script>
+    <script src="pages/home.js?v=20260304025152" defer></script>
 
     <!-- Utility Scripts -->
-    <script src="utils/pdf-export.js?v=20260228032718" defer></script>
-
-
-
+    <script src="utils/pdf-export.js?v=20260304025152" defer></script>
 
 
     <!-- WhatsApp Floating Widget -->

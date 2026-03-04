@@ -115,6 +115,7 @@ const getDom = () => ({
     areaFilter: document.getElementById('areaFilter'),
     statusFilter: document.getElementById('statusFilter'),
     searchInput: document.getElementById('searchInput'),
+    searchTrigger: document.getElementById('search-trigger-units'),
     deliveryBtns: document.querySelectorAll('.delivery-btn'),
 
     // Building Specific Filters
@@ -215,7 +216,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2. Setup Event Listeners
     setupEventListeners();
 
-    // 3. Check URL Params for Project
+    // 3. Initialize Comparison Helper
+    initComparisonHelper();
+
+    // 4. Check URL Params for Project
     try {
         const params = new URLSearchParams(window.location.search);
         const rawProject = params.get('project');
@@ -450,50 +454,9 @@ function populateBuildingSpecificFilters() {
     if (dom.bPurposeFilter) dom.bPurposeFilter.value = filterState.purpose || "";
 }
 
-function displayResults(buildings) {
-    dom.buildingsGrid.innerHTML = '';
+// Function has been merged/overwritten by the version at line 1207
+// to support the "Always Flat Units" request.
 
-    // LOGIC SPLIT:
-    // 1. If a specific building is selected, show UNITS directly.
-    // 2. If NO building is selected, show BUILDING CARDS (grouped).
-
-    if (filterState.building) {
-        // --- SHOW UNITS MODE ---
-        // Find the building group that matches
-        const group = buildings.find(b => b.building_id === filterState.building);
-
-        let unitsToShow = [];
-        if (group) unitsToShow = group.units;
-
-        if (dom.resultsCount) dom.resultsCount.textContent = unitsToShow.length;
-
-        if (unitsToShow.length === 0) {
-            dom.noResults.classList.remove('hidden');
-            return;
-        }
-        dom.noResults.classList.add('hidden');
-
-        unitsToShow.forEach(u => {
-            const card = createUnitCard(u);
-            dom.buildingsGrid.appendChild(card);
-        });
-
-    } else {
-        // --- SHOW BUILDINGS SUMMARY MODE ---
-        if (dom.resultsCount) dom.resultsCount.textContent = buildings.length; // Count of Buildings
-
-        if (buildings.length === 0) {
-            dom.noResults.classList.remove('hidden');
-            return;
-        }
-        dom.noResults.classList.add('hidden');
-
-        buildings.forEach(b => {
-            const card = createBuildingCard(b);
-            dom.buildingsGrid.appendChild(card);
-        });
-    }
-}
 
 // --- Card Creators ---
 
@@ -554,7 +517,18 @@ function setupEventListeners() {
 
     dom.searchInput?.addEventListener('input', (e) => {
         filterState.searchText = e.target.value.trim();
+    });
+
+    // 🚀 MANUAL SEARCH TRIGGER
+    dom.searchTrigger?.addEventListener('click', () => {
         applyFilters();
+    });
+
+    // Trigger on Enter in search box
+    dom.searchInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            applyFilters();
+        }
     });
 
     dom.deliveryBtns.forEach(btn => {
@@ -597,27 +571,21 @@ function setupEventListeners() {
     // Building Specific Filters - NEW
     dom.bFloorFilter?.addEventListener('change', (e) => {
         filterState.floor = e.target.value || null;
-        applyFilters();
     });
     dom.bViewFilter?.addEventListener('change', (e) => {
         filterState.view = e.target.value || null;
-        applyFilters();
     });
     dom.bAreaFilter?.addEventListener('change', (e) => {
         filterState.area = e.target.value || null;
-        applyFilters();
     });
     dom.bStatusFilter?.addEventListener('change', (e) => {
         filterState.status = e.target.value || null;
-        applyFilters();
     });
     dom.bPriceFilter?.addEventListener('change', (e) => {
         filterState.priceSort = e.target.value || null;
-        applyFilters();
     });
     dom.bPurposeFilter?.addEventListener('change', (e) => {
         filterState.purpose = e.target.value || null;
-        applyFilters();
     });
 
     // Comparison Events
@@ -890,10 +858,11 @@ function onBuildingChange(val) {
     // 🚀 SMART AUTO-DELIVERY: Map buildings to their specific delivery dates
     if (val) {
         const bId = val.toUpperCase().trim();
+        // 🚀 DISABLED AUTO-DELIVERY: Prevent overriding user/global selection with static dates
+        // that might not match DB status strings (e.g., '12/2026' vs 'U-Const')
+        /*
         let autoDelivery = null;
-
         const deliveryMap = {
-            // Porto Golf Marina
             'B133': '12/2026', '133': '12/2026',
             'B136': '12/2026', '136': '12/2026',
             'B230': '12/2027', '230': '12/2027',
@@ -901,29 +870,18 @@ function onBuildingChange(val) {
             'B121': 'Ready', '121': 'Ready',
             'B224': 'Ready', '224': 'Ready',
             'B78': 'Ready', '78': 'Ready',
-
-            // Porto Said
-            'B15': '12/2026', '15': '12/2026',
-            'B16': '12/2026', '16': '12/2026',
-            'B17': '12/2026', '17': '12/2026',
-            'B33': '12/2026', '33': '12/2026',
-            'B9': '12/2026', '9': '12/2026',
-            'B10': '12/2026', '10': '12/2026',
-
-            // Celebration
+            'B15': '12/2026', 'B16': '12/2026', 'B17': '12/2026',
+            'B33': '12/2026', 'B9': '12/2026', 'B10': '12/2026',
             'CELEBRATION': '1/1/2028'
         };
-
         autoDelivery = deliveryMap[bId];
-
         if (autoDelivery) {
-            console.log(`✨ Building ${bId} selected, automatically setting delivery to ${autoDelivery}`);
             filterState.delivery = autoDelivery;
             updateDeliveryButtons();
         }
+        */
     }
-
-    applyFilters();
+    // applyFilters(); removed for manual mode
 }
 
 
@@ -935,13 +893,13 @@ function onAreaChange(val) {
         populateBuildingsFilter(filterState.allProjectUnits);
     }
 
-    applyFilters();
+    // applyFilters(); removed for manual mode
 }
 
 function onDeliveryChange(val) {
     filterState.delivery = val;
     updateDeliveryButtons();
-    applyFilters();
+    // applyFilters(); removed for manual mode
 }
 
 function updateDeliveryButtons() {
@@ -966,7 +924,7 @@ function updateDeliveryButtons() {
 function onStatusChange(val) {
     // If val is empty string, it means 'All' provided <option value="">All</option>
     filterState.status = val || null;
-    applyFilters();
+    // applyFilters(); removed for manual mode
 }
 
 // --- Independent Filter Selection Helper ---
@@ -1298,9 +1256,17 @@ function normalizeId(id) {
 
 function createUnitCard(u) {
     const card = document.createElement('div');
-    // MATCHING SCREENSHOT: Compact Mobile Card style
-    card.className = 'group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col';
+    card.className = 'unit-card group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col cursor-pointer relative transition-all duration-300';
     card.setAttribute('data-unit-id', u.id || u.code);
+    card.style.textDecoration = 'none';
+    card.style.color = 'inherit';
+
+    // Add navigation handler (except when clicking comparison)
+    card.onclick = (e) => {
+        // If clicked on comparison area, don't navigate
+        if (e.target.closest('.compare-click-area')) return;
+        window.location.href = `unit-details.html?id=${u.code}`;
+    };
 
     // --- STRICT AREA-BASED LOGIC (MATCHING UNIT DETAILS) ---
     const areaVal = parseInt(u.area) || 0;
@@ -1393,59 +1359,77 @@ function createUnitCard(u) {
     const fallbackSrc = buildingImg || FALLBACK_MAP[pKey] || CONFIG.fallbackImage || 'https://placehold.co/600x400?text=No+Image';
 
     card.innerHTML = `
-        <div class="relative aspect-square sm:aspect-video overflow-hidden bg-gray-50 border-b border-gray-50">
-            <!-- Compare Checkbox -->
-            <div class="absolute top-2 left-2 z-10">
-                <input type="checkbox" class="compare-checkbox w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary h-[18px] w-[18px]" 
-                    ${compareState.selectedIds.includes(String(u.code || u.id)) ? 'checked' : ''}
-                    onclick="event.stopPropagation(); window.toggleCompare('${u.code || u.id}')">
+        <div class="unit-card-img-container relative aspect-[16/10] sm:aspect-video bg-gray-50 border-b border-gray-50">
+            <!-- Compare Checkbox (Prominent Hit Area) -->
+            <div class="compare-click-area absolute top-0 left-0 p-2 sm:p-4 z-40" 
+                 onclick="console.log('✅ Click Area Hit for Unit: ${u.code || u.id}'); event.stopPropagation(); window.toggleCompare('${u.code || u.id}')">
+                <div class="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
+                     <!-- Pulsing background if not selected -->
+                     <div class="compare-hint-pulse absolute inset-0 rounded-full bg-gold-main/20 animate-ping opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                     
+                     <div class="compare-checkbox-wrapper w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-white/20 flex items-center justify-center cursor-pointer hover:scale-110 active:scale-90 transition-all ${compareState.selectedIds.includes(String(u.code || u.id)) ? 'bg-gold-main ring-4 ring-white shadow-gold-main/30' : ''}">
+                        <div class="checkbox-box w-5 h-5 sm:w-6 sm:h-6 rounded-md sm:rounded-lg border-2 border-gray-200 flex items-center justify-center transition-all ${compareState.selectedIds.includes(String(u.code || u.id)) ? 'border-transparent' : ''}">
+                             <i data-lucide="${compareState.selectedIds.includes(String(u.code || u.id)) ? 'check' : 'plus'}" 
+                                class="w-3.5 h-3.5 sm:w-4 sm:h-4 ${compareState.selectedIds.includes(String(u.code || u.id)) ? 'text-white' : 'text-gray-400 group-hover:text-gold-main'}"></i>
+                        </div>
+                     </div>
+                </div>
             </div>
             
             <img 
                 src="${img}" 
                 alt="Unit ${u.code}" 
-                data-optimized="true"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 cursor-pointer" 
-                onclick="window.location.href='unit-details.html?id=${u.code}'"
+                class="unit-card-img w-full h-full object-cover" 
             >
+
+            <!-- View Details Overlay -->
+            <div class="view-details-overlay">
+                <div class="view-details-btn">
+                    <span>${t.view_details || 'View Details'}</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 rtl-flip"></i>
+                </div>
+            </div>
             
             <!-- Status Badge -->
-            <div class="absolute top-2 right-2 bg-emerald-50 text-emerald-600 text-[8px] sm:text-[10px] font-black px-2 py-0.5 rounded shadow-sm border border-emerald-100">
+            <div class="absolute top-2 right-2 sm:top-3 sm:right-3 bg-emerald-500 text-white text-[9px] sm:text-[10px] font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-lg border border-emerald-400 z-10">
                 ${unitStatus.toUpperCase()}
             </div>
         </div>
         
         <div class="p-3 sm:p-4 flex-grow flex flex-col justify-between">
             <div>
-                <div class="flex justify-between items-start mb-1">
-                    <h3 class="font-black text-gray-900 text-sm sm:text-base">${t.unit_label || 'Unit'} <span lang="en">${u.code}</span></h3>
-                    <div class="bg-gray-100 text-gray-900 px-2 py-0.5 rounded text-[10px] sm:text-xs font-black border border-gray-200 shadow-sm"><span lang="en">${areaVal}</span> m&sup2;</div>
+                <div class="flex justify-between items-start mb-1 sm:mb-2">
+                    <h3 class="font-black text-slate-900 text-sm sm:text-base">${t.unit_label || 'Unit'} <span lang="en">${u.code}</span></h3>
+                    <div class="bg-slate-100 text-slate-700 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg text-[9px] sm:text-xs font-black border border-slate-200">
+                        <span lang="en">${areaVal}</span> m&sup2;
+                    </div>
                 </div>
-                <p class="text-[10px] sm:text-xs text-gray-400 mb-3 flex items-center gap-1">
-                    <i data-lucide="map-pin" class="w-3 h-3"></i>
+                <p class="text-[9px] sm:text-xs text-slate-400 mb-1.5 sm:mb-4 flex items-center gap-1">
+                    <i data-lucide="map-pin" class="w-3 h-3 text-gold-main"></i>
                     ${projectName}
                 </p>
                 
-                <div class="flex items-center justify-between text-[10px] sm:text-xs text-gray-500 font-bold">
-                     <div class="flex items-center gap-1.5">
-                        <i data-lucide="bed" class="w-3.5 h-3.5 text-gray-400"></i>
-                        <span><span lang="en">${beds}</span></span>
+                <div class="grid grid-cols-2 gap-1.5 sm:gap-3 text-[9px] sm:text-xs text-slate-600 font-bold bg-slate-50/50 p-1.5 sm:p-2.5 rounded-xl border border-slate-100">
+                     <div class="flex items-center gap-1 sm:gap-2">
+                        <div class="w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-lg flex items-center justify-center shadow-sm border border-slate-100">
+                            <i data-lucide="bed" class="w-3 h-3 sm:w-4 sm:h-4 text-slate-400"></i>
+                        </div>
+                        <span><span lang="en">${beds}</span> ${beds === 1 ? (t.bed || 'Bed') : (t.beds || 'Beds')}</span>
                      </div>
-                     <div class="flex items-center gap-1.5">
-                        <i data-lucide="bath" class="w-3.5 h-3.5 text-gray-400"></i>
-                        <span><span lang="en">${baths}</span></span>
-                     </div>
-                     <div class="flex gap-1" dir="ltr"> <!-- Keep icons ltr for alignment -->
-                        ${featIconsHTML}
+                     <div class="flex items-center gap-1 sm:gap-2">
+                        <div class="w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-lg flex items-center justify-center shadow-sm border border-slate-100">
+                            <i data-lucide="bath" class="w-3 h-3 sm:w-4 sm:h-4 text-slate-400"></i>
+                        </div>
+                        <span><span lang="en">${baths}</span> ${baths === 1 ? (t.bath || 'Bath') : (t.baths || 'Baths')}</span>
                      </div>
                 </div>
             </div>
 
-            <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-50">
-                <span class="text-base sm:text-xl font-black text-primary"><span lang="en">${priceDisplay}</span></span>
-                <a href="unit-details.html?id=${u.code}" class="text-gray-300 hover:text-primary transition-colors">
-                    <i data-lucide="${currentLang === 'en' ? 'chevron-right' : 'chevron-left'}" class="w-5 h-5"></i>
-                </a>
+            <div class="flex justify-between items-center mt-2 pt-2 sm:mt-5 sm:pt-4 border-t border-slate-100">
+                <span class="text-sm sm:text-xl font-black text-slate-900"><span lang="en">${priceDisplay}</span></span>
+                <div class="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-gold-main group-hover:text-white transition-all duration-300">
+                    <i data-lucide="${currentLang === 'en' ? 'chevron-right' : 'chevron-left'}" class="w-4 h-4 sm:w-6 sm:h-6"></i>
+                </div>
             </div>
         </div>
     `;
@@ -1471,23 +1455,22 @@ function cacheUnits(units) {
 
 // --- Comparison Logic ---
 window.toggleCompare = function (unitId) {
+    console.log(`🔄 Toggling comparison for unit: ${unitId}`);
     const idStr = String(unitId);
     const idx = compareState.selectedIds.indexOf(idStr);
+    const isAdding = idx === -1;
 
-    if (idx > -1) {
+    if (!isAdding) {
         compareState.selectedIds.splice(idx, 1);
     } else {
         if (compareState.selectedIds.length >= compareState.max) {
             const t = translations[currentLang] || {};
             alert(`${t.compare_limit_msg || 'You can compare up to'} ${compareState.max} ${t.nav_menu_project || 'units'}.`);
-
-            // Sync checkbox
-            const cb = document.querySelector(`[data-unit-id="${unitId}"] .compare-checkbox`);
-            if (cb) cb.checked = false;
             return;
         }
         compareState.selectedIds.push(idStr);
     }
+
     updateCompareBar();
 };
 
@@ -1528,6 +1511,36 @@ function updateCompareBar() {
             d.compareAvatars.appendChild(avatar);
         });
     }
+
+    // Sync all unit card checkboxes/wrappers on current grid
+    document.querySelectorAll('.unit-card').forEach(card => {
+        const id = card.dataset.unitId;
+        const wrapper = card.querySelector('.compare-checkbox-wrapper');
+        const box = card.querySelector('.checkbox-box');
+        if (!wrapper) return;
+
+        const isSelected = compareState.selectedIds.includes(String(id));
+        const activeClasses = ['bg-gold-main', 'ring-4', 'ring-white', 'shadow-gold-main/30'];
+        const icon = wrapper.querySelector('i');
+
+        if (isSelected) {
+            wrapper.classList.add(...activeClasses);
+            if (box) box.classList.add('border-transparent');
+            if (icon) {
+                icon.setAttribute('data-lucide', 'check');
+                icon.className = 'w-4 h-4 text-white';
+            }
+        } else {
+            wrapper.classList.remove(...activeClasses);
+            if (box) box.classList.remove('border-transparent');
+            if (icon) {
+                icon.setAttribute('data-lucide', 'plus');
+                icon.className = 'w-4 h-4 text-gray-400 group-hover:text-gold-main';
+            }
+        }
+    });
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 window.openCompareModal = function () {
@@ -1655,3 +1668,61 @@ window.closeCompareModal = function () {
         document.body.style.overflow = '';
     }, 300);
 };
+/**
+ * Initialization for the Comparison Helper Tool
+ */
+function initComparisonHelper() {
+    if (document.getElementById('comparison-helper')) return;
+
+    const helper = document.createElement('div');
+    helper.id = 'comparison-helper';
+    helper.className = 'fixed right-0 top-1/2 -translate-y-1/2 z-[100] flex flex-col items-end pointer-events-auto';
+
+    const isAr = currentLang === 'ar';
+    const title = isAr ? 'قارن بين الوحدات' : 'Compare Units';
+
+    helper.innerHTML = `
+        <div class="compare-tab-fixed group flex items-center cursor-help">
+            <!-- Hint Tooltip (Hidden by default, shown on group hover) -->
+            <div class="compare-hint-tooltip absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+                <div class="bg-gray-900 text-white text-xs font-bold py-2 px-4 rounded-lg shadow-2xl whitespace-nowrap flex items-center gap-2">
+                    <i data-lucide="info" class="w-3 h-3 text-gold-main"></i>
+                    ${title}
+                </div>
+            </div>
+
+            <!-- Vertical Tab -->
+            <div class="bg-navy-deep text-white py-8 px-3 rounded-l-2xl border-l-2 border-y-2 border-gold-main/60 shadow-[-10px_0_30px_rgba(0,0,0,0.2)] flex flex-col items-center gap-4 transition-all duration-300 group-hover:bg-black group-hover:pl-5">
+                <div class="w-8 h-8 rounded-full bg-gold-main flex items-center justify-center text-navy-deep transform group-hover:rotate-12 transition-transform">
+                    <i data-lucide="git-compare" class="w-5 h-5"></i>
+                </div>
+                <p class="writing-mode-vertical uppercase tracking-[0.3em] text-[10px] font-black text-gray-400 group-hover:text-gold-main transition-colors">
+                    ${isAr ? 'مقارنة' : 'Compare'}
+                </p>
+            </div>
+        </div>
+    `;
+
+    // Hover interactions to guide the user
+    const tab = helper.querySelector('.compare-tab-fixed');
+    tab.addEventListener('mouseenter', () => {
+        // Highlight all comparison checkboxes on the page
+        document.querySelectorAll('.compare-checkbox-wrapper').forEach(wrapper => {
+            wrapper.classList.add('guide-pulse');
+        });
+    });
+
+    tab.addEventListener('mouseleave', () => {
+        document.querySelectorAll('.compare-checkbox-wrapper').forEach(wrapper => {
+            wrapper.classList.remove('guide-pulse');
+        });
+    });
+
+    document.body.appendChild(helper);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// Global exposure for event handlers if needed
+window.toggleCompare = toggleCompare;
+window.openCompareModal = openCompareModal;
+window.closeCompareModal = closeCompareModal;

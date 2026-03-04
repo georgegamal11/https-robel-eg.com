@@ -28,7 +28,14 @@ window.normalizeId = normalizeId; // Global access
 
 // Global Cloudflare Fetcher with Smart Caching
 async function fetchFromCloudflare(path, forceRefresh = false) {
-    const cacheKey = `cf_cache_v2_${path.replace(/[^a-z0-9]/gi, '_')}`;
+    // --- CACHE BUSTING CONFIG ---
+    const CACHE_VERSION = "v2026_03_01_fix";
+    const cacheKey = `cf_${CACHE_VERSION}_${path.replace(/[^a-z0-9]/gi, '_')}`;
+
+    // Check for global nocache flag
+    const urlParams = new URLSearchParams(window.location.search);
+    const globalNoCache = urlParams.get('nocache') === 'true' || urlParams.get('refresh') === 'true';
+    if (globalNoCache) forceRefresh = true;
 
     // 🚀 DEDUPLICATION: If we are already fetching this, return the existing promise
     if (inflightRequests.has(path)) {
@@ -38,23 +45,27 @@ async function fetchFromCloudflare(path, forceRefresh = false) {
     const fetchPromise = (async () => {
         try {
             // 🧠 SMART TTL: Adapt to network conditions
-            let cacheTTL = 1000 * 60 * 1; // Default: 1 Minute (Faster sync)
+            let cacheTTL = 1000 * 30; // 30 seconds (Ultra-aggressive for testing)
             if (navigator.connection && (navigator.connection.effectiveType === '2g' || navigator.connection.effectiveType === '3g')) {
-                cacheTTL = 1000 * 60 * 5; // 5 Minutes for weak connections
+                cacheTTL = 1000 * 60 * 2; // 2 Minutes for weak connections
             }
 
             // Check if we have cached data
             if (!forceRefresh) {
                 try {
-                    const cached = localStorage.getItem(cacheKey);
+                    const cached = sessionStorage.getItem(cacheKey);
                     if (cached) {
                         const { timestamp, data } = JSON.parse(cached);
                         const isStale = Date.now() - timestamp > cacheTTL;
 
-                        if (!isStale) return data;
+                        if (!isStale && data && (!Array.isArray(data) || data.length > 0)) {
+                            return data;
+                        }
 
-                        // Stale-While-Revalidate
-                        if (data) {
+                        // If stale, don't return old data if it's a critical path
+                        // Only return stale if we are on a slow connection
+                        const isSlow = cacheTTL > 30000;
+                        if (isSlow && data) {
                             fetchFromCloudflare(path, true).catch(() => { });
                             return data;
                         }
@@ -101,7 +112,7 @@ async function fetchFromCloudflare(path, forceRefresh = false) {
                 let processedData = data;
 
                 // Stability Fix for 0 results
-                const cachedRaw = localStorage.getItem(cacheKey);
+                const cachedRaw = sessionStorage.getItem(cacheKey);
                 if (!forceRefresh && Array.isArray(processedData) && processedData.length === 0 && cachedRaw) {
                     try {
                         const cachedParsed = JSON.parse(cachedRaw);
@@ -114,8 +125,8 @@ async function fetchFromCloudflare(path, forceRefresh = false) {
                 const transformItem = (item) => ({
                     id: item.unit_id || item.building_id || item.project_id || item.id,
                     buildingId: normalizeId(item.building_id || item.buildingId || item.building),
-                    projectId: (item.project_id || item.projectId || item.project || '').toString().toLowerCase().trim(),
-                    project: (item.project_id || item.projectId || item.project || '').toString().toLowerCase().trim(),
+                    projectId: (item.project_id || item.projectId || item.project || '').toString().toLowerCase().trim().replace(/-/g, ' '),
+                    project: (item.project_id || item.projectId || item.project || '').toString().toLowerCase().trim().replace(/-/g, ' '),
                     code: item.code || item.unit_id,
                     floor: item.floor,
                     area: parseFloat(item.area) || 0,
@@ -147,26 +158,36 @@ async function fetchFromCloudflare(path, forceRefresh = false) {
                     })()
                 });
 
-                if (Array.isArray(data)) processedData = data.map(transformItem);
-                else if (data && typeof data === 'object') processedData = transformItem(data);
+                let rawArray = [];
+                if (Array.isArray(data)) rawArray = data;
+                else if (data && Array.isArray(data.Data)) rawArray = data.Data;
+                else if (data && Array.isArray(data.units)) rawArray = data.units;
+                else if (data && Array.isArray(data.results)) rawArray = data.results;
+                else if (data && typeof data === 'object') {
+                    // If it's a single unit object (has ID fields)
+                    if (data.unit_id || data.id || data.code) rawArray = [data];
+                    else rawArray = [];
+                }
+
+                processedData = rawArray.map(transformItem);
 
                 // Save to Cache
                 try {
-                    localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: processedData }));
+                    sessionStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: processedData }));
                 } catch (e) {
                     if (e.name === 'QuotaExceededError') {
-                        const keys = Object.keys(localStorage).filter(k => k.startsWith('cf_cache_'));
-                        keys.forEach(k => localStorage.removeItem(k));
-                        localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: processedData }));
+                        const keys = Object.keys(sessionStorage).filter(k => k.startsWith('cf_cache_'));
+                        keys.forEach(k => sessionStorage.removeItem(k));
+                        sessionStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: processedData }));
                     }
                 }
                 return processedData;
             } else {
-                const cached = localStorage.getItem(cacheKey);
+                const cached = sessionStorage.getItem(cacheKey);
                 return cached ? JSON.parse(cached).data : null;
             }
         } catch (e) {
-            const cached = localStorage.getItem(cacheKey);
+            const cached = sessionStorage.getItem(cacheKey);
             return cached ? JSON.parse(cached).data : null;
         } finally {
             inflightRequests.delete(path);

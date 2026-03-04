@@ -712,6 +712,19 @@
             }
         }
 
+        // ====================================================================
+        // ROUTE: /api/branding
+        // ====================================================================
+        if (url.pathname === '/api/branding') {
+            try {
+                // Return default branding empty config to satisfy frontend, 
+                // or fetch from a branding table if it exists.
+                return new Response(JSON.stringify({}), { headers: corsHeaders });
+            } catch (e) {
+                return new Response(JSON.stringify({ error: e.message }), { status: 500, headers: corsHeaders });
+            }
+        }
+
 
         return new Response('Not Found', { status: 404, headers: corsHeaders });
     }
