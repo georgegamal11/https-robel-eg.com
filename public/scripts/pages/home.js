@@ -1393,9 +1393,21 @@ window.loadData = async function (forceRefresh = false) {
             finalizeNormalization(); // Render UI immediately
         }
 
-        // STEP 1: Load Local Baselines (DISABLED to ensure strictly Cloudflare data)
-        console.log("?? Local JSON baselines skipped (Using Cloudflare as Source of Truth)");
-
+        // STEP 1: Load Local Baselines (Re-enabled for SPEED OPTIMIZATION)
+        if (window.inventory.length === 0) {
+            try {
+                console.log("🚀 [SPEED OPTIMIZATION] Fetching local json fallback while waiting for Cloudflare...");
+                const localRes = await fetch('data/inventory.json');
+                if (localRes.ok) {
+                    const baselineData = await localRes.json();
+                    if (baselineData && baselineData.length > 0) {
+                        window.inventory.splice(0, window.inventory.length, ...baselineData);
+                        console.log(`[loadData] HYDRATED ${window.inventory.length} units from baseline JSON.`);
+                        finalizeNormalization(); // Render UI immediately before DB finish
+                    }
+                }
+            } catch(e) { console.warn("Local baseline missing/failed", e); }
+        }
         // --- STEP 3: Optimized Sync via Cloudflare ---
         console.log("?? Fetching Data from Cloudflare...");
 

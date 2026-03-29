@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    ROBEL REAL ESTATE - MAIN SCRIPT
    ========================================================================== */
 
@@ -91,17 +91,11 @@ window.projectMetadata = {
     "B224": { projectArea: "Porto Golf Marina", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties", image: ["assets/images/projects/porto-golf-marina/gallery/224.webp"] },
     "B78": { projectArea: "Porto Golf Marina", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties", image: ["assets/images/projects/porto-golf-marina/gallery/78.webp"] },
     // Porto Said Buildings
-    "B15": { projectArea: "Porto Said", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B16": { projectArea: "Porto Said", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B17": { projectArea: "Porto Said", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B33": { projectArea: "Porto Said", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B9": { projectArea: "Porto Said", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B10": { projectArea: "Porto Said", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties", image: ["assets/images/face-main/porto-said-main.webp"] },
     "SHOPS": { projectArea: "Porto Said", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties", image: ["assets/images/face-main/porto-said-main.webp"] },
     "Celebration": { projectArea: "Celebration", delivery: "1/1/2028", status: "buy", constStatus: "Under Construction", category: "properties", image: ["assets/images/face-main/celebration-main.webp"] }
 };
 window.projectAreas = ["Porto Golf Marina", "Porto Said", "Celebration"];
-window.projectNames = ["B133", "B136", "B230", "B243", "B121", "B224", "B78", "B15", "B16", "B17", "B33", "B9", "B10", "SHOPS", "Celebration"];
+window.projectNames = ["B133", "B136", "B230", "B243", "B121", "B224", "B78", "SHOPS", "Celebration"];
 window.inventory = [];
 window.adminUnitSortOrder = 'asc'; // Global sort persistent state
 
@@ -169,8 +163,7 @@ window.projectDetailPages = {
     if (alreadySeeded) return;
 
     const SHOPS_UNITS = [
-        { code: "B10S3B", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 6231000, floor: "Ground Floor", view: "No View", area: 67, status: "Available", type: "shop", intent: "buy" },
-        { code: "B10S6B", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 6231000, floor: "Ground Floor", view: "No View", area: 67, status: "Available", type: "shop", intent: "buy" },
+
         { code: "B9S10", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 2766000, floor: "Ground Floor", view: "No View", area: 33, status: "Available", type: "shop", intent: "buy" },
         { code: "B9S11", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 4358000, floor: "Ground Floor", view: "No View", area: 52, status: "Available", type: "shop", intent: "buy" },
         { code: "B9S12", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 4358000, floor: "Ground Floor", view: "No View", area: 52, status: "Available", type: "shop", intent: "buy" },
@@ -344,7 +337,7 @@ window.allProjects = window.projectAreas; // Alias for areas/projects list
  * Self-contained version to bypass any "Sync service not ready" errors.
  */
 window.migrateAllFirebaseToCloudflare = async function () {
-    const ghosts = ['B16', 'B17', 'B121', 'B224', 'B78']; // B15 removed - it's a valid building
+    const ghosts = [];
     const localUnits = (window.inventory || []).filter(u => {
         const bId = normalizeId(u.building_id || u.buildingId);
         return !ghosts.includes(bId);
@@ -1128,7 +1121,7 @@ function getAreaStrategy(project, buildingId) {
 // Move normalization to a helper to allow calling it (Baseline, Metadata, and Units)
 function finalizeNormalization() {
     // --- FINAL NORMALIZATION & UI RENDERING ---
-    const protectedBuildings = ['B133', 'B136', 'B230', 'B243', 'B121', 'B224', 'B78', 'B15', 'B16', 'B17', 'B33', 'B9', 'B10'];
+    const protectedBuildings = ['B133', 'B136', 'B230', 'B243', 'B121', 'B224', 'B78'];
 
     const normalizedMetadata = {};
     const projectSlugs = ['PORTO-GOLF-MARINA', 'PORTO-SAID', 'CELEBRATION', 'GEORGE', 'NEW-ALAMEIN', 'EGYPT-PROJECTS', 'OTHER'];
@@ -1399,8 +1392,21 @@ window.loadData = async function (forceRefresh = false) {
             finalizeNormalization(); // Render UI immediately
         }
 
-        // STEP 1: Load Local Baselines (DISABLED to ensure strictly Cloudflare data)
-        console.log("?? Local JSON baselines skipped (Using Cloudflare as Source of Truth)");
+        // STEP 1: Load Local Baselines (Re-enabled for SPEED OPTIMIZATION)
+        if (window.inventory.length === 0) {
+            try {
+                console.log("🚀 [SPEED OPTIMIZATION] Fetching local json fallback while waiting for Cloudflare...");
+                const localRes = await fetch('data/inventory.json');
+                if (localRes.ok) {
+                    const baselineData = await localRes.json();
+                    if (baselineData && baselineData.length > 0) {
+                        window.inventory.splice(0, window.inventory.length, ...baselineData);
+                        console.log(`[loadData] HYDRATED ${window.inventory.length} units from baseline JSON.`);
+                        finalizeNormalization(); // Render UI immediately before DB finish
+                    }
+                }
+            } catch(e) { console.warn("Local baseline missing/failed", e); }
+        }
 
         // --- STEP 3: Optimized Sync via Cloudflare ---
         console.log("?? Fetching Data from Cloudflare...");
@@ -2796,10 +2802,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center hover:bg-green-100 transition-colors" onclick="toggleUnitStatus('${u.unit_id || u.id || u.code}')" title="Cycle Status">
                                 <i class="fas fa-sync-alt text-xs"></i>
                             </button>
-                            <button class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-100 transition-colors btn-delete" 
-                                     onclick="window.AdminUI ? window.AdminUI.promptDelete('${u.unit_id || u.id || u.code}', 'unit') : deleteUnit('${u.unit_id || u.id || u.code}')">
-                                 <i class="fas fa-trash-alt text-xs"></i>
-                             </button>
                         </div>
                     </td>
                 `;
@@ -5451,6 +5453,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (meta && meta.projectArea) activeP = normalizeProjectArea(meta.projectArea);
         }
         if (!activeP) activeP = "Porto Golf Marina";
+
+        // 🔒 CRITICAL FIX: When a project TAB is selected (activeSearchProject set),
+        // but no specific buildings are checked (effectiveSelectedProjs empty),
+        // we MUST filter areaInvForOptions to only units of that active project.
+        // Without this, Golf units with 90m² falsely match Celebration area ranges.
+        if (activeP && effectiveSelectedProjs.length === 0) {
+            areaInvForOptions = areaInvForOptions.filter(u => {
+                const uBuild = normalizeId(u.buildingId || u.building_id || u.buildingCode || u.building || '');
+                const uProj  = (u.projectId || u.project || u.project_id || '').toString();
+                // Resolve unit's project area
+                const uArea  = normalizeProjectArea(uBuild) !== 'Other'
+                    ? normalizeProjectArea(uBuild)
+                    : normalizeProjectArea(uProj);
+                return uArea === activeP;
+            });
+        }
 
         const strategy = getAreaStrategy(activeP, effectiveSelectedProjs.length === 1 ? effectiveSelectedProjs[0] : null);
         let availOptions = strategy.options;
