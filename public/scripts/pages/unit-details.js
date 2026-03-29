@@ -1122,24 +1122,51 @@ function formatMoney(n) {
 }
 
 function getBestOffer(area) {
-    if (!state.offers || state.offers.length === 0) return null;
+    let offers = state.offers || [];
+
+    // 🛡️ HARD FALLBACK: If Cloudflare DB is missing building offers, provide the project defaults
+    if (offers.length === 0) {
+        const pKey = (state.unit.project || state.unit.location || '').toLowerCase();
+        const bKey = (state.unit.building || '').toUpperCase();
+        
+        // Default is 10% Down / 6 Years
+        let installYears = 6;
+        
+        // Porto Said B15 exception
+        if (pKey.includes('said') && (bKey === 'B15' || bKey === '15')) {
+            installYears = 4;
+        }
+
+        offers = [{
+            name: `10% مقدم / ${installYears} سنوات`,
+            name_en: `10% Down / ${installYears} Years`,
+            discountValue: '0%',
+            downPayment: '10%',
+            installmentYears: installYears,
+            installmentYearsText: `${installYears} سنوات`,
+            installmentYearsTextEn: `${installYears} Years`,
+            cashDiscount: '35%',
+            note: '',
+            noteEn: ''
+        }];
+    }
 
     // 1. Try Exact Area Match
     const areaVal = Number(area);
-    const matches = state.offers.filter(o => Number(o.linkedArea) === areaVal);
+    const matches = offers.filter(o => Number(o.linkedArea) === areaVal);
 
     if (matches.length > 0) {
         return matches.sort((a, b) => (a.priority || 99) - (b.priority || 99))[0];
     }
 
     // 2. Fallback: Generic active offer (linkedArea matching nothing or 0)
-    const generic = state.offers.filter(o => !o.linkedArea || Number(o.linkedArea) === 0);
+    const generic = offers.filter(o => !o.linkedArea || Number(o.linkedArea) === 0);
     if (generic.length > 0) {
         return generic.sort((a, b) => (a.priority || 99) - (b.priority || 99))[0];
     }
 
-    // 3. Last Resort: Any active offer
-    return state.offers[0];
+    // 3. Last Resort: Any active offer (including our fallback)
+    return offers[0];
 }
 
 function showToast(msg) {
