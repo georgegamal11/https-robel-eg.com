@@ -1991,7 +1991,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (unit.payment_plan && unit.payment_plan !== 'N/A' && unit.payment_plan !== '-') return unit.payment_plan;
 
         // 1. Get Building Context
-        const bName = unit.project || unit.building_id || unit.buildingCode;
+        const bName = unit.project || unit.building_id || unit.buildingCode || unit.buildingId || unit.project_id;
         if (!bName) return null;
 
         const bMeta = projectMetadata[bName];
@@ -4404,6 +4404,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 images: window.getUnitImages(),
                 buildingCode: pName
             };
+
+            // ?? AUTO-ASSIGN PAYMENT PLAN IF EMPTY
+            if (!unitData.payment_plan && typeof window.getMatchedOfferForUnit === 'function') {
+                unitData.payment_plan = window.getMatchedOfferForUnit(unitData) || '';
+                if (unitData.payment_plan) console.log(`?? Auto-assigned Payment Plan: ${unitData.payment_plan}`);
+            }
 
 
             // ---------------------------------------------------------

@@ -13,7 +13,7 @@ const FALLBACK_AUTH_KEY = "G792001";
  */
 function withTimeout(promise, ms = 15000, context = 'Operation') {
     const timeout = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error(`${context} timed out après ${ms}ms`)), ms);
+        setTimeout(() => reject(new Error(`${context} timed out aprÃ¨s ${ms}ms`)), ms);
     });
     return Promise.race([promise, timeout]);
 }
@@ -24,22 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initManualUnitHandler() {
-    // console.log("🛠️ initializing Manual Unit Handler...");
+    // console.log("ðŸ› ï¸ initializing Manual Unit Handler...");
 
     const form = document.getElementById('addUnitForm');
     if (!form) {
-        console.warn("⚠️ [ManualUnit] 'addUnitForm' not found in DOM.");
+        console.warn("âš ï¸ [ManualUnit] 'addUnitForm' not found in DOM.");
         return;
     }
 
     // form.addEventListener('submit', handleManualUnitSubmit);
-    // console.log("✅ [ManualUnit] Global handler in home.js will manage 'addUnitForm'.");
+    // console.log("âœ… [ManualUnit] Global handler in home.js will manage 'addUnitForm'.");
 
 }
 
 async function handleManualUnitSubmit(e) {
     e.preventDefault();
-    console.log("🚀 [ManualUnit] Form Submitted!");
+    console.log("ðŸš€ [ManualUnit] Form Submitted!");
 
     const statusDiv = document.getElementById('unit-code-feedback');
     if (statusDiv) statusDiv.textContent = "Processing...";
@@ -47,11 +47,11 @@ async function handleManualUnitSubmit(e) {
     // 2. Gather Data (STRIP NON-DIGITS)
     const rawCode = document.getElementById('new-unit-code')?.value || '';
 
-    // 🔥 ROBUST CODE CONSTRUCTION (From user feedback)
+    // ðŸ”¥ ROBUST CODE CONSTRUCTION (From user feedback)
     // 1. Strip 'B' or other chars
     let code = rawCode.replace(/\D/g, '');
 
-    // 🚀 SMART EXPANSION FOR SHORT CODES (3 Digits -> Full Code)
+    // ðŸš€ SMART EXPANSION FOR SHORT CODES (3 Digits -> Full Code)
     // If user enters '424' and building is 'B133', we want '133424'
     const buildingDisplay = document.getElementById('new-unit-building-display')?.value;
     let buildingId = window.selectedBuildingId || window.currentProjectId;
@@ -63,17 +63,17 @@ async function handleManualUnitSubmit(e) {
         const bNum = buildingId.replace(/\D/g, ''); // "133"
         // Only expand if we have a valid building number
         if (bNum.length > 0) {
-            console.log(`✨ Expanding Short Code: ${code} + Building ${bNum} -> ${bNum}${code}`);
+            console.log(`âœ¨ Expanding Short Code: ${code} + Building ${bNum} -> ${bNum}${code}`);
             code = bNum + code;
         }
     }
 
-    // 🚀 GOD MODE: If user gives full 6-digit code (133424), AUTO-DETECT BUILDING
+    // ðŸš€ GOD MODE: If user gives full 6-digit code (133424), AUTO-DETECT BUILDING
     if (code.length === 6) {
         const bNum = code.substring(0, 3);
         const autoBuildingId = 'B' + bNum;
         if (buildingId !== autoBuildingId) {
-            console.log(`✨ Auto-Switching Building Context: ${buildingId} -> ${autoBuildingId}`);
+            console.log(`âœ¨ Auto-Switching Building Context: ${buildingId} -> ${autoBuildingId}`);
             buildingId = autoBuildingId;
         }
     }
@@ -94,18 +94,18 @@ async function handleManualUnitSubmit(e) {
     }
 
     if (!buildingId) {
-        alert("❌ Error: No Building Selected. Please select a building from the sidebar.");
+        alert("âŒ Error: No Building Selected. Please select a building from the sidebar.");
         return;
     }
 
     // Flexible Length Check 
     if (!code || code.length < 1 || code.length > 10) {
-        alert(`❌ Error: Unit Code must be valid numbers (1-10 digits). You entered ${code.length} digits.`);
+        alert(`âŒ Error: Unit Code must be valid numbers (1-10 digits). You entered ${code.length} digits.`);
         return;
     }
 
     if (!area || !price || !view) {
-        alert("❌ Error: Please fill in all required fields (Area, Price, View).");
+        alert("âŒ Error: Please fill in all required fields (Area, Price, View).");
         return;
     }
 
@@ -114,7 +114,7 @@ async function handleManualUnitSubmit(e) {
     if (typeof window.getUnitImages === 'function') {
         const rawImages = window.getUnitImages();
         images = rawImages.map(img => img.data);
-        console.log(`📸 [ManualUnit] Found ${images.length} images to upload.`);
+        console.log(`ðŸ“¸ [ManualUnit] Found ${images.length} images to upload.`);
     }
 
     // Construct Unit Object
@@ -149,25 +149,25 @@ async function handleManualUnitSubmit(e) {
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
 
     try {
-        console.log("📤 [ManualUnit] Sending Data to Cloudflare:", unitData);
+        console.log("ðŸ“¤ [ManualUnit] Sending Data to Cloudflare:", unitData);
 
         let result = false;
 
         // TRY 1: Main Admin API
         if (window.robelAdminAPI && window.robelAdminAPI.createUnit) {
-            console.log("🔹 Using Main Admin API");
+            console.log("ðŸ”¹ Using Main Admin API");
             await window.robelAdminAPI.createUnit(unitData);
             result = true;
         }
         // TRY 2: Fallback (Self-contained)
         else {
-            console.warn("⚠️ Main Admin API not found. Using FALLBACK create function.");
+            console.warn("âš ï¸ Main Admin API not found. Using FALLBACK create function.");
             result = await fallbackCreateUnit(unitData);
         }
 
         if (result) {
-            console.log("✅ [ManualUnit] Success!");
-            alert(`🎉 Unit ${code} created successfully!`);
+            console.log("âœ… [ManualUnit] Success!");
+            alert(`ðŸŽ‰ Unit ${code} created successfully!`);
 
             // Reset Form
             form.reset();
@@ -184,7 +184,7 @@ async function handleManualUnitSubmit(e) {
         }
 
     } catch (error) {
-        console.error("❌ [ManualUnit] Error:", error);
+        console.error("âŒ [ManualUnit] Error:", error);
         alert("Failed to create unit: " + error.message);
     } finally {
         submitBtn.disabled = false;
@@ -221,7 +221,7 @@ async function fallbackCreateUnit(unitData) {
 
 async function fallbackSync(table, action, id, data = {}) {
     try {
-        console.log(`☁️ [FALLBACK Sync] ${table} ${action} ${id}`);
+        console.log(`â˜ï¸ [FALLBACK Sync] ${table} ${action} ${id}`);
         const serializedData = { ...data };
 
         // Handle Image Array -> String
@@ -257,3 +257,4 @@ async function fallbackSync(table, action, id, data = {}) {
         return false;
     }
 }
+
