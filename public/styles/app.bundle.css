@@ -1,4 +1,4 @@
-﻿/* =========================================
+/* =========================================
    01-VARIABLES
    ========================================= */
 
@@ -2405,15 +2405,6 @@ a.btn-cta.mobile-only {
 
 /* Elements */
 .filter__btn-search {
-    width: 100%;
-    height: 60px;
-    background: #C9A23F;
-    color: #fff !important;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 800;
-    cursor: pointer;
     transition: 0.3s;
     text-transform: capitalize;
 }
@@ -9393,3 +9384,8 @@ select {
 [data-theme='dark']::view-transition-new(root) {
     z-index: 1;
 }
+
+/* Fix for Drag and Drop Target Area */
+.image-drop-zone * { pointer-events: none; }
+.image-drop-zone button, .image-drop-zone input { pointer-events: auto; }
+
