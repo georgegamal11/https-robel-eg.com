@@ -58,14 +58,14 @@ window.projectMetadata = window.projectMetadata || {
     "B243": { projectArea: "Porto Golf Marina", image: ["images/ui/logo-main.png"] },
     "B121": { projectArea: "Porto Golf Marina", image: ["images/ui/logo-main.png"] },
     "B224": { projectArea: "Porto Golf Marina", image: ["images/projects/porto-golf-marina/gallery/224.webp"] },
-    "B78":  { projectArea: "Porto Golf Marina", image: ["images/projects/porto-golf-marina/gallery/78.webp"] },
+    "B78": { projectArea: "Porto Golf Marina", image: ["images/projects/porto-golf-marina/gallery/78.webp"] },
     // Porto Said Buildings
-    "B9":   { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
-    "B10":  { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
-    "B15":  { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
-    "B16":  { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
-    "B17":  { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
-    "B33":  { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
+    "B9": { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
+    "B10": { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
+    "B15": { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
+    "B16": { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
+    "B17": { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
+    "B33": { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
     "SHOPS": { projectArea: "Porto Said", image: ["images/face-main/porto-said-main.webp"] },
     // Celebration
     "Celebration": { projectArea: "Celebration", image: ["images/face-main/celebration-main.webp"] }
@@ -487,11 +487,11 @@ function populateAreasFilter(units) {
     }
 
     const config = PROJECT_CONFIG[filterState.project];
-    
+
     if (config.areaSystem === 'fixed') {
         // Get unique areas from units, fallback to config only if desperate
         let areas = [...new Set(relevantUnits.map(u => Number(u.area)))].filter(Boolean).sort((a, b) => a - b);
-        
+
         // Failsafe: if no units but we have a project config, we probably shouldn't show anything 
         // if the user said "Celebration should show nothing".
         if (areas.length === 0 && relevantUnits.length > 0) {
@@ -510,7 +510,7 @@ function populateAreasFilter(units) {
         // Ranges (Porto Said)
         const ranges = config.areaRanges || [];
         dom.areaFilter.innerHTML = '<option value="">All Areas</option>';
-        
+
         ranges.forEach(range => {
             // Optional: Only show range if units exist in it
             const hasUnitsInRange = relevantUnits.some(u => u.area >= range.min && u.area <= range.max);
@@ -566,9 +566,8 @@ function resolveProjectKey(input) {
         'b243': 'porto-golf-marina', '121': 'porto-golf-marina', 'b121': 'porto-golf-marina',
         '224': 'porto-golf-marina', 'b224': 'porto-golf-marina', '78': 'porto-golf-marina', 'b78': 'porto-golf-marina',
         // Porto Said buildings
-        'b9': 'porto-said', '9': 'porto-said', 'b10': 'porto-said', '10': 'porto-said',
-        'b15': 'porto-said', '15': 'porto-said', 'b16': 'porto-said', '16': 'porto-said', 
-        'b33': 'porto-said', '33': 'porto-said',
+        'b9': 'porto-said', 'b10': 'porto-said',
+        'b15': 'porto-said', 'b16': 'porto-said', 'b17': 'porto-said', 'b33': 'porto-said',
         'shops': 'porto-said',
         'celebration': 'celebration',
         'porto-said': 'porto-said', 'porto said': 'porto-said',
@@ -944,7 +943,7 @@ function onBuildingChange(val) {
 
     // 🚀 LINKED FILTERS: Refresh Area options when Building changes
     refreshDropdownOptions();
-    
+
     // applyFilters(); removed for manual mode
 }
 
@@ -1327,8 +1326,8 @@ function createUnitCard(u) {
     card.onclick = (e) => {
         // If clicked on comparison area, don't navigate
         if (e.target.closest('.compare-click-area')) return;
-        // Save unit data for instant load on unit-details page
-        try { localStorage.setItem('cached_unit_details', JSON.stringify(u)); } catch (e) {}
+        // Pre-cache unit data for instant load on unit-details page
+        try { localStorage.setItem('cached_unit_details', JSON.stringify(u)); } catch(err) {}
         window.location.href = `unit-details.html?id=${u.code}`;
     };
 

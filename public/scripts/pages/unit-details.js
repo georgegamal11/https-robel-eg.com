@@ -12,7 +12,7 @@ const PROJECT_MASTER_PLANS = {
 };
 
 const BUILDING_FLOOR_PLANS = {
-    'B136': 'images/projects/porto-golf-marina/floor-plans/porto-golf-floorplan-b136.webp'
+    'B136': 'images/projects/porto-golf-marina/floor-plans/رسمة الدور_1.webp'
 };
 
 
@@ -159,9 +159,8 @@ async function fetchUnitData(id) {
             const cached = localStorage.getItem('cached_unit_details');
             if (cached) {
                 const u = JSON.parse(cached);
-                const uId = (u.id || u.code || u.unit_id || '').toString();
-                const searchId = id.toString();
-                if (uId === searchId || uId.replace(/^B/i, '') === searchId.replace(/^B/i, '')) {
+                // Normalized check
+                if (u.id == id || u.code == id || (u.unit_id && u.unit_id == id)) {
                     console.log("🚀 [UnitDetails] Instant Load from Pre-Cache");
                     state.unit = normalizeUnit(u);
                     state.images = state.unit.images;
@@ -169,7 +168,7 @@ async function fetchUnitData(id) {
                     return;
                 }
             }
-        } catch (e) { console.warn("Cache read failed:", e); }
+        } catch (e) { }
 
         // 1. Fetch via Unified Query Layer (Cloudflare D1)
         if (window.firebaseQueries && typeof window.firebaseQueries.getUnit === 'function') {
@@ -183,25 +182,24 @@ async function fetchUnitData(id) {
 
         // 2. Fallback to Local JSON if absolutely necessary
         if (!state.unit) {
-            console.warn("⚠️ Unit not found in D1, trying local baseline...");
-            // Try multiple paths to be safe
+            console.warn("⚠️ Trying local baseline...");
             let res = null;
-            for (const path of ['/data/inventory.json', 'data/inventory.json', '/assets/data/inventory.json']) {
+            for (const path of ['/data/inventory.json', 'data/inventory.json']) {
                 res = await fetch(path).catch(() => null);
-                if (res && res.ok) { console.log('✅ Found inventory at:', path); break; }
+                if (res && res.ok) break;
             }
             if (res && res.ok) {
                 const localData = await res.json();
                 const found = localData.find(u => {
                     const uId = (u.code || u.unit_id || u.id || '').toString();
-                    return uId === id.toString() || uId.replace(/^B/i, '') === id.toString().replace(/^B/i, '');
+                    return uId === id.toString() || uId.replace(/^B/i,'') === id.toString().replace(/^B/i,'');
                 });
                 if (found) {
-                    console.log("✅ [UnitDetails] Found in Local Baseline:", found.code || found.id);
+                    console.log("✅ [UnitDetails] Found locally:", found.code);
                     state.unit = normalizeUnit(found);
                     state.images = state.unit.images;
                 } else {
-                    console.warn("❌ Unit", id, "not found in local inventory either");
+                    console.error("❌ Unit", id, "not found anywhere!");
                 }
             }
         }
@@ -252,7 +250,7 @@ function normalizeUnit(u) {
     if (images.length === 0) images.push(CONFIG.fallbackImage);
 
     const areaVal = Number(u.area) || 0;
-    // Support both API field names (project_id from CF) and legacy field names
+    // Support both CF API field (project_id) and legacy (project)
     const bKey = (u.buildingCode || u.buildingId || u.building_id || '').toUpperCase().trim();
     const rawProject = (u.project_id || u.project || u.projectName || '');
     const pKey = rawProject.toLowerCase().trim().replace(/_/g, '-');
@@ -338,12 +336,12 @@ function normalizeUnit(u) {
         lat: 30.8419,
         lng: 28.9185,
         status: u.status || 'Available',
-        // API uses 'buy'/'rent', normalize to 'Sale'/'Rent'
+        // Cloudflare API sends 'buy'/'rent' - normalize for UI
         purpose: (() => {
-            const p = (u.purpose || u.intent || 'buy').toLowerCase();
+            const p = (u.purpose || u.intent || 'buy').toString().toLowerCase();
             if (p === 'buy') return 'Sale';
             if (p === 'rent') return 'Rent';
-            return u.purpose || 'Sale';
+            return p.charAt(0).toUpperCase() + p.slice(1);
         })(),
         specs: specs
     };
@@ -410,7 +408,7 @@ function renderUnit() {
     // Update All Status/Purpose Badges
     const uStatus = (u.status || 'Available').toString().trim();
     const uPurpose = (u.purpose || 'For Sale').toString().trim();
-    
+
     const statusText = t[`status_${uStatus.toLowerCase()}`] || uStatus;
     const purposeText = t[`tab_${uPurpose.toLowerCase()}`] || uPurpose;
 
