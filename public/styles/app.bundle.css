@@ -9366,25 +9366,29 @@ select {
         top: 60px !important;
     }
 }
+
 /* Custom View Transitions for Dark Mode Animation */
 ::view-transition-old(root),
 ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
 }
+
 ::view-transition-old(root) {
     z-index: 1;
 }
+
 ::view-transition-new(root) {
     z-index: 9999;
 }
+
 [data-theme='dark']::view-transition-old(root) {
     z-index: 9999;
 }
+
 [data-theme='dark']::view-transition-new(root) {
     z-index: 1;
 }
-
 /* Fix for Drag and Drop Target Area */
 .image-drop-zone * { pointer-events: none; }
 .image-drop-zone button, .image-drop-zone input { pointer-events: auto; }

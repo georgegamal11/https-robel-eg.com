@@ -184,8 +184,7 @@
 
 
     <!-- Preload Critical Image ONLY -->
-    <link rel="preload" as="image" href="images/projects/porto-golf-marina/hero/hero-1.webp"
-        fetchpriority="high">
+    <link rel="preload" as="image" href="images/projects/porto-golf-marina/hero/hero-1.webp" fetchpriority="high">
 
     <!-- Critical Inline Styles to prevent Flash of Unstyled Content -->
     <style>
@@ -1306,7 +1305,11 @@
                                         </a>
                                     </div>
                                 </div>
-
+                                <button onclick="downloadDatabaseBackup()"
+                                    class="w-full sm:w-auto btn btn-outline flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50"
+                                    title="Save a backup of all data before cleaning">
+                                    <i class="fas fa-download"></i> <span>Backup DB</span>
+                                </button>
                                 <button id="show-add-unit-form"
                                     class="w-full sm:w-auto btn btn-gold flex items-center justify-center gap-2 px-6 py-2 rounded-lg bg-gold-main text-white shadow-md">
                                     <i class="fas fa-plus"></i> <span data-i18n="admin_add_unit">Add Unit</span>
@@ -1738,12 +1741,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-

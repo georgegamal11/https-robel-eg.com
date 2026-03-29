@@ -120,7 +120,7 @@ var AdminSmartEntry = {
         const currentBuilding = window.selectedBuildingId || window.currentProjectId || "";
         const currentBuildingNum = currentBuilding.replace(/\D/g, '');
 
-        // If code contains 'S', it's a shop â€” skip standard length check
+        // If code contains 'S', it's a shop — skip standard length check
         if (/S/i.test(code)) {
             this.parseAndValidate(code);
             return;

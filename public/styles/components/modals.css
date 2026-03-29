@@ -795,6 +795,15 @@
     pointer-events: auto;
 }
 
+/* Fix for Drag and Drop Target Area */
+.image-drop-zone * {
+    pointer-events: none;
+}
+.image-drop-zone button,
+.image-drop-zone input {
+    pointer-events: auto;
+}
+
 [data-theme="dark"] .image-drop-zone {
     background: rgba(255, 255, 255, 0.03);
     border-color: rgba(255, 255, 255, 0.1);
