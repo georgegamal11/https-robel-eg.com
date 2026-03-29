@@ -287,6 +287,30 @@ window.initUnitImageUpload = function () {
         }, false);
     });
 
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.add('dragover');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.remove('dragover');
+        }, false);
+    });
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.add('dragover');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.remove('dragover');
+        }, false);
+    });
+
     dropZone.addEventListener('drop', (e) => {
         const files = e.dataTransfer.files;
         if (files && files.length) {
@@ -2812,11 +2836,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td class="px-6 py-4"><span class="px-2 py-1 rounded text-[10px] font-bold uppercase border ${statusClass}">${u.status}</span></td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center gap-2" style="${isReporter ? 'display:none' : ''}">
-                            <button class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 transition-colors" onclick="window.editUnit('${u.unit_id || u.id || u.code}')">
+                            <button class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 transition-colors" onclick="window.editUnit('${u.unit_id || u.id || u.code}')" title="Edit Unit">
                                 <i class="fas fa-edit text-xs"></i>
                             </button>
                             <button class="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center hover:bg-green-100 transition-colors" onclick="toggleUnitStatus('${u.unit_id || u.id || u.code}')" title="Cycle Status">
                                 <i class="fas fa-sync-alt text-xs"></i>
+                            </button>
+                            <button class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-100 transition-colors btn-delete" 
+                                    onclick="window.AdminUI ? window.AdminUI.promptDelete('${u.unit_id || u.id || u.code}', 'unit') : deleteUnit('${u.unit_id || u.id || u.code}')" title="Delete Unit">
+                                <i class="fas fa-trash-alt text-xs"></i>
                             </button>
                         </div>
                     </td>
@@ -3112,6 +3140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Clear previous unit images
             unitImages = [];
             displayImages();
+            if (typeof initUnitImageUpload === 'function') initUnitImageUpload();
 
             const formHeader = document.querySelector('#add-unit-container .form-header h4');
             if (formHeader) formHeader.textContent = currentLang === 'ar' ? '????? ???? ?????' : 'Create New Unit';
@@ -4582,7 +4611,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Load existing images
         if (unit.images && Array.isArray(unit.images) && unit.images.length > 0) {
-            // Normalize images to ensure {data, name} structure
+            // ... (normalization code omitted for brevity but preserved)
             unitImages = unit.images.map((img, i) => {
                 if (typeof img === 'string') {
                     return { data: img, name: `Image ${i + 1} ` };
@@ -4591,7 +4620,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             displayImages();
         } else if (unit.floorPlan) {
-            // Support legacy floorPlan field by loading it as an image
+            // ...
             const fp = unit.floorPlan;
             const fpData = (typeof fp === 'object' && fp.data) ? fp.data : fp;
             const fpName = (typeof fp === 'object' && fp.name) ? fp.name : 'Floor Plan';
@@ -4600,6 +4629,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             window.clearUnitImages();
         }
+
+        // Ensure drag and drop listeners are active
+        if (typeof initUnitImageUpload === 'function') initUnitImageUpload();
 
         const formHeader = document.querySelector('#add-unit-container .form-header h4');
         if (formHeader) formHeader.textContent = currentLang === 'ar' ? '????? ??????' : 'Edit Unit';
