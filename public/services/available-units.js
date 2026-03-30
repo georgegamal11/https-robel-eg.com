@@ -106,7 +106,7 @@ async function initAvailableBuildings() {
             }
 
             // 4. Process Buildings & Metadata
-            const discovery = new Set(['B133', 'B136', 'B230', 'B243', 'B121', 'B224', 'B78', 'B15', 'B16', 'B17', 'B9', 'B10', 'B33', 'SHOPS']);
+            const discovery = new Set(['B133', 'B136', 'B230', 'B243', 'B121', 'B224', 'B78', 'SHOPS']);
 
             // Consolidate with Global Normalizer
             const normalizeId = window.normalizeId;
@@ -153,8 +153,8 @@ async function initAvailableBuildings() {
                 const getFallbackArea = (id) => {
                     const clean = id.toString().toLowerCase().trim().replace(/^b/i, '');
                     if (['133', '136', '230', '243', '121', '224', '78'].includes(clean)) return "Porto Golf Marina";
-                    if (['15', '16', '17', '33', 'shops'].includes(clean)) return "Porto Said";
-                    if (['9', '10', 'celebration', 'alamein'].includes(clean)) return "Celebration";
+                    if (clean === 'shops') return "Porto Said";
+                    if (['celebration', 'alamein'].includes(clean)) return "Celebration";
                     return "hidden";
                 };
 
@@ -275,7 +275,7 @@ function renderBuildingsInternal(filter = 'all') {
 
             // 🚀 Fallback Status by ID
             const cleanId = id.toString().toLowerCase().replace(/^b/i, '');
-            const deliveredIds = ['121', '224', '78', '15', '16', '17', '33'];
+            const deliveredIds = ['121', '224', '78'];
             if (deliveredIds.includes(cleanId)) isReady = true;
 
             if (filter === 'ready') return isReady;

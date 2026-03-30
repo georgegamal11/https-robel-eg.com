@@ -6,7 +6,7 @@
 const UnitParser = {
     // Project Definitions
     PROJECTS: {
-        SAID: { name: "Porto Said", range: [1, 99], type: "Said", buildings: [9, 10, 15, 16, 17, 33] },
+        SAID: { name: "Porto Said", range: [1, 99], type: "Said", buildings: [] },
         GOLF: { name: "Porto Golf Marina", range: [100, 299], type: "Golf", buildings: [51, 52, 78, 121, 133, 136, 223, 224, 225, 226, 230, 243] },
         SOKHNA: { name: "Porto Sokhna", range: [300, 999], type: "Sokhna", buildings: [] }
     },

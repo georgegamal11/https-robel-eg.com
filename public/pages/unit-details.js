@@ -519,13 +519,26 @@ function renderUnit() {
 
         // Add Cash Deal Plan (Conditional)
         if (paymentPlan.cash_discount || paymentPlan.cash_discount_en) {
-            const cashDiscount = currentLang === 'ar' ? (paymentPlan.cash_discount || '35%') : (paymentPlan.cash_discount_en || paymentPlan.cash_discount || '35%');
+            let cashDiscount = currentLang === 'ar' ? (paymentPlan.cash_discount || '35%') : (paymentPlan.cash_discount_en || paymentPlan.cash_discount || '35%');
+
+            // Override for B230 and B243 specific areas
+            const bCode = (u.buildingCode || u.buildingId || u.building_id || u.building || u.project || '').toString().toUpperCase().trim();
+            const area = Number(u.area) || 0;
+            if (['B230', '230', 'B243', '243'].includes(bCode) && [60, 82, 90].includes(area)) {
+                cashDiscount = currentLang === 'ar' ? '50% بدون تشطيب<br>40% بالتشطيب' : '50% w/o Finishing<br>40% with Finishing';
+            }
+
+            let badgeClass = "px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-full";
+            if (cashDiscount.includes('<br>')) {
+                badgeClass = "px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-xl text-center leading-snug";
+            }
+
             cardsHtml += `
                 <div class="payment-plan-item group" data-state="collapsed">
                     <button onclick="togglePlan(this)" class="w-full text-left relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-amber-500/10 to-transparent border border-white/10 p-6 transition-all duration-500 hover:border-amber-500/50 hover:bg-amber-500/[0.05]">
                         <div class="flex items-center justify-between relative z-10">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-amber-500/20 rounded-2xl flex items-center justify-center group-hover:rotate-12 transition-transform duration-500">
+                                <div class="w-12 h-12 bg-amber-500/20 rounded-2xl flex items-center justify-center group-hover:rotate-12 transition-transform duration-500 shrink-0">
                                     <i data-lucide="banknote" class="w-6 h-6 text-amber-500"></i>
                                 </div>
                                 <div>
@@ -534,10 +547,10 @@ function renderUnit() {
                                 </div>
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-full">
-                                    <span class="text-sm font-black text-amber-500">${cashDiscount}</span>
+                                <div class="${badgeClass}">
+                                    <span class="text-sm font-black text-amber-500 block">${cashDiscount}</span>
                                 </div>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-white/30 transform transition-transform duration-500 group-data-[state=expanded]:rotate-180"></i>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-white/30 transform transition-transform duration-500 group-data-[state=expanded]:rotate-180 shrink-0"></i>
                             </div>
                         </div>
                         

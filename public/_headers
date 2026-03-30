@@ -8,24 +8,17 @@
   Pragma: no-cache
   Expires: 0
 
-# Cache static assets for 1 year
-/assets/*
+# Cache static images for 1 year
+/images/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Styles & Scripts
 /styles/*
   Cache-Control: public, max-age=31536000, immutable
 
 /scripts/*
   Cache-Control: public, max-age=31536000, immutable
 
-/utils/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/pages/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/services/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/api/*
-  Cache-Control: public, max-age=31536000, immutable
+# Dynamic Data - no cache
+/data/*
+  Cache-Control: public, max-age=0, must-revalidate

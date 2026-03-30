@@ -1,4 +1,13 @@
 ﻿export default {
+    async scheduled(event, env, ctx) {
+        // Keep the database and worker hot
+        try {
+            await env.DB.prepare('SELECT 1').first();
+            console.log("Ping successful.");
+        } catch (e) {
+            console.log("Ping failed.", e);
+        }
+    },
     async fetch(request, env) {
         const url = new URL(request.url);
 

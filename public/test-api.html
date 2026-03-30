@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><title>API Test</title></head>
+<body>
+<h1>API Test</h1>
+<pre id="result">Loading...</pre>
+<script src="scripts/core/core-bundle.js"></script>
+<script>
+window.addEventListener('load', async () => {
+    const el = document.getElementById('result');
+    try {
+        el.textContent = 'Step 1: firebaseQueries exists? ' + !!window.firebaseQueries + '\n';
+        el.textContent += 'Step 2: normalizeId exists? ' + !!window.normalizeId + '\n';
+        el.textContent += 'Step 3: CLOUDFLARE_WORKER_URL = ' + window.CLOUDFLARE_WORKER_URL + '\n';
+        
+        if (window.firebaseQueries) {
+            el.textContent += 'Step 4: Fetching units...\n';
+            const units = await window.firebaseQueries.getAllUnits(true);
+            el.textContent += 'Step 5: Units count = ' + (units ? units.length : 'NULL') + '\n';
+            if (units && units.length > 0) {
+                el.textContent += 'Step 6: First unit = ' + JSON.stringify(units[0], null, 2) + '\n';
+            }
+        } else {
+            el.textContent += 'ERROR: firebaseQueries not available!\n';
+        }
+    } catch (e) {
+        el.textContent += 'ERROR: ' + e.message + '\n' + e.stack;
+    }
+});
+</script>
+</body>
+</html>

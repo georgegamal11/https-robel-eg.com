@@ -34,31 +34,7 @@ var AdminUI = {
             // console.error('❌ AdminUI Initialization failed:', e);
         }
 
-        // Auto-create reports user
-        setTimeout(async () => {
-            if (localStorage.getItem('reports_created_v1')) return;
-            const token = localStorage.getItem('cf_auth_token');
-            if (!token) return;
 
-            try {
-                const resp = await fetch('https://robel-api.george-gamal139.workers.dev/api/auth/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({
-                        email: "reports@robel-eg.com",
-                        password: "RobelReports2026!",
-                        role: "reporter",
-                        username: "ReportsUser",
-                        permissions: JSON.stringify({ projects: [] })
-                    })
-                });
-                const data = await resp.json();
-                if (data.success || data.message === "User already exists") {
-                    localStorage.setItem('reports_created_v1', 'true');
-                    alert("Created Account: reports@robel-eg.com\nPass: RobelReports2026!");
-                }
-            } catch (e) { console.error(e); }
-        }, 2000);
     },
 
     // ============================================================================
@@ -71,23 +47,31 @@ var AdminUI = {
             deleteModal.setAttribute('id', 'delete-modal');
             deleteModal.className = 'modal-overlay';
             deleteModal.style.zIndex = "100000"; // Ensure it's above everything
+            const t = (window.translations && window.translations[window.currentLang || 'en']) ? window.translations[window.currentLang || 'en'] : {
+                delete_confirm_title: "Are you sure?",
+                delete_confirm_msg: "This action cannot be undone. This will permanently delete the selected item.",
+                delete_confirm_yes: "Yes, Delete",
+                delete_confirm_cancel: "Cancel"
+            };
+            const isRTL = window.currentLang === 'ar';
+            
             deleteModal.innerHTML = `
-                <div class="modal-card" style="text-align: center; max-width: 400px;">
-                    <button class="modal-close" onclick="window.AdminUI.closeModal('delete-modal')">
+                <div class="modal-card" style="text-align: center; max-width: 400px; direction: ${isRTL ? 'rtl' : 'ltr'};">
+                    <button class="modal-close" onclick="window.AdminUI.closeModal('delete-modal')" style="${isRTL ? 'left: 20px; right: auto;' : ''}">
                         <i class="fas fa-times"></i>
                     </button>
                     <div style="margin-bottom: 20px;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #ef4444; background: #fee2e2; padding: 20px; border-radius: 50%;"></i>
                     </div>
-                    <h3 style="font-size: 24px; margin-bottom: 10px;">Are you sure?</h3>
-                    <p style="color: #64748b; margin-bottom: 30px;">This action cannot be undone. This will permanently delete the selected item.</p>
+                    <h3 style="font-size: 24px; margin-bottom: 10px;">${t.delete_confirm_title || 'Are you sure?'}</h3>
+                    <p style="color: #64748b; margin-bottom: 30px;">${t.delete_confirm_msg || 'Permanent delete action.'}</p>
                     
                     <div style="display: flex; gap: 10px; justify-content: center;">
                         <button onclick="window.AdminUI.closeModal('delete-modal')" class="btn" style="background: #f1f5f9; color: #64748b; padding: 12px 20px; border-radius: 12px;">
-                            Cancel
+                            ${t.delete_confirm_cancel || 'Cancel'}
                         </button>
                         <button id="confirm-delete-btn" onclick="window.AdminUI.confirmDelete()" class="btn btn-primary" style="background: #ef4444; color: white; padding: 12px 20px; border-radius: 12px;">
-                            Yes, Delete
+                            ${t.delete_confirm_yes || 'Yes, Delete'}
                         </button>
                     </div>
                 </div>
@@ -172,9 +156,13 @@ var AdminUI = {
         }
 
         try {
-            const pass = prompt("Enter Master Password to confirm deletion:");
+            const t = (window.translations && window.translations[window.currentLang || 'en']) ? window.translations[window.currentLang || 'en'] : {
+                delete_pass_prompt: "Enter Master Password to confirm deletion:",
+                delete_pass_error: "Incorrect password. Operation cancelled."
+            };
+            const pass = prompt(t.delete_pass_prompt || "Enter Master Password to confirm deletion:");
             if (pass !== '792001') {
-                alert("Incorrect password. Operation cancelled.");
+                alert(t.delete_pass_error || "Incorrect password. Operation cancelled.");
                 if (btn) {
                     btn.textContent = startText;
                     btn.disabled = false;

@@ -787,21 +787,16 @@
 }
 
 /* Fix for Drag and Drop Target Area */
+.image-drop-zone {
+    pointer-events: auto !important;
+}
 .image-drop-zone * {
-    pointer-events: none;
+    pointer-events: none !important;
 }
 .image-drop-zone button,
-.image-drop-zone input {
-    pointer-events: auto;
-}
-
-/* Fix for Drag and Drop Target Area */
-.image-drop-zone * {
-    pointer-events: none;
-}
-.image-drop-zone button,
-.image-drop-zone input {
-    pointer-events: auto;
+.image-drop-zone input,
+.image-drop-zone label {
+    pointer-events: auto !important;
 }
 
 [data-theme="dark"] .image-drop-zone {

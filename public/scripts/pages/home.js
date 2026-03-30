@@ -121,361 +121,7 @@ window.projectDetailPages = {
 };
 
 
-// ?? SYSTEM CACHE PURGE (v2026_03_04)
-(function purgeLegacyCaches() {
-    const PURGE_VERSION = "v20260329_final_fix";
-    if (sessionStorage.getItem('robel_purge_v') === PURGE_VERSION) return;
-
-    console.log("?? [Maintenance] Version check: Updating systemic caches...");
-    // Clear all possible legacy keys from localStorage to ensure fresh data start
-    const keys = [
-        'robelInventory', 'robelProjectMetadata', 'robel_inventory_backup',
-        'robel_units_v1', 'cf_cache_units', 'cf_cache_buildings',
-        'cf_cache_v2_units', 'cf_cache_v2_buildings', 'robelAreaMetadata'
-    ];
-    keys.forEach(k => localStorage.removeItem(k));
-
-    // Pattern match removal for any cloudflare cache keys
-    for (let i = 0; i < localStorage.length; i++) {
-        const k = localStorage.key(i);
-        if (k && (k.startsWith('cf_') || k.includes('cache'))) {
-            localStorage.removeItem(k);
-            i--;
-        }
-    }
-
-    sessionStorage.setItem('robel_purge_v', PURGE_VERSION);
-    console.log("?? [Maintenance] Purge complete. System will reload fresh data.");
-})();
-
-// ?? ONE-TIME CLEANUP: Delete old B-SHOPS duplicate from Cloudflare
-(function cleanupOldBShops() {
-    const alreadyCleaned = localStorage.getItem('bshops_removed_v1');
-    if (alreadyCleaned) return;
-    setTimeout(async () => {
-        try {
-            const url = (window.CLOUDFLARE_WORKER_URL || 'https://robel-api.george-gamal139.workers.dev') + '/api/buildings/B-SHOPS';
-            const res = await fetch(url, {
-                method: 'DELETE',
-                headers: { 'Authorization': window.AUTH_KEY || 'G792001' }
-            });
-            localStorage.setItem('bshops_removed_v1', '1');
-        } catch (e) { }
-    }, 5000);
-})();
-
-// ?? ONE-TIME SEEDER: Push SHOPS units to Cloudflare
-(function seedShopsToCloudflare() {
-    const alreadySeeded = localStorage.getItem('shops_seeded_v1');
-    if (alreadySeeded) return;
-
-    const SHOPS_UNITS = [
-
-        { code: "B9S10", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 2766000, floor: "Ground Floor", view: "No View", area: 33, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S11", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 4358000, floor: "Ground Floor", view: "No View", area: 52, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S12", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 4358000, floor: "Ground Floor", view: "No View", area: 52, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S14", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 3101000, floor: "Ground Floor", view: "No View", area: 37, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S15", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 4107000, floor: "Ground Floor", view: "No View", area: 49, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S16", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 5196000, floor: "Ground Floor", view: "No View", area: 62, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S21", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 3612000, floor: "Ground Floor", view: "No View", area: 42, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S22", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 3183000, floor: "Ground Floor", view: "No View", area: 37, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S25", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 4129000, floor: "Ground Floor", view: "No View", area: 48, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S26", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 3183000, floor: "Ground Floor", view: "No View", area: 37, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S27", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 5160000, floor: "Ground Floor", view: "No View", area: 60, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S3", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 4442000, floor: "Ground Floor", view: "No View", area: 53, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S6", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 3269000, floor: "Ground Floor", view: "No View", area: 39, status: "Available", type: "shop", intent: "buy" },
-        { code: "B9S7", project: "SHOPS", buildingId: "SHOPS", projectId: "Porto Said", price: 4358000, floor: "Ground Floor", view: "No View", area: 52, status: "Available", type: "shop", intent: "buy" },
-    ];
-
-    setTimeout(async () => {
-        // Wait for robelAdminAPI to be ready
-        const maxWait = 20;
-        let waited = 0;
-        while (!window.robelAdminAPI && waited < maxWait) {
-            await new Promise(r => setTimeout(r, 500));
-            waited++;
-        }
-
-        if (!window.robelAdminAPI || !window.robelAdminAPI.createUnit) {
-            console.warn('?? Shop seeder: robelAdminAPI not available, skipping.');
-            return;
-        }
-
-        console.log('?? Seeding 16 SHOPS units to Cloudflare...');
-
-        // First: Ensure the SHOPS building exists in Cloudflare
-        try {
-            if (window.robelAdminAPI.createBuilding) {
-                await window.robelAdminAPI.createBuilding({
-                    id: "SHOPS",
-                    code: "SHOPS",
-                    projectId: "Porto Said",
-                    projectName: "Porto Said",
-                    delivery: "Ready",
-                    constStatus: "Ready",
-                    status: "buy",
-                    images: []
-                });
-                console.log('?? SHOPS building created in Cloudflare.');
-            }
-        } catch (e) {
-            console.warn('SHOPS building seed skipped (may already exist):', e.message);
-        }
-
-        let ok = 0, fail = 0;
-        for (const unit of SHOPS_UNITS) {
-            try {
-                const unitData = {
-                    ...unit,
-                    id: `unit_SHOPS_${unit.code}`,
-                    buildingCode: "SHOPS",
-                    payment_plan: "",
-                    images: []
-                };
-                await window.robelAdminAPI.createUnit(unitData);
-                ok++;
-            } catch (e) {
-                console.warn(`Failed to seed ${unit.code}:`, e.message);
-                fail++;
-            }
-        }
-        console.log(`?? Shop seeding done: ${ok} seeded, ${fail} failed.`);
-        if (ok > 0) {
-            localStorage.setItem('shops_seeded_v1', '1');
-            // Refresh the admin view
-            if (typeof window.loadData === 'function') window.loadData(true);
-        }
-    }, 8000); // wait 8 seconds for API to be ready
-})();
-
-
-window.initUnitImageUpload = function () {
-    const dropZone = document.getElementById('image-drop-zone');
-    const fileInput = document.getElementById('unit-images-input');
-    const imagesGrid = document.getElementById('unit-images-grid');
-
-    if (!dropZone || !fileInput || !imagesGrid) {
-        return;
-    }
-
-    // Prevent Double Initialization (Fix for Double Uploads)
-    if (fileInput.dataset.uploadInitialized === 'true') {
-        // console.log("?? [Init] Image upload already initialized. Skipping.");
-        return;
-    }
-    fileInput.dataset.uploadInitialized = 'true';
-
-    // Remove any existing listeners by cloning (Clean Slate)
-    const newFileInput = fileInput.cloneNode(true);
-    fileInput.parentNode.replaceChild(newFileInput, fileInput);
-
-    // Re-assign reference
-    const activeFileInput = newFileInput;
-
-    activeFileInput.addEventListener('change', (e) => {
-        if (typeof window.handleUnitFileSelect === 'function') {
-            window.handleUnitFileSelect(e);
-        } else {
-            console.error('handleUnitFileSelect is not defined on window');
-        }
-    });
-
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-        }, false);
-    });
-
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, () => {
-            dropZone.classList.add('dragover');
-        }, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, () => {
-            dropZone.classList.remove('dragover');
-        }, false);
-    });
-
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, () => {
-            dropZone.classList.add('dragover');
-        }, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, () => {
-            dropZone.classList.remove('dragover');
-        }, false);
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-        const files = e.dataTransfer.files;
-        if (files && files.length) {
-            if (typeof window.handleUnitFiles === 'function') {
-                window.handleUnitFiles(files);
-            } else if (typeof window.handleUnitImages === 'function') {
-                window.handleUnitImages(files);
-            }
-        }
-    }, false);
-};
-
-window.clearOldCache = function () {
-    // console.log("?? [STORAGE] LocalStorage is almost full. Purging heavy caches...");
-
-    // Explicit removal of known heavy items
-    localStorage.removeItem('cf_cache_buildings');
-    localStorage.removeItem('cf_cache_units');
-    localStorage.removeItem('robelProjectMetadata'); // Sometimes needed if it has large images
-
-    // Clear ALL cf_cache keys safely
-    const keysToRemove = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith('cf_cache_')) {
-            keysToRemove.push(key);
-        }
-    }
-
-    keysToRemove.forEach(k => localStorage.removeItem(k));
-    console.log(`? Cleared ${keysToRemove.length} cache entries.`);
-
-    // Trigger space check
-    if (typeof window.checkLocalStorageUsage === 'function') {
-        window.checkLocalStorageUsage();
-    }
-};
-// Backward compatibility for existing calls
-const clearOldCache = window.clearOldCache;
-
-// Check space on every home load
-if (typeof localStorage !== 'undefined') {
-    try {
-        const used = JSON.stringify(localStorage).length;
-        if (used > 4 * 1024 * 1024) { // > 4MB - Almost Full
-            clearOldCache();
-        }
-    } catch (e) { }
-}
-window.allBuildings = window.projectMetadata;
-window.allProjects = window.projectAreas; // Alias for areas/projects list
-
-/**
- * ?? EMERGENCY RECOVERY: MIGRATE FROM LOCAL BROWSER TO CLOUDFLARE
- * Self-contained version to bypass any "Sync service not ready" errors.
- */
-window.migrateAllFirebaseToCloudflare = async function () {
-    const ghosts = [];
-    const localUnits = (window.inventory || []).filter(u => {
-        const bId = normalizeId(u.building_id || u.buildingId);
-        return !ghosts.includes(bId);
-    });
-
-    if (localUnits.length === 0) {
-        alert("?? ??? ?????? ??? ????? ????? ?? ????? ??????? ?????.");
-        return;
-    }
-
-    const doWipe = confirm(`???? ${localUnits.length} ???? ?????.\n\n?? ???? ??? ??????? ??????? ?? ?????? ????? ????? ?????? ??? 211 ???? ?????? (???? ????)`);
-
-    // ?? ????? ???? ???? ???? ?????
-    const progressOverlay = document.createElement('div');
-    progressOverlay.id = "migration-overlay";
-    progressOverlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:sans-serif; direction:rtl;";
-    progressOverlay.innerHTML = `
-        <div style="width:80%; max-width:400px; background:#222; height:12px; border-radius:10px; overflow:hidden; border:1px solid #444; margin-bottom:20px;">
-            <div id="migration-bar" style="width:0%; height:100%; background:linear-gradient(90deg, #3b82f6, #60a5fa); transition:width 0.1s;"></div>
-        </div>
-        <h2 id="migration-status" style="margin:0; font-size:1.2rem; font-weight:600;">???? ???????...</h2>
-        <p id="migration-count" style="opacity:0.6; margin:10px 0 0 0; font-size:0.9rem;">0 / ${localUnits.length}</p>
-        <p style="font-size:0.8rem; margin-top:20px; color:#c9a23f;">???? ??? ????? ?????? ??? ????????</p>
-    `;
-    document.body.appendChild(progressOverlay);
-
-    try {
-        const AUTH = `Bearer G792001`;
-        const API_BASE = "https://robel-api.george-gamal139.workers.dev/api";
-
-        // 1. ?????? ???????
-        document.getElementById('migration-status').innerText = "???? ?????? ???????...";
-        const pingResp = await fetch(API_BASE, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': AUTH },
-            body: JSON.stringify({ action: 'PING' })
-        });
-        if (!pingResp.ok) throw new Error("???? ?????? ?? ?????? ?? ??????? ????????");
-
-        // 2. ??? ????????
-        if (doWipe) {
-            document.getElementById('migration-status').innerText = "???? ????? ????? ????????...";
-            await fetch(API_BASE, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': AUTH },
-                body: JSON.stringify({ action: 'WIPE_UNITS' })
-            });
-        }
-
-        let successCount = 0;
-        let failCount = 0;
-        let lastError = null;
-
-        for (let i = 0; i < localUnits.length; i++) {
-            const unit = localUnits[i];
-            const unitId = String(unit.code || unit.unit_id || unit.id);
-
-            const percent = Math.round(((i + 1) / localUnits.length) * 100);
-            if (document.getElementById('migration-bar')) document.getElementById('migration-bar').style.width = percent + "%";
-            if (document.getElementById('migration-status')) document.getElementById('migration-status').innerText = `??? ????: ${unitId}`;
-            if (document.getElementById('migration-count')) document.getElementById('migration-count').innerText = `${i + 1} / ${localUnits.length} (${percent}%)`;
-
-            if (!unitId || unitId === "undefined") { failCount++; continue; }
-
-            const dataToSync = { ...unit };
-            dataToSync.unit_id = unitId;
-            if (dataToSync.buildingId) { dataToSync.building_id = dataToSync.buildingId; delete dataToSync.buildingId; }
-            if (dataToSync.projectId) { dataToSync.project_id = dataToSync.projectId; delete dataToSync.projectId; }
-            if (dataToSync.images && Array.isArray(dataToSync.images)) dataToSync.images = JSON.stringify(dataToSync.images);
-            delete dataToSync.id;
-
-            try {
-                const resp = await fetch(API_BASE + "/units", {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': AUTH },
-                    body: JSON.stringify({ action: 'UPSERT', table: 'units', id: unitId, data: dataToSync })
-                });
-
-                if (resp.ok) successCount++;
-                else {
-                    const errObj = await resp.json();
-                    lastError = errObj.error || "??? ?????";
-                    failCount++;
-                }
-            } catch (e) {
-                lastError = e.message;
-                failCount++;
-            }
-        }
-
-        progressOverlay.innerHTML = `
-        <div style="background:white; color:#333; padding:40px; border-radius:24px; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.4); max-width:90%;">
-            <div style="font-size:4rem; margin-bottom:20px;">${successCount > 0 ? "?" : "??"}</div>
-            <h2 style="margin:0; font-size:1.8rem;">????? ????????</h2>
-            <div style="margin:20px 0; text-align:right; border-top:1px solid #eee; padding-top:10px;">
-                <p style="color:green;">?? ????? ?????: <b>${successCount}</b></p>
-                <p style="color:red;">??? ?????: <b>${failCount}</b></p>
-                ${lastError ? `<p style="font-size:0.8rem; color:#888; background:#f9f9f9; padding:5px; border:1px solid #ddd;">??? ???: ${lastError}</p>` : ""}
-            </div>
-            <button onclick="location.reload()" style="background:#3b82f6; color:white; border:none; padding:14px 30px; border-radius:12px; cursor:pointer; font-size:1.1rem; font-weight:bold; width:100%;">?????</button>
-        </div>
-    `;
-    } catch (error) {
-        if (progressOverlay) progressOverlay.remove();
-        alert("??? ??? ??? ?????: " + error.message);
-    }
-};
+// Initialization complete. Maintenance tools moved to maintenance.js.
 
 
 // --- INSTANT CACHE LOADER (Fix for "0" counters) ---
@@ -819,9 +465,9 @@ const SLUG_MAP = {
 
 // Global mapping for specific project landing pages
 window.projectDetailPages = {
-    "Porto Golf Marina": "porto-golf-marina.html",
-    "Porto Said": "porto-said.html",
-    "Celebration": "celebration.html"
+    "Porto Golf Marina": "projects/porto-golf-marina.html",
+    "Porto Said": "projects/porto-said.html",
+    "Celebration": "projects/celebration.html"
 };
 
 const getProjectSlug = (name) => {
@@ -1433,10 +1079,20 @@ window.loadData = async function (forceRefresh = false) {
             } catch(e) { console.warn("Local baseline missing/failed", e); }
         }
         // --- STEP 3: Optimized Sync via Cloudflare ---
+        const isAdmin = window.location.pathname.includes('admin') || document.getElementById('sys-cfg-2026');
+        const lastSync = parseInt(localStorage.getItem('robel_last_sync') || '0');
+        const now = Date.now();
+        const syncThreshold = isAdmin ? 30000 : 3600000; // 30s for Admin, 1h for Visitor
+
+        if (now - lastSync < syncThreshold && !forceRefresh && window.inventory.length > 0) {
+            console.log("?? [Sync] Cache is fresh. Skipping Cloudflare fetch to save resources.");
+            return;
+        }
+
         console.log("?? Fetching Data from Cloudflare...");
+        localStorage.setItem('robel_last_sync', now.toString());
 
         if (window.firebaseQueries) {
-            // --- PARALLEL FETCHING (Much Faster) ---
             const [projects, buildings, units] = await Promise.all([
                 window.firebaseQueries.getAllProjects(forceRefresh),
                 window.firebaseQueries.getAllBuildings(forceRefresh),
@@ -6694,11 +6350,27 @@ function renderProjectCards(filters = {}) {
         });
     }
 
+    // 🚀 [SMART FILTER] Hide buildings that have 0 units available for public display
+    projectsToRender = projectsToRender.filter(pName => {
+        const units = getUnitsInProjectFast(pName);
+        const count = units.filter(u => {
+            const rawStatus = (u.status || 'Available').toString().toLowerCase().trim();
+            const availableKeywords = ['available', 'متاح', 'متوفر', 'ready', 'جاهز', 'yes', '1', 'true', 'active', 'ok'];
+            return availableKeywords.some(key => rawStatus.includes(key));
+        }).length;
+
+        // Failsafe: if meta has forced count, respect it
+        if (count === 0 && projectMetadata[pName] && projectMetadata[pName].availableUnits) {
+            return projectMetadata[pName].availableUnits > 0;
+        }
+
+        return count > 0;
+    });
+
     if (projectsToRender.length === 0) {
         container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:50px; color:var(--text-secondary); background:var(--bg-secondary); border-radius:15px; border:1px dashed var(--border-light);">
             <i class="fas fa-search" style="font-size:3rem; margin-bottom:20px; opacity:0.3;"></i>
-            <p>${currentLang === 'ar' ? '?????? ?? ??? ????? ??????. ??? ????? ?????? ?????.' : 'No specific results found. Try changing the criteria or area.'}</p>
-            <button class="btn-gold" onclick="renderProjectCards()" style="margin-top:20px; padding:10px 20px;">${currentLang === 'ar' ? '??? ?? ???????? ????????' : 'Show All Projects & Buildings'}</button>
+            <p>${currentLang === 'ar' ? 'معذرة، لا يوجد مبانٍ متاحة حالياً.' : 'Sorry, no buildings are currently available with units.'}</p>
         </div>`;
         return;
     }
@@ -7701,8 +7373,13 @@ if (document.readyState === 'loading') {
 (function initializeHomepage() {
     'use strict';
 
-    console.log('%c?? [HOMEPAGE INIT] Starting Polling...',
-        'background: #d4af37; color: #000; font-weight: bold; padding: 5px;');
+    const isAdmin = window.location.pathname.includes('admin') || document.getElementById('sys-cfg-2026');
+    if (!isAdmin) {
+        // console.log("?? [HOMEPAGE INIT] Regular Visitor Mode: Throttling Polling...");
+    } else {
+        console.log('%c?? [HOMEPAGE INIT] Starting Admin Polling...', 
+            'background: #d4af37; color: #000; font-weight: bold; padding: 5px;');
+    }
 
     // --------------------------------------------------------
     // Helper: Update All UI Counters

@@ -951,6 +951,33 @@
 
                         </div>
 
+                        <!-- Row 3: Analytics & Reports -->
+                        <h3
+                            style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.7; margin-top: 30px; margin-bottom: 15px; border-left: 3px solid #8b5cf6; padding-left: 10px;">
+                            Advanced Analytics & Reporting
+                        </h3>
+                        <div class="settings-grid" style="margin-bottom: 40px;">
+                            <!-- SMART REPORT CARD -->
+                            <div class="settings-card action-card" onclick="window.AdminUI.showSmartReports()"
+                                style="border-top: 4px solid #8b5cf6; cursor:pointer;">
+                                <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
+                                    <div
+                                        style="width:45px; height:45px; border-radius:12px; background:rgba(139, 92, 246, 0.1); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+                                        <i class="fas fa-chart-pie"></i>
+                                    </div>
+                                    <h3 style="margin:0; font-size:1.1rem; color: var(--navy-deep);">Smart Report Generator
+                                    </h3>
+                                </div>
+                                <div
+                                    style="display:flex; align-items:center; justify-content:space-between; background:var(--bg-secondary); padding:12px; border-radius:12px; border: 1px solid var(--border-light);">
+                                    <span style="font-size:0.85rem; opacity:0.7;">Create Custom Professional Reports</span>
+                                    <i class="fas fa-magic" style="color:#8b5cf6;"></i>
+                                </div>
+                                <p style="font-size:0.75rem; opacity:0.5; margin-top:10px;">Filter by buildings, area,
+                                    floor, or views. Smart summary included.</p>
+                            </div>
+                        </div>
+
                         <div class="toolbar-left" style="margin-bottom:20px;">
                             <h2 style="font-size:1.5rem;">Hierarchy View</h2>
                             <p style="font-size:0.8rem; opacity:0.6;">Visual structure of your current projects</p>
@@ -1109,6 +1136,183 @@
                                     <button type="submit" class="btn btn-gold">Save Project Details</button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+
+                    <!-- Smart Reports View (Hidden) -->
+                    <div id="admin-reports-view" style="display:none; margin-bottom: 30px; animation: fadeIn 0.4s ease-out;">
+                        <style>
+                            .report-filter-tag {
+                                padding: 6px 14px;
+                                background: #f8fafc;
+                                border: 1.5px solid #e2e8f0;
+                                border-radius: 20px;
+                                font-size: 0.75rem;
+                                font-weight: 600;
+                                color: #475569;
+                                cursor: pointer;
+                                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                                text-transform: uppercase;
+                                letter-spacing: 0.5px;
+                                white-space: nowrap;
+                            }
+                            .report-filter-tag:hover {
+                                background: #f1f5f9;
+                                border-color: #94a3b8;
+                                transform: translateY(-1px);
+                            }
+                            .report-filter-tag.selected {
+                                background: #1e293b;
+                                color: white;
+                                border-color: #0f172a;
+                                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                            }
+                            .multi-select-container {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 10px;
+                                padding: 18px;
+                                background: #ffffff;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 16px;
+                                min-height: 55px;
+                                transition: border-color 0.2s;
+                            }
+                            .multi-select-container:focus-within {
+                                border-color: #8b5cf6;
+                            }
+                        </style>
+                        <div class="admin-toolbar">
+                            <div class="toolbar-left">
+                                <h2 style="display:flex; align-items:center; gap:12px;">
+                                    <i class="fas fa-magic text-purple-500"></i> Smart Report Generator
+                                </h2>
+                                <p style="font-size:0.9rem; opacity:0.6;">Design high-precision professional property reports</p>
+                            </div>
+                            <button class="btn btn-outline"
+                                onclick="document.getElementById('admin-reports-view').style.display='none'; document.getElementById('admin-settings-view').style.display='block';">
+                                <i class="fas fa-chevron-left"></i> Back to Settings
+                            </button>
+                        </div>
+
+                        <div class="settings-grid" style="grid-template-columns: 1.5fr 1fr; gap:30px; margin-top:30px;">
+                             <!-- Filter Configuration -->
+                             <div class="admin-card" style="border-top: 4px solid #8b5cf6; overflow: visible;">
+                                 <h4 style="margin-bottom:20px; font-size:1.1rem; color:var(--navy-deep);">1. Define Your Audience & Content</h4>
+                                 
+                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+                                     <div class="form-item">
+                                         <label style="display:flex; justify-content:space-between;">Select Projects <span style="font-size:0.7rem; opacity:0.5; color:#8b5cf6; cursor:pointer;" onclick="window.SmartReport.selectAll('projects')">Select All</span></label>
+                                         <div id="report-projects-list" class="multi-select-container"></div>
+                                     </div>
+                                     <div class="form-item">
+                                         <label style="display:flex; justify-content:space-between;">Specific Buildings <span style="font-size:0.7rem; opacity:0.5; color:#8b5cf6; cursor:pointer;" onclick="window.SmartReport.selectAll('buildings')">Select All</span></label>
+                                         <div id="report-buildings-list" class="multi-select-container"></div>
+                                     </div>
+                                 </div>
+
+                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+                                     <div class="form-item">
+                                         <label>Floors</label>
+                                         <div id="report-floors-list" class="multi-select-container" style="max-height: 120px; overflow-y: auto;"></div>
+                                     </div>
+                                     <div class="form-item">
+                                         <label>View Type</label>
+                                         <div id="report-views-list" class="multi-select-container" style="max-height: 120px; overflow-y: auto;"></div>
+                                     </div>
+                                 </div>
+
+                                 <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:15px; margin-bottom:20px;">
+                                     <!-- Area Range -->
+                                     <div class="form-item">
+                                         <label>Area (m²)</label>
+                                         <div style="display:flex; gap:5px;">
+                                             <input type="number" id="report-min-area" placeholder="Min" style="width:50%; padding:8px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.8rem;">
+                                             <input type="number" id="report-max-area" placeholder="Max" style="width:50%; padding:8px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.8rem;">
+                                         </div>
+                                     </div>
+                                     <!-- Price Range -->
+                                     <div class="form-item">
+                                         <label>Price (EGP)</label>
+                                         <div style="display:flex; gap:5px;">
+                                             <input type="number" id="report-min-price" placeholder="Min" style="width:50%; padding:8px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.8rem;">
+                                             <input type="number" id="report-max-price" placeholder="Max" style="width:50%; padding:8px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.8rem;">
+                                         </div>
+                                     </div>
+                                     <!-- Global Status -->
+                                     <div class="form-item">
+                                         <label>Unit Status</label>
+                                         <select id="report-status-filter" style="width:100%; padding:8px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.8rem; height:36px;">
+                                             <option value="all">Everything</option>
+                                             <option value="Available" selected>Available</option>
+                                             <option value="Reserved">Reserved</option>
+                                             <option value="Sold">Sold</option>
+                                         </select>
+                                     </div>
+                                 </div>
+                             </div>
+
+                            <!-- Preview & Actions -->
+                            <div class="admin-card" style="background:#f8fafc; border: 1px dashed #cbd5e1;">
+                                <h4 style="margin-bottom:15px; font-size:1.1rem; color:var(--navy-deep);">2. Preview & Export Assets</h4>
+                                
+                                <div id="report-live-stats" style="margin-bottom:30px; background:white; padding:20px; border-radius:16px; border:1px solid #e2e8f0;">
+                                    <div style="text-align:center; opacity:0.5; padding:20px;">
+                                        <i class="fas fa-sync fa-spin" style="font-size:1.5rem; margin-bottom:10px;"></i>
+                                        <p>Analyzing matching units...</p>
+                                    </div>
+                                </div>
+
+                                <div style="display:flex; flex-direction:column; gap:12px;">
+                                    <button onclick="window.SmartReport.generate('pdf')" class="btn btn-gold" style="width:100%; padding:15px; display:flex; align-items:center; justify-content:center; gap:10px; border-radius:12px;">
+                                        <i class="fas fa-file-pdf"></i> Generate Professional PDF
+                                    </button>
+                                    <button onclick="window.SmartReport.generate('excel')" class="btn btn-outline" style="width:100%; padding:15px; display:flex; align-items:center; justify-content:center; gap:10px; border-radius:12px; background:white;">
+                                        <i class="fas fa-file-excel text-green-600"></i> Export Technical Excel
+                                    </button>
+                                </div>
+
+                                <div style="margin-top:25px; padding:15px; border-radius:12px; background:rgba(139, 92, 246, 0.05); border:1px solid rgba(139, 92, 246, 0.1);">
+                                    <h5 style="color:#7c3aed; margin-bottom:5px; font-size:0.85rem;"><i class="fas fa-lightbulb"></i> Pro Tip</h5>
+                                    <p style="font-size:0.75rem; opacity:0.7; margin:0;">This report automatically includes your company logo and a smart summary of the selected inventory.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEW: SMART OFFER STRATEGY GENERATOR -->
+                        <div class="admin-card" style="margin-top:30px; border-top: 4px solid #f59e0b; background: linear-gradient(to right, #ffffff, #fffdfa);">
+                           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+                               <div>
+                                   <h2 style="display:flex; align-items:center; gap:12px; color:#b45309; margin:0;">
+                                       <i class="fas fa-gem"></i> Smart Offer Strategy Generator
+                                   </h2>
+                                   <p style="font-size:0.9rem; opacity:0.6; margin-top:5px;">Generate standalone financial offers and investment plans (No Units Table)</p>
+                               </div>
+                               <button onclick="window.SmartReport.generateOfferPDF()" class="btn btn-gold" style="padding:15px 35px; border-radius:12px; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15);">
+                                   <i class="fas fa-file-invoice-dollar"></i> Generate Stunning Financial Offer
+                               </button>
+                           </div>
+
+                           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:20px; padding:20px; background:rgba(212, 175, 55, 0.03); border-radius:16px; border:1px dashed rgba(212, 175, 55, 0.2);">
+                               <div style="text-align:center; padding:15px; background:white; border-radius:12px;">
+                                   <div id="offer-count-display" style="font-size:1.8rem; font-weight:800; color:#b45309;">-</div>
+                                   <p style="font-size:0.75rem; opacity:0.6; text-transform:uppercase; font-weight:700; letter-spacing:1px; margin-top:5px;">Unique Offers Found</p>
+                               </div>
+                               <div style="text-align:center; padding:15px; background:white; border-radius:12px;">
+                                   <div id="offer-coverage-display" style="font-size:1.8rem; font-weight:800; color:#1e293b;">-</div>
+                                   <p style="font-size:0.75rem; opacity:0.6; text-transform:uppercase; font-weight:700; letter-spacing:1px; margin-top:5px;">Unit Coverage</p>
+                               </div>
+                               <div style="text-align:center; padding:15px; background:white; border-radius:12px; border: 1px solid #fde68a;">
+                                   <div style="font-size:0.8rem; font-weight:800; color:#d97706; margin-bottom:10px;">PREMIUM BROCHURE STYLE</div>
+                                   <div style="display:flex; justify-content:center; gap:5px;">
+                                       <i class="fas fa-star" style="font-size:0.7rem; color:#f59e0b;"></i>
+                                       <i class="fas fa-star" style="font-size:0.7rem; color:#f59e0b;"></i>
+                                       <i class="fas fa-star" style="font-size:0.7rem; color:#f59e0b;"></i>
+                                       <i class="fas fa-star" style="font-size:0.7rem; color:#f59e0b;"></i>
+                                       <i class="fas fa-star" style="font-size:0.7rem; color:#f59e0b;"></i>
+                                   </div>
+                               </div>
+                           </div>
                         </div>
                     </div>
 
@@ -1650,6 +1854,7 @@
 
     <!-- Utility Scripts -->
     <script src="scripts/admin/pdf-export.js?v=20260319073700" defer></script>
+    <script src="scripts/admin/smart-report.js"></script>
 
 
 

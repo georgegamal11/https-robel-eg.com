@@ -19,6 +19,7 @@ function getPaymentPlanData(buildingId) {
                 { label: 'خصم / Discount', value: 'خصم 10% أو بدون خصم بالتشطيب / 10% Discount OR No Discount With Finishing' },
                 { label: 'المقدم / Down Payment', value: '10%' },
                 { label: 'مدة الأقساط / Installment Period', value: '6 سنوات / 6 Years' },
+                { label: 'خصم الكاش / Cash Discount', value: '50% بدون تشطيب / 50% w/o Finishing\n40% بالتشطيب / 40% with Finishing' },
                 { label: '━━━━ مساحات 30م² (متكرر) + الدور الأرضي ━━━━', value: '' },
                 { label: 'المقدم / Down Payment', value: '10%' },
                 { label: 'مدة الأقساط / Installment Period', value: '6 سنوات / 6 Years' },
@@ -28,6 +29,7 @@ function getPaymentPlanData(buildingId) {
                 { label: 'Discount', value: '10% Discount OR No Discount With Finishing' },
                 { label: 'Down Payment', value: '10%' },
                 { label: 'Installment Period', value: '6 Years' },
+                { label: 'Cash Discount', value: '50% w/o Finishing\n40% with Finishing' },
                 { label: '--- 30 m² (Repeating) + Ground Floor ---', value: '' },
                 { label: 'Down Payment', value: '10%' },
                 { label: 'Installment Period', value: '6 Years' },
@@ -43,6 +45,7 @@ function getPaymentPlanData(buildingId) {
                 { label: 'خصم / Discount', value: 'خصم 10% أو بدون خصم بالتشطيب / 10% Discount OR No Discount With Finishing' },
                 { label: 'المقدم / Down Payment', value: '10%' },
                 { label: 'مدة الأقساط / Installment Period', value: '6 سنوات / 6 Years' },
+                { label: 'خصم الكاش / Cash Discount', value: '50% بدون تشطيب / 50% w/o Finishing\n40% بالتشطيب / 40% with Finishing' },
                 { label: '━━━━ مساحات 30م² (متكرر) + الدور الأرضي ━━━━', value: '' },
                 { label: 'المقدم / Down Payment', value: '10%' },
                 { label: 'مدة الأقساط / Installment Period', value: '6 سنوات / 6 Years' },
@@ -52,6 +55,7 @@ function getPaymentPlanData(buildingId) {
                 { label: 'Discount', value: '10% Discount OR No Discount With Finishing' },
                 { label: 'Down Payment', value: '10%' },
                 { label: 'Installment Period', value: '6 Years' },
+                { label: 'Cash Discount', value: '50% w/o Finishing\n40% with Finishing' },
                 { label: '--- 30 m² (Repeating) + Ground Floor ---', value: '' },
                 { label: 'Down Payment', value: '10%' },
                 { label: 'Installment Period', value: '6 Years' },
@@ -382,7 +386,7 @@ async function generatePriceListPDF(availableOnly = true) {
 
         if (buildingsToPrint.length === 0) return;
 
-        if (startY > 270) { doc.addPage(); startY = 20; }
+        if (startY > 60) { doc.addPage(); startY = 20; }
 
         doc.setFillColor(15, 23, 42);
         doc.rect(15, startY - 8, 180, 12, 'F');
@@ -392,10 +396,16 @@ async function generatePriceListPDF(availableOnly = true) {
         doc.text(`Project: ${proj.name}`, 20, startY);
         startY += 15;
 
-        buildingsToPrint.forEach(bData => {
+        buildingsToPrint.forEach((bData, index) => {
             const { name, units } = bData;
 
-            if (startY > 260) { doc.addPage(); startY = 20; }
+            if (index > 0) { 
+                doc.addPage(); 
+                startY = 20; 
+            } else if (startY > 260) { 
+                doc.addPage(); 
+                startY = 20; 
+            }
             doc.setFont("helvetica", "bold");
             doc.setFontSize(12);
             doc.setTextColor(201, 162, 63);
@@ -403,10 +413,10 @@ async function generatePriceListPDF(availableOnly = true) {
             startY += 5;
 
             // Add row numbers to units table
-            const tableData = units.map((u, index) => {
+            const tableData = units.map((u, index2) => {
                 const statusText = u.status ? u.status.charAt(0).toUpperCase() + u.status.slice(1) : 'Available';
                 return [
-                    (index + 1).toString(),
+                    (index2 + 1).toString(),
                     u.code || u.unitCode || u.id || '-',
                     u.floor || '-',
                     u.view || '-',
@@ -550,16 +560,16 @@ async function generatePriceListPDF(availableOnly = true) {
             'B230',
             '10%',
             '6 Years',
-            '10%',
             '10% Discount OR\nNo Discount + Finishing',
+            '50% w/o Finishing\n40% with Finishing',
             '60/82/90m²: 10% disc. or finishing\n30m² + Ground: 10% down, 6 yrs'
         ],
         [
             'B243',
             '10%',
             '6 Years',
-            '10%',
             '10% Discount OR\nNo Discount + Finishing',
+            '50% w/o Finishing\n40% with Finishing',
             '60/82/90m²: 10% disc. or finishing\n30m² + Ground: 10% down, 6 yrs'
         ],
         [

@@ -60,12 +60,6 @@ window.projectMetadata = window.projectMetadata || {
     "B224": { projectArea: "Porto Golf Marina", image: ["assets/images/projects/porto-golf-marina/gallery/224.webp"] },
     "B78": { projectArea: "Porto Golf Marina", image: ["assets/images/projects/porto-golf-marina/gallery/78.webp"] },
     // Porto Said Buildings
-    "B15": { projectArea: "Porto Said", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B16": { projectArea: "Porto Said", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B17": { projectArea: "Porto Said", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B33": { projectArea: "Porto Said", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B9": { projectArea: "Porto Said", image: ["assets/images/face-main/porto-said-main.webp"] },
-    "B10": { projectArea: "Porto Said", image: ["assets/images/face-main/porto-said-main.webp"] },
     "Celebration": { projectArea: "Celebration", image: ["assets/images/face-main/celebration-main.webp"] }
 };
 
@@ -326,7 +320,7 @@ async function enterBuildingMode(projectId, buildingId) {
         if (buildingUnits && buildingUnits.length > 0) {
             console.log(`✅ [Step 3A] Found ${buildingUnits.length} units for building ${buildingId}`);
 
-            const ghosts = ['B16', 'B17', 'B121', 'B224', 'B78'];
+            const ghosts = [];
             const processedUnits = buildingUnits
                 .filter(u => !ghosts.includes(normalizeId(u.building_id || u.buildingId)))
                 .map(u => ({
@@ -481,7 +475,6 @@ function resolveProjectKey(input) {
         'b133': 'porto-golf-marina', 'b136': 'porto-golf-marina', 'b230': 'porto-golf-marina',
         'b243': 'porto-golf-marina', '121': 'porto-golf-marina', 'b121': 'porto-golf-marina',
         '224': 'porto-golf-marina', 'b224': 'porto-golf-marina', '78': 'porto-golf-marina', 'b78': 'porto-golf-marina',
-        'b15': 'porto-said', 'b16': 'porto-said', 'b17': 'porto-said', 'b33': 'porto-said', 'b9': 'porto-said', 'b10': 'porto-said',
         'celebration': 'celebration',
         'porto-said': 'porto-said', 'porto-golf': 'porto-golf-marina', 'porto-golf-marina': 'porto-golf-marina'
     };
@@ -752,7 +745,7 @@ async function loadProjectData(projectId) {
     }
 
     // Normalize & Map
-    const ghosts = ['B16', 'B17', 'B121', 'B224', 'B78'];
+    const ghosts = [];
     const processedUnits = units
         .filter(u => !ghosts.includes(normalizeId(u.building_id || u.buildingId)))
         .map(u => ({
@@ -870,8 +863,6 @@ function onBuildingChange(val) {
             'B121': 'Ready', '121': 'Ready',
             'B224': 'Ready', '224': 'Ready',
             'B78': 'Ready', '78': 'Ready',
-            'B15': '12/2026', 'B16': '12/2026', 'B17': '12/2026',
-            'B33': '12/2026', 'B9': '12/2026', 'B10': '12/2026',
             'CELEBRATION': '1/1/2028'
         };
         autoDelivery = deliveryMap[bId];

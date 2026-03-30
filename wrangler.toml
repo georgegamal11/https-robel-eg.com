@@ -2,6 +2,9 @@ name = "robel-api"
 main = "src/worker.js"
 compatibility_date = "2024-03-01"
 
+[triggers]
+crons = ["*/5 * * * *"]
+
 [[d1_databases]]
 binding = "DB" # اسم الربط في الكود
 database_name = "robel" # اسم القاعدة في Cloudflare
