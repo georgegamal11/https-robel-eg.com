@@ -5775,7 +5775,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // iPhone SE Fix: Remove "Investment" if screen is small and it's the first slide
             if (window.innerWidth <= 380 && currentHeroSlide === 0) {
-                finalTitle = finalTitle.replace(/Investment/g, '').replace(/Ø§Ù„Ø§Ø³ØªØ«Ù…Ø§Ø±/g, '').trim();
+                finalTitle = finalTitle.replace(/Investment/g, '').replace(/الاستثمار/g, '').trim();
             }
 
             titleEl.textContent = finalTitle;

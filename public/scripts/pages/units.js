@@ -757,7 +757,7 @@ async function selectProject(projectId, preserveFilters = false) {
         }
     }
     if (dom.subtitle) {
-        dom.subtitle.textContent = (currentLang === 'ar') ? `ØªØµÙØ­ ${t[config.tKey] || config.name}` : `Browsing ${config.name}`;
+        dom.subtitle.textContent = (currentLang === 'ar') ? `تصفح ${t[config.tKey] || config.name}` : `Browsing ${config.name}`;
     }
 
     // Reset Inputs
@@ -1742,7 +1742,7 @@ function initComparisonHelper() {
     helper.className = 'fixed right-0 top-1/2 -translate-y-1/2 z-[100] flex flex-col items-end pointer-events-auto';
 
     const isAr = currentLang === 'ar';
-    const title = isAr ? 'Ù‚Ø§Ø±Ù† Ø¨ÙŠÙ† Ø§Ù„ÙˆØ­Ø¯Ø§Øª' : 'Compare Units';
+    const title = isAr ? 'قارن بين الوحدات' : 'Compare Units';
 
     helper.innerHTML = `
         <div class="compare-tab-fixed group flex items-center cursor-help">
@@ -1760,7 +1760,7 @@ function initComparisonHelper() {
                     <i data-lucide="git-compare" class="w-5 h-5"></i>
                 </div>
                 <p class="writing-mode-vertical uppercase tracking-[0.3em] text-[10px] font-black text-gray-400 group-hover:text-gold-main transition-colors">
-                    ${isAr ? 'Ù…Ù‚Ø§Ø±Ù†Ø©' : 'Compare'}
+                    ${isAr ? 'مقارنة' : 'Compare'}
                 </p>
             </div>
         </div>

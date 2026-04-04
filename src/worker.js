@@ -1,5 +1,5 @@
-﻿export default {
-    async scheduled(event, env, ctx) {
+export default {
+    async scheduled(event, env) {
         // Keep the database and worker hot
         try {
             await env.DB.prepare('SELECT 1').first();
@@ -119,7 +119,7 @@
                             const decoded = atob(token).split(':');
                             const userId = decoded[0];
                             sessionUser = await env.DB.prepare('SELECT * FROM users WHERE id = ?').bind(userId).first();
-                        } catch (e) { }
+                        } catch (e) { /* ignore auth failure */ }
                     }
 
                     if (!sessionUser && !isAuth) return new Response(JSON.stringify({ error: `Unauthorized access` }), { status: 401, headers: corsHeaders });
@@ -429,10 +429,10 @@
                 // Ensure schema updates
                 try {
                     await env.DB.prepare("ALTER TABLE users ADD COLUMN permissions TEXT DEFAULT '{}'").run();
-                } catch (e) { }
+                } catch (e) { /* already exists */ }
                 try {
                     await env.DB.prepare("ALTER TABLE users ADD COLUMN expires_at TEXT").run();
-                } catch (e) { }
+                } catch (e) { /* already exists */ }
                 try {
                     await env.DB.prepare(`
                         CREATE TABLE IF NOT EXISTS audit_logs (
@@ -446,7 +446,7 @@
                             timestamp TEXT
                         )
                     `).run();
-                } catch (e) { }
+                } catch (e) { /* already exists */ }
 
                 await env.DB.prepare(`
                     INSERT INTO users (id, email, password, username, role, status, permissions, expires_at, created_at)
@@ -679,9 +679,7 @@
                 return new Response(JSON.stringify(result.results || []), { headers: corsHeaders });
             } catch (e) {
                 return new Response(JSON.stringify({
-                    error: e.message,
-                    query: query || 'N/A',
-                    params: params || []
+                    error: e.message
                 }), { status: 500, headers: corsHeaders });
             }
         }
@@ -738,9 +736,3 @@
         return new Response('Not Found', { status: 404, headers: corsHeaders });
     }
 };
-
-async function hashPassword(str) {
-    const myText = new TextEncoder().encode(str);
-    const myDigest = await crypto.subtle.digest({ name: 'SHA-256' }, myText);
-    return [...new Uint8Array(myDigest)].map((b) => b.toString(16).padStart(2, '0')).join('');
-}

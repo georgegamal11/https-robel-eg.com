@@ -82,22 +82,22 @@ window.searchTriggeredByHero = false; // Flag for manual search application
 
 // Expose these for AdminUI and global access
 window.projectMetadata = {
-    // Porto Golf Marina Buildings
-    "B133": { projectArea: "Porto Golf Marina", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties", image: ["images/ui/logo-main.png"] },
-    "B136": { projectArea: "Porto Golf Marina", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties", image: ["images/ui/logo-main.png"] },
-    "B230": { projectArea: "Porto Golf Marina", delivery: "12/2027", status: "buy", constStatus: "Under Construction", category: "properties", image: ["images/ui/logo-main.png"] },
-    "B243": { projectArea: "Porto Golf Marina", delivery: "12/2027", status: "buy", constStatus: "Under Construction", category: "properties", image: ["images/ui/logo-main.png"] },
-    "B121": { projectArea: "Porto Golf Marina", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/ui/logo-main.png"] },
-    "B224": { projectArea: "Porto Golf Marina", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/projects/porto-golf-marina/gallery/224.webp"] },
-    "B78":  { projectArea: "Porto Golf Marina", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/projects/porto-golf-marina/gallery/78.webp"] },
+    // Porto Golf Marina Buildings - NO static images (images come from Admin Dashboard via API)
+    "B133": { projectArea: "Porto Golf Marina", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties" },
+    "B136": { projectArea: "Porto Golf Marina", delivery: "12/2026", status: "buy", constStatus: "Under Construction", category: "properties" },
+    "B230": { projectArea: "Porto Golf Marina", delivery: "12/2027", status: "buy", constStatus: "Under Construction", category: "properties" },
+    "B243": { projectArea: "Porto Golf Marina", delivery: "12/2027", status: "buy", constStatus: "Under Construction", category: "properties" },
+    "B121": { projectArea: "Porto Golf Marina", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties" },
+    "B224": { projectArea: "Porto Golf Marina", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties" },
+    "B78":  { projectArea: "Porto Golf Marina", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties" },
     // Porto Said Buildings
-    "B9":   { projectArea: "Porto Said", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/face-main/porto-said-main.webp"] },
-    "B10":  { projectArea: "Porto Said", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/face-main/porto-said-main.webp"] },
-    "B15":  { projectArea: "Porto Said", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/face-main/porto-said-main.webp"] },
-    "B16":  { projectArea: "Porto Said", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/face-main/porto-said-main.webp"] },
-    "B17":  { projectArea: "Porto Said", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/face-main/porto-said-main.webp"] },
-    "B33":  { projectArea: "Porto Said", delivery: "Ready",   status: "buy", constStatus: "Ready",             category: "properties", image: ["images/face-main/porto-said-main.webp"] },
-    "SHOPS": { projectArea: "Porto Said", delivery: "Ready",  status: "buy", constStatus: "Ready",             category: "properties", image: ["images/face-main/porto-said-main.webp"] },
+    "B9":   { projectArea: "Porto Said", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties" },
+    "B10":  { projectArea: "Porto Said", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties" },
+    "B15":  { projectArea: "Porto Said", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties" },
+    "B16":  { projectArea: "Porto Said", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties" },
+    "B17":  { projectArea: "Porto Said", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties" },
+    "B33":  { projectArea: "Porto Said", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties" },
+    "SHOPS": { projectArea: "Porto Said", delivery: "Ready", status: "buy", constStatus: "Ready", category: "properties" },
     // Celebration
     "Celebration": { projectArea: "Celebration", delivery: "1/1/2028", status: "buy", constStatus: "Under Construction", category: "properties", image: ["images/face-main/celebration-main.webp"] }
 };
@@ -130,6 +130,29 @@ window.projectDetailPages = {
     try {
         console.time("?? Cache Load");
 
+        // ONE-TIME CACHE CLEAR: Force-remove stale metadata with logo-main.png images
+        const META_VERSION = 'v2026_04_01_hero_fix';
+        if (localStorage.getItem('robel_meta_version') !== META_VERSION) {
+            try {
+                localStorage.removeItem('robelProjectMetadata');
+                localStorage.removeItem('robel_project_metadata');
+                if (window.indexedDB) {
+                    const req = indexedDB.open('robel_db');
+                    req.onsuccess = (e) => {
+                        try {
+                            const db = e.target.result;
+                            if (db.objectStoreNames.contains('robel_project_metadata')) {
+                                db.transaction('robel_project_metadata','readwrite')
+                                  .objectStore('robel_project_metadata').clear();
+                            }
+                        } catch(ex) {}
+                    };
+                }
+                localStorage.setItem('robel_meta_version', META_VERSION);
+                console.log('✅ [Cache] Stale metadata cleared - fresh hero images will load.');
+            } catch(ex) {}
+        }
+
         // 1. Try IndexedDB first (Preferred for heavy data)
         let units = await getFromIDB('robel_inventory_backup');
 
@@ -144,10 +167,31 @@ window.projectDetailPages = {
             }
         }
 
-        // 3. Load Metadata from IDB
+        // 3. Load Metadata from IDB - but protect good static images
         const idbMeta = await getFromIDB('robel_project_metadata');
         if (idbMeta) {
-            window.projectMetadata = { ...window.projectMetadata, ...idbMeta };
+            // Merge per-key, protecting good images from stale cache
+            Object.keys(idbMeta).forEach(key => {
+                const cached = idbMeta[key];
+                const current = window.projectMetadata[key];
+                if (!current) {
+                    window.projectMetadata[key] = cached;
+                    return;
+                }
+                // Only use cached image if it's a real image (not logo placeholder)
+                const cachedImgRaw = cached.image;
+                const cachedImgStr = (Array.isArray(cachedImgRaw) ? cachedImgRaw[0] : cachedImgRaw) || '';
+                const isCachedImgGood = typeof cachedImgStr === 'string' && 
+                    cachedImgStr.length > 10 && 
+                    !cachedImgStr.includes('logo-main.png') &&
+                    !cachedImgStr.includes('placehold.co');
+                
+                window.projectMetadata[key] = {
+                    ...current,
+                    ...cached,
+                    image: isCachedImgGood ? cached.image : current.image
+                };
+            });
             if (typeof projectMetadata !== 'undefined') projectMetadata = window.projectMetadata;
         }
 
@@ -315,8 +359,26 @@ async function refreshGlobalCache() {
         const projects = await window.firebaseQueries.getAllProjects();
         if (projects && projects.length > 0) {
             projects.forEach(p => {
+                // Parse stringified JSON arrays from API 
+                let pImage = p.image || p.images;
+                if (typeof pImage === 'string' && pImage.trim().startsWith('[')) {
+                    try { pImage = JSON.parse(pImage); } catch(e) {}
+                }
+
                 if (window.projectMetadata[p.id]) {
-                    window.projectMetadata[p.id] = { ...window.projectMetadata[p.id], ...p };
+                    // Protect good local images from being overwritten by bad API data (logo, placeholder)
+                    const apiImg = pImage;
+                    const localImg = window.projectMetadata[p.id].image;
+                    const isApiImgGood = apiImg && 
+                        (typeof apiImg === 'string' ? apiImg : (Array.isArray(apiImg) ? apiImg[0] : ''))
+                            .toString().replace('logo-main.png','').length > 10;
+                    
+                    window.projectMetadata[p.id] = { 
+                        ...window.projectMetadata[p.id], 
+                        ...p,
+                        // Keep local image if API image is bad/missing
+                        image: isApiImgGood ? apiImg : localImg
+                    };
                 }
             });
             await saveToIDB('robel_project_metadata', window.projectMetadata);
@@ -1099,17 +1161,27 @@ window.loadData = async function (forceRefresh = false) {
                 window.firebaseQueries.getAllUnits(forceRefresh)
             ]);
 
+            // Helper to fix stringified JSON arrays from API
+            const normalizeImageField = (data) => {
+                if (!data) return data;
+                let img = data.image || data.images;
+                if (typeof img === 'string' && img.trim().startsWith('[')) {
+                    try { img = JSON.parse(img); } catch (e) { }
+                }
+                return { ...data, image: img };
+            };
+
             if (projects && projects.length > 0) {
                 projects.forEach(p => {
                     const normId = normalizeId(p.id);
-                    projectMetadata[normId] = { ...(projectMetadata[normId] || {}), ...p, id: normId };
+                    projectMetadata[normId] = { ...(projectMetadata[normId] || {}), ...normalizeImageField(p), id: normId };
                 });
             }
 
             if (buildings && buildings.length > 0) {
                 buildings.forEach(b => {
                     const key = normalizeId(b.code || b.id || b.building_id);
-                    projectMetadata[key] = { ...(projectMetadata[key] || {}), ...b, id: key };
+                    projectMetadata[key] = { ...(projectMetadata[key] || {}), ...normalizeImageField(b), id: key };
                 });
             }
 
@@ -1125,8 +1197,18 @@ window.loadData = async function (forceRefresh = false) {
             }
 
             debouncedNormalization();
+
+            // ✅ RE-RENDER CARDS WITH ADMIN DASHBOARD IMAGES
+            // This ensures building images from the API (Admin Dashboard) appear on first load
+            // without requiring the user to click any filter button
+            setTimeout(() => {
+                if (typeof renderProjectCards === 'function') {
+                    console.log('🖼️ [Data Sync] Re-rendering cards with Admin Dashboard images...');
+                    renderProjectCards();
+                }
+            }, 100);
         } else {
-            console.warn("?? firebaseQueries not available - falling back to cache.");
+            console.warn("⚠️ firebaseQueries not available - falling back to cache.");
         }
     } catch (criticalErr) {
         console.error("CRITICAL error in loadData:", criticalErr);
@@ -5129,10 +5211,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isDisabled = (inventory.length > 0) ? !hasUnits : false;
                 return `
                     <div class="multi-select-item" style="${isDisabled ? 'opacity: 0.4; pointer-events: none; filter: grayscale(1);' : ''}">
-                        <label class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all">
+                        <label style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; color: #333;">
                             <input type="checkbox" value="${p}" ${isChecked ? 'checked' : ''} ${isDisabled ? 'disabled' : ''} 
                                    class="custom-gold-checkbox">
-                            <span class="text-sm ${isChecked ? 'text-gold-main font-bold' : 'text-gray-700'}">${p}</span>
+                            <span style="font-size: 0.9rem; ${isChecked ? 'color: #c9a23f; font-weight: bold;' : 'color: #333;'}">${p}</span>
                         </label>
                     </div>
                 `;
@@ -5200,10 +5282,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 return `
                     <div class="multi-select-item" style="${isDisabled ? 'opacity: 0.4; pointer-events: none; filter: grayscale(1); display: none;' : ''}">
-                        <label class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all">
+                        <label style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; color: #333;">
                             <input type="checkbox" value="${opt.val}" ${isChecked ? 'checked' : ''} ${isDisabled ? 'disabled' : ''} 
                                    class="custom-gold-checkbox">
-                            <span class="text-sm ${isChecked ? 'text-gold-main font-bold' : 'text-gray-700'}">${displayLabel}</span>
+                            <span style="font-size: 0.9rem; ${isChecked ? 'color: #c9a23f; font-weight: bold;' : 'color: #333;'}">${displayLabel}</span>
                         </label>
                     </div>
                 `;
@@ -5233,10 +5315,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isChecked = selectedDelivery.includes(date);
                 return `
                     <div class="multi-select-item">
-                        <label class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all">
+                        <label style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; color: #333;">
                             <input type="checkbox" value="${date}" ${isChecked ? 'checked' : ''} 
                                    class="custom-gold-checkbox">
-                            <span class="text-sm ${isChecked ? 'text-gold-main font-bold' : 'text-gray-700'}">${date}</span>
+                            <span style="font-size: 0.9rem; ${isChecked ? 'color: #c9a23f; font-weight: bold;' : 'color: #333;'}">${date}</span>
                         </label>
                     </div>
                 `;
@@ -5251,10 +5333,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isChecked = selectedProjectArea.includes(pa);
                 return `
                     <div class="multi-select-item">
-                        <label class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all">
+                        <label style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; color: #333;">
                             <input type="checkbox" value="${pa}" ${isChecked ? 'checked' : ''} 
                                    class="custom-gold-checkbox">
-                            <span class="text-sm ${isChecked ? 'text-gold-main font-bold' : 'text-gray-700'}">${pa}</span>
+                            <span style="font-size: 0.9rem; ${isChecked ? 'color: #c9a23f; font-weight: bold;' : 'color: #333;'}">${pa}</span>
                         </label>
                     </div>
                 `;
@@ -5276,7 +5358,36 @@ document.addEventListener('DOMContentLoaded', () => {
             item.onclick = () => {
                 items.forEach(i => i.classList.remove(activeClass));
                 item.classList.add(activeClass);
-                refreshFilterOptions(); // Trigger update for Status toggle
+                refreshFilterOptions(); // Trigger update for dropdowns
+                
+                // Immediately apply filters to main grid
+                const projVals = (typeof getSelectedProjects === 'function') ? getSelectedProjects() : [];
+                const areaVals = (typeof getSelectedAreas === 'function') ? getSelectedAreas() : [];
+                const deliveryVals = (typeof getSelectedDelivery === 'function') ? getSelectedDelivery() : [];
+                const projectAreaVals = (typeof getSelectedProjectArea === 'function') ? getSelectedProjectArea() : [];
+                
+                const rentBuyBtn = document.querySelector('.filter__toggle-btn.active');
+                const rentBuyVal = rentBuyBtn ? rentBuyBtn.getAttribute('data-val') : 'buy';
+                
+                const statusBtn = document.querySelector('.filter__status-btn.active');
+                const statusVal = statusBtn ? statusBtn.getAttribute('data-val') : 'all';
+                
+                const searchInput = document.getElementById('hero-keyword-input');
+                const keywordVal = searchInput ? searchInput.value.trim() : '';
+
+                window.searchTriggeredByHero = true; // Crucial for applying the active project contextual filter!
+                
+                if (typeof renderProjectCards === 'function') {
+                    renderProjectCards({
+                        projects: projVals,
+                        areas: areaVals,
+                        delivery: deliveryVals,
+                        projectArea: projectAreaVals,
+                        rentBuy: rentBuyVal,
+                        status: statusVal,
+                        keyword: keywordVal
+                    });
+                }
             };
         });
     }
@@ -5485,7 +5596,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // iPhone SE Fix: Remove "Investment" if screen is small and it's the first slide
             if (window.innerWidth <= 380 && currentHeroSlide === 0) {
-                finalTitle = finalTitle.replace(/Investment/g, '').replace(/Ø§Ù„Ø§Ø³ØªØ«Ù…Ø§Ø±/g, '').trim();
+                finalTitle = finalTitle.replace(/Investment/g, '').replace(/الاستثمار/g, '').trim();
             }
 
             titleEl.textContent = finalTitle;
@@ -6225,8 +6336,8 @@ function renderProjectCards(filters = {}) {
     // Rule: Status logic (Dynamic from Firebase Metadata)
     if (filters.status && filters.status !== 'all') {
         projectsToRender = projectsToRender.filter(p => {
-            if (window.activeSearchProject && normalizeId(p) === normalizeId(window.activeSearchProject)) return true;
-            if (filters.projects && filters.projects.includes(p)) return true;
+            // By-pass logic removed
+            // By-pass logic removed
             const meta = projectMetadata[p];
             // Fallback to legacy logic if metadata not yet loaded
             const isReady = meta ? (meta.constStatus || '').toLowerCase().trim() === 'ready' : (p.includes('121') || p === '224');
@@ -6350,7 +6461,8 @@ function renderProjectCards(filters = {}) {
         });
     }
 
-    // 🚀 [SMART FILTER] Hide buildings that have 0 units available for public display
+    // 🚀 [SMART FILTER] Hide buildings that have 0 units available for public display limit, 
+    // UNLESS the user is actively filtering by status/project, in which case we show them to prove the filter works (will show 0 units).
     projectsToRender = projectsToRender.filter(pName => {
         const units = getUnitsInProjectFast(pName);
         const count = units.filter(u => {
@@ -6362,6 +6474,11 @@ function renderProjectCards(filters = {}) {
         // Failsafe: if meta has forced count, respect it
         if (count === 0 && projectMetadata[pName] && projectMetadata[pName].availableUnits) {
             return projectMetadata[pName].availableUnits > 0;
+        }
+
+        // If explicitly filtering by Status, allow valid matches to show regardless of unit count to avoid confusing empty states
+        if (filters.status && filters.status !== 'all') {
+            return true;
         }
 
         return count > 0;
@@ -6451,8 +6568,8 @@ function renderProjectCards(filters = {}) {
                 <div class="project-slides-wrapper">
                     ${imgUrls.map((url, i) => `
                         <img src="${url}" alt="${pName}" class="project-slide-img ${i === 0 ? 'active' : ''}" 
-                             style="opacity:${i === 0 ? '1' : '0'};" 
-                             loading="lazy">
+                             style="opacity:${i === 0 ? '1' : '0'};"
+                             ${i === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'}>
                     `).join('')}
                 </div>
             </div>
@@ -7338,112 +7455,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// Start fetching/syncing as early as possible
-
-if (typeof window.loadData === 'function') {
-    window.loadData();
-} else {
-    // Fallback if defined later
-    window.addEventListener('DataLoadedModule', () => {
-        if (typeof window.loadData === 'function') window.loadData();
-    });
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        // Double check
-        if (inventory.length === 0 && typeof window.loadData === 'function') {
-            window.loadData().then(() => {
-                // Force UI refresh after late load
-                if (typeof renderProjectCards === 'function') renderProjectCards();
-            });
-        }
-    });
-} else {
-    // Already ready? Check immediately
-    if (inventory.length === 0 && typeof window.loadData === 'function') {
-        window.loadData();
-    }
-}
-
-/* ----------------------------------------------------------------
-   FINAL FIX: Update UI after everything is ready (Polling Logic)
-   ---------------------------------------------------------------- */
-
-(function initializeHomepage() {
-    'use strict';
-
-    const isAdmin = window.location.pathname.includes('admin') || document.getElementById('sys-cfg-2026');
-    if (!isAdmin) {
-        // console.log("?? [HOMEPAGE INIT] Regular Visitor Mode: Throttling Polling...");
-    } else {
-        console.log('%c?? [HOMEPAGE INIT] Starting Admin Polling...', 
-            'background: #d4af37; color: #000; font-weight: bold; padding: 5px;');
-    }
-
-    // --------------------------------------------------------
-    // Helper: Update All UI Counters
-    // --------------------------------------------------------
-
-    function updateAllCounters() {
-        // Check Data Availability
-        if (!window.inventory || window.inventory.length === 0) {
-            // Silently wait for Firestore or Cache
-            return false;
-        }
-
-
-
-
-
-
-
-
-        // console.log('%c?? [UPDATE COUNTERS] Data Found! Updating UI...', 'color: #3498db;');
-
-        // Force UI Refresh
-        if (typeof renderProjectCards === 'function') renderProjectCards();
-
-        const totalUnitsElements = document.querySelectorAll('[data-stat="total-units"], .stat-units, #totalUnits');
-        totalUnitsElements.forEach(el => {
-            el.textContent = window.inventory.length;
-        });
-
-        // console.log('%c? All counters updated successfully!', 'color: #27ae60; font-weight: bold;');
-        return true;
-    }
-
-    // --------------------------------------------------------
-    // Polling Mechanism
-    // --------------------------------------------------------
-
-    let updateAttempts = 0;
-    const maxAttempts = 50; // Try for 25 seconds (500ms * 50) - Firestore might be slow on first load
-
-    function attemptUpdate() {
-        updateAttempts++;
-        const success = updateAllCounters();
-
-        if (success) {
-            // console.log('%c?? Homepage UI Sync Complete!', 'color: #27ae60; font-weight: bold;');
-            return;
-        }
-
-        if (updateAttempts < maxAttempts) {
-            setTimeout(attemptUpdate, 500);
-        } else {
-            console.warn('%c?? Max attempts reached. If units are still 0, check your Firebase connection or credentials.', 'color: #e74c3c;');
-        }
-    }
-
-    // Start Polling
-    attemptUpdate();
-
-    // Also hook into listeners
-    window.addEventListener('load', attemptUpdate);
-    window.addEventListener('DataLoadedModule', attemptUpdate);
-
-})();
+// Clean unified execution logic
+window.updateGlobalCounters = function() {
+    if (!window.inventory) return;
+    const totalUnitsElements = document.querySelectorAll('[data-stat="total-units"], .stat-units, #totalUnits');
+    totalUnitsElements.forEach(el => { el.textContent = window.inventory.length; });
+};
 
 /* ----------------------------------------------------------------
    BRANDING & SETTINGS MANAGER
@@ -7540,7 +7557,14 @@ const initApp = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const forceRefresh = urlParams.get('nocache') === 'true' || urlParams.get('refresh') === 'true';
 
-    if (typeof window.loadData === 'function') window.loadData(forceRefresh);
+    if (typeof window.loadData === 'function') {
+        const loadPromise = window.loadData(forceRefresh) || Promise.resolve();
+        loadPromise.then(() => {
+            if (typeof window.updateGlobalCounters === 'function') window.updateGlobalCounters();
+            if (typeof renderProjectCards === 'function') renderProjectCards();
+        });
+    }
+    
     if (typeof window.initUnitImageUpload === 'function') window.initUnitImageUpload();
 };
 
@@ -7549,5 +7573,3 @@ if (document.readyState === 'loading') {
 } else {
     initApp();
 }
-
-

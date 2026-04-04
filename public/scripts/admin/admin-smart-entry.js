@@ -188,7 +188,7 @@ var AdminSmartEntry = {
 
         // 2. Validate Floor (Supports 0-50 now)
         if (!this.floors[floorCode]) {
-            this.showError(`Invalid floor code '${floorCode}' â€“ allowed range is 0 to 50`);
+            this.showError(`Invalid floor code '${floorCode}' – allowed range is 0 to 50`);
             this.resetFields();
             return;
         }

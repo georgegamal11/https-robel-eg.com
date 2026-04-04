@@ -143,7 +143,7 @@ async function initAvailableBuildings() {
 
                     // Robust availability check (handles English, Arabic, and truthy values)
                     const rawStatus = (u.status || 'Available').toLowerCase().trim();
-                    const availableKeywords = ['available', 'Ù…ØªØ§Ø­', 'Ù…ÙˆØ¬ÙˆØ¯', 'ready', 'Ø¬Ø§Ù‡Ø²', 'yes', '1', 'true'];
+                    const availableKeywords = ['available', 'متاح', 'موجود', 'ready', 'جاهز', 'yes', '1', 'true'];
                     const isAvailable = availableKeywords.some(key => rawStatus.includes(key));
 
                     return isMatch && isAvailable;
@@ -221,9 +221,9 @@ function renderBuildingsInternal(filter = 'all') {
 
     const lang = window.currentLang || localStorage.getItem('preferredLang') || 'en';
     const t = {
-        avail_units: lang === 'en' ? 'Units Available' : 'ÙˆØ­Ø¯Ø© Ù…ØªØ§Ø­Ø©',
-        view_units: lang === 'en' ? 'VIEW UNITS' : 'Ø¹Ø±Ø¶ Ø§Ù„ÙˆØ­Ø¯Ø§Øª',
-        delivery: lang === 'en' ? 'Delivery' : 'Ø§Ù„ØªØ³Ù„ÙŠÙ…',
+        avail_units: lang === 'en' ? 'Units Available' : 'وحدة متاحة',
+        view_units: lang === 'en' ? 'VIEW UNITS' : 'عرض الوحدات',
+        delivery: lang === 'en' ? 'Delivery' : 'التسليم',
         ...((window.translations && window.translations[lang]) ? window.translations[lang] : {})
     };
 
@@ -270,7 +270,7 @@ function renderBuildingsInternal(filter = 'all') {
             const meta = localProjectMetadata[id] || {};
             const rawStatus = (meta.constStatus || '').toLowerCase();
             const rawDelivery = (meta.delivery || '').toLowerCase();
-            const readyKeywords = ['ready', 'Ø¬Ø§Ù‡Ø²', 'delivered', 'move', 'ØªÙ… Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…', 'available', 'Ø§Ø³ØªÙ„Ø§Ù…', 'ÙÙˆØ±ÙŠ'];
+            const readyKeywords = ['ready', 'جاهز', 'delivered', 'move', 'تم الاستلام', 'available', 'استلام', 'فوري'];
             let isReady = readyKeywords.some(key => rawStatus.includes(key) || rawDelivery.includes(key));
 
             // ðŸš€ Fallback Status by ID
@@ -287,7 +287,7 @@ function renderBuildingsInternal(filter = 'all') {
     if (filtered.length === 0) {
         console.warn(`âš ï¸ [AvailableUnits] No buildings found after filtering for ${CURRENT_PAGE_AREA}.`);
         grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #94a3b8;">
-            <p>${lang === 'en' ? 'No buildings available for this filter.' : 'Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ø¨Ø§Ù†ÙŠ Ù…ØªØ§Ø­Ø© Ù„Ù‡Ø°Ø§ Ø§Ù„ÙÙ„ØªØ±.'}</p>
+            <p>${lang === 'en' ? 'No buildings available for this filter.' : 'لا توجد مباني متاحة لهذا الفلتر.'}</p>
         </div>`;
         return;
     }

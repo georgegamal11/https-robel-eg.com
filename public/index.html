@@ -27,78 +27,11 @@
     <meta name="theme-color" content="#c9a23f">
     <link rel="icon" type="image/png" href="images/ui/logo-main.png">
     <link rel="apple-touch-icon" href="images/ui/logo-main.png">
+    <link rel="manifest" href="manifest.json">
 
-    <!-- Critical CSS for Instant First Paint -->
-    <style>
-        :root {
-            --gold: #D4AF37;
-            --gold-muted: #C9A23F;
-            --gold-main: #C9A23F;
-            --navy-deep: #1A1A1A;
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #FAFAFA;
-            --text-main: #111827;
-            --text-secondary: #6B7280;
-            --font-heading: 'Inter', sans-serif;
-            --font-body: 'Inter', sans-serif
-        }
-
-        .page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999
-        }
-
-        .loader-logo {
-            width: 150px;
-            animation: pulse 2s infinite ease-in-out
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1)
-            }
-
-            50% {
-                opacity: .6;
-                transform: scale(.95)
-            }
-        }
-
-        .hero-section {
-            position: relative;
-            height: 100vh;
-            background: #0f172a;
-            overflow: hidden
-        }
-
-        .main-header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, .98);
-            backdrop-filter: blur(10px)
-        }
-
-        .hero-title-center {
-            font-family: 'Cinzel', 'Cairo', 'Tajawal', serif;
-            font-size: clamp(2rem, 6vw, 4.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            text-shadow: 0 10px 30px rgba(0, 0, 0, .5)
-        }
-    </style>
+    <!-- Critical CSS + PWA -->
+    <link rel="stylesheet" href="styles/main.min.css">
+    <link rel="stylesheet" href="styles/skeletons.css">
 
     <!-- SSL Force Redirect -->
     <script>
@@ -161,556 +94,16 @@
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </noscript>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    screens: {
-                        'lg': '1024px',
-                    },
-                    colors: {
-                        'gold-main': '#c9a23f',
-                        'navy-deep': '#0f172a',
-                    }
-                }
-            }
-        }
-    </script>
     <!-- Consolidated Bundle for Performance -->
 
 
     <!-- Preload Critical Image ONLY -->
     <link rel="preload" as="image" href="images/projects/porto-golf-marina/hero/hero-1.webp" fetchpriority="high">
 
-    <!-- Critical Inline Styles to prevent Flash of Unstyled Content -->
-    <style>
-        .hero-section {
-            background: #0f172a;
-            min-height: 100vh;
-            will-change: opacity;
-            /* GPU optimization */
-        }
+    <!-- inline styles moved to main.min.css -->
 
-        .hero-slide {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: #0f172a;
-            transition: opacity 1s ease;
-            will-change: opacity;
-        }
 
-        /* Mobile Specific Placeholder for faster LCP */
-        @media (max-width:768px) {
-            .hero-section {
-                height: 100vh;
-                background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/projects/porto-golf-marina/hero/hero-1.webp') center/cover no-repeat
-            }
-        }
-
-        /* --- PERFORMANCE BOOSTS --- */
-        #about,
-        #contact,
-        .billboard-section {
-            content-visibility: auto;
-            /* Browser optimization: don't paint until near viewport */
-            contain-intrinsic-size: 500px 1000px;
-        }
-
-        .reveal,
-        .reveal-up,
-        .AOS,
-        [data-aos] {
-            will-change: transform, opacity;
-            /* Hint GPU for smooth animations */
-        }
-
-        .main-header {
-            will-change: transform;
-            /* Smooth scroll transition */
-        }
-
-        /* Optimize Scroll performance by disabling heavy effects during scroll */
-        .is-scrolling * {
-            pointer-events: none !important;
-        }
-    </style>
-
-
-    <style>
-        /* FORCE HIDE ADMIN UI BY DEFAULT */
-        .admin-only-ui {
-            display: none !important;
-        }
-
-        /* QUOTA ALERT STYLES */
-        #quota-warning-banner {
-            background: linear-gradient(90deg, #b91c1c, #991b1b);
-            color: white;
-            text-align: center;
-            padding: 8px 15px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 14px;
-            z-index: 9999;
-            position: relative;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            display: none;
-            /* Controlled by JS */
-        }
-
-        #quota-warning-banner .quota-alert-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        #quota-warning-banner button {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 12px;
-        }
-
-        #quota-warning-banner button:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .billboard-section {
-                padding: 20px 0 !important;
-                margin-top: 0 !important;
-            }
-
-            .billboard-section .section-title {
-                font-size: 1.4rem !important;
-                margin-bottom: 5px !important;
-            }
-
-            .billboard-section .section-subtitle {
-                font-size: 0.8rem !important;
-                margin-bottom: 15px !important;
-            }
-
-            .offers-scroll {
-                padding: 10px 15px !important;
-                gap: 15px !important;
-            }
-
-            .offer-card {
-                width: 330px !important;
-                height: 240px !important;
-                /* Increased height to fit all content */
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
-                border-radius: 12px !important;
-            }
-
-            .card-image-wrapper {
-                height: 100% !important;
-            }
-
-            .card-content {
-                padding: 15px !important;
-                padding-top: 60px !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-            }
-
-            .card-title {
-                font-size: 1.1rem !important;
-                margin-bottom: 4px !important;
-                font-weight: 800 !important;
-            }
-
-            .card-subtitle {
-                font-size: 0.85rem !important;
-                margin-bottom: 8px !important;
-                opacity: 0.9;
-            }
-
-            .card-description {
-                font-size: 0.8rem !important;
-                line-height: 1.4 !important;
-                margin-bottom: 12px !important;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                color: rgba(255, 255, 255, 0.95) !important;
-            }
-
-            .card-cta {
-                min-width: 100% !important;
-                padding: 10px 15px !important;
-                font-size: 0.85rem !important;
-                margin-top: auto !important;
-            }
-
-            .card-badge {
-                padding: 4px 10px !important;
-                font-size: 9px !important;
-                top: 10px !important;
-                right: 10px !important;
-            }
-
-            [dir="rtl"] .card-badge {
-                right: auto !important;
-                left: 10px !important;
-            }
-
-            .countdown-timer-badge {
-                top: 38px !important;
-                right: 10px !important;
-            }
-
-            [dir="rtl"] .countdown-timer-badge {
-                right: auto !important;
-                left: 10px !important;
-            }
-
-            /* Shift text to right for RTL */
-            [dir="rtl"] .billboard-section {
-                font-family: 'Cairo', 'Tajawal', sans-serif !important;
-            }
-
-            [dir="rtl"] .card-content {
-                text-align: right !important;
-            }
-
-            [dir="rtl"] .card-title,
-            [dir="rtl"] .card-subtitle,
-            [dir="rtl"] .card-description {
-                text-align: right !important;
-            }
-
-            [dir="rtl"] .card-cta {
-                text-align: center !important;
-                /* Keep button text centered */
-            }
-
-            /* Comparison Tool Mobile Responsiveness */
-            .project-filter-buttons {
-                padding: 0 10px;
-            }
-
-            .project-filter-btn {
-                padding: 12px 20px !important;
-                font-size: 0.85rem !important;
-            }
-
-            .compare-table {
-                font-size: 0.85rem;
-            }
-
-            .compare-table thead th,
-            .compare-table tbody td {
-                padding: 12px 8px !important;
-            }
-        }
-
-        /* Luxury About Us Section Enhancements */
-        .about-redesign {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            padding: 100px 0;
-        }
-
-        .about-title {
-            font-family: 'Cinzel', serif !important;
-            color: var(--navy-deep);
-            letter-spacing: 1px;
-            font-weight: 700 !important;
-            font-size: 1.7rem !important;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        /* RTL Header & Typography Overrides */
-        [dir="rtl"] .hero-title-center,
-        [dir="rtl"] .about-title,
-        [dir="rtl"] .section-title {
-            font-family: 'Cairo', 'Tajawal', sans-serif !important;
-            letter-spacing: 0 !important;
-        }
-
-        .about-mission {
-            text-align: center;
-            margin: 60px auto;
-            background: #ffffff;
-            padding: 60px 40px;
-            border-radius: 40px;
-            border: 1px solid rgba(201, 162, 63, 0.15);
-            max-width: 1100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 25px 50px -12px rgba(201, 162, 63, 0.08);
-        }
-
-        .about-mission .quote-icon {
-            font-size: 3rem;
-            color: var(--gold-main);
-            opacity: 0.2;
-            margin-bottom: 30px;
-        }
-
-        .about-mission p {
-            font-size: 1.25rem !important;
-            line-height: 1.9 !important;
-            color: var(--navy-deep);
-            max-width: 950px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .about-mission {
-                padding: 40px 20px;
-                margin: 30px 15px;
-            }
-
-            .about-mission p {
-                font-size: 1.1rem !important;
-            }
-        }
-
-        .achieve-card {
-            background: white;
-            border: 1px solid rgba(201, 162, 63, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        .achieve-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold-main);
-            box-shadow: 0 20px 40px rgba(201, 162, 63, 0.1);
-        }
-
-        .value-card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .value-card:hover {
-            border-bottom-color: var(--gold-main);
-            transform: translateY(-5px);
-        }
-
-        .value-icon i {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--gold-main), #b08d35);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @media (max-width: 768px) {
-            .about-redesign {
-                padding: 50px 15px;
-            }
-
-            .about-mission {
-                padding: 20px;
-            }
-
-            .about-title {
-                font-size: 1.1rem !important;
-                line-height: 1.4 !important;
-            }
-
-            .section-title {
-                font-size: 1.2rem !important;
-                margin-bottom: 10px !important;
-            }
-
-            .section-subtitle {
-                font-size: 0.75rem !important;
-            }
-
-            /* Force 6-columns for Seamless Ownership (Timeline) */
-            .timeline {
-                display: grid !important;
-                grid-template-columns: repeat(6, 1fr) !important;
-                gap: 3px !important;
-                padding: 0 3px !important;
-            }
-
-            .timeline-item {
-                padding: 5px 2px !important;
-                margin: 0 !important;
-                border: none !important;
-                text-align: center;
-                background: #fff;
-                border-radius: 6px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            }
-
-            .timeline-item h4 {
-                font-size: 0.38rem !important;
-                /* Tiny enough for 6 columns */
-                line-height: 1.1 !important;
-                word-break: break-word !important;
-                font-weight: 700 !important;
-                margin-top: 3px !important;
-            }
-
-            .timeline-item p {
-                display: none !important;
-            }
-
-            .timeline-number {
-                width: 15px !important;
-                height: 15px !important;
-                font-size: 0.5rem !important;
-                margin: 0 auto !important;
-                border-width: 1px !important;
-            }
-
-            /* Force 3-columns for Strategy Grid */
-            .strategy-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 8px !important;
-                margin-top: 20px !important;
-            }
-
-            .strategy-card {
-                padding: 12px 6px !important;
-                border-radius: 12px !important;
-            }
-
-            .strategy-card i {
-                font-size: 1.5rem !important;
-                margin-bottom: 8px !important;
-            }
-
-            .strategy-card h3 {
-                font-size: 0.65rem !important;
-                margin-bottom: 4px !important;
-            }
-
-            .strategy-card p {
-                font-size: 0.55rem !important;
-                line-height: 1.2 !important;
-            }
-
-            /* Force 3-columns for Compound Guide */
-            .achievements-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 8px !important;
-            }
-
-            .achieve-card {
-                padding: 12px 6px !important;
-                border-radius: 12px !important;
-            }
-
-            .achieve-card i {
-                font-size: 1.4rem !important;
-                margin-bottom: 10px !important;
-            }
-
-            .achieve-card h4 {
-                font-size: 0.6rem !important;
-                margin-bottom: 5px !important;
-            }
-
-            .achieve-card p {
-                font-size: 0.5rem !important;
-                line-height: 1.1 !important;
-            }
-
-            .proven-stats-grid {
-                grid-template-columns: repeat(4, 1fr) !important;
-                gap: 5px !important;
-            }
-
-            .proven-stats-grid>div>div:first-child {
-                font-size: 0.8rem !important;
-                /* Shrunk further to ensure 4-across fit */
-                margin-bottom: 2px !important;
-                white-space: nowrap;
-            }
-
-            .proven-stats-grid>div>div:last-child {
-                font-size: 0.4rem !important;
-                line-height: 1 !important;
-                opacity: 0.7;
-            }
-
-            .proven-stats-container {
-                padding: 15px 5px !important;
-                /* Extreme shrink for the black rectangle */
-                margin-top: 25px !important;
-                border-radius: 15px !important;
-            }
-
-            /* Header Actions Mobile refinement */
-            .header-actions .logout-pill-btn.mobile-only,
-            .header-actions .btn-cta.mobile-only,
-            .header-actions .btn-admin {
-                padding: 3px 8px !important;
-                font-size: 0.65rem !important;
-                min-height: 0 !important;
-                height: 24px !important;
-                /* Removed display: flex !important to let JS control visibility */
-                align-items: center;
-                justify-content: center;
-            }
-
-            .lang-toggle-mobile {
-                padding: 2px 6px !important;
-                font-size: 0.65rem !important;
-                margin-right: 4px !important;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 4px;
-                background: transparent;
-                color: var(--primary-gold);
-                height: 24px !important;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .sidebar-actions-pair .action-pill-btn {
-                padding: 5px 12px !important;
-                font-size: 0.75rem !important;
-                border-radius: 6px !important;
-                height: auto !important;
-            }
-        }
-
-        /* FORCE ENGLISH NUMERALS GLOBALLY */
-        [lang="en"],
-        .en-nums,
-        span[lang="en"] {
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-            font-variant-numeric: lining-nums tabular-nums !important;
-            -webkit-font-feature-settings: "lnum", "tnum" !important;
-            font-feature-settings: "lnum", "tnum" !important;
-        }
-
-        input[lang="en"],
-        select[lang="en"],
-        textarea[lang="en"] {
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-            unicode-range: U+0030-0039;
-            /* Force digits only to be Western if possible */
-        }
-    </style>
+    <!-- all styles now in main.min.css -->
 </head>
 
 <body style="scroll-behavior: smooth;">
@@ -719,8 +112,7 @@
         onerror="this.src='images/ui/logo-main.png'">
     <!-- Page Loader -->
     <div id="page-loader" class="page-loader">
-        <img src="images/ui/logo-main.png" alt="Robel Real Estate Logo" class="loader-logo" width="150" height="50"
-            fetchpriority="high">
+        <img src="images/ui/logo-main.png" alt="Robel Real Estate Logo" class="loader-logo" style="width: clamp(100px, 12vw, 140px); height: auto; object-fit: contain; filter: drop-shadow(0 0 25px rgba(212,175,55,0.4)); border-radius: 10px;" fetchpriority="high">
     </div>
 
     <!-- Scroll Progress Indicator -->
@@ -776,8 +168,7 @@
                 <div class="logo">
                     <a href="#home" style="display: flex; align-items: center; text-decoration: none;"
                         aria-label="Go to Home">
-                        <img src="images/ui/logo-main.png" alt="Robel Real Estate Investment Logo" width="100"
-                            height="35" decoding="async">
+                        <img src="images/ui/logo-main.png" alt="Robel Real Estate Investment Logo" width="100" height="35" decoding="async">
                     </a>
                 </div>
             </div>
@@ -887,18 +278,18 @@
             </div>
         </div>
 
-        <div class="container hero-content-vertical reveal" style="position: relative; z-index: 1;">
-            <h1 class="hero-title-center" data-i18n="hero_title">Robel Real Estate Investment</h1>
-            <p class="hero-subtitle-center" data-i18n="hero_subtitle">Robel Urban Development is a Strategic Partner of
+        <div class="container hero-content-vertical" style="position: relative; z-index: 1;">
+            <h1 class="hero-title-center" data-i18n="hero_title" style="font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 5px;">Robel Real Estate Investment</h1>
+            <p class="hero-subtitle-center" data-i18n="hero_subtitle" style="margin-bottom: 15px;">Robel Urban Development is a Strategic Partner of
                 Amer Group.</p>
 
             <div class="filter filter--hero">
                 <div class="filter__body">
                     <!-- Row 1 -->
                     <div class="filter__row">
-                        <div class="filter__col-search">
+                        <div class="filter__col-search" style="transform: translateY(-13px);">
                             <label class="filter-field-label"
-                                style="display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; opacity: 0.7;"
+                                style="display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; opacity: 0.7;"
                                 data-i18n="search_label">Quick Search</label>
                             <div class="filter__input-wrap">
                                 <i class="fas fa-search filter__input-icon"></i>
@@ -1331,43 +722,6 @@
 
 
             <!-- Developer & Corporate Network -->
-            <style>
-                .network-pill {
-                    background: white;
-                    padding: 6px 12px;
-                    border-radius: 50px;
-                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-                    font-weight: 600;
-                    color: var(--navy-deep);
-                    font-size: 0.75rem;
-                    white-space: nowrap;
-                    display: inline-block;
-                }
-
-                @media (max-width: 768px) {
-                    .network-container-inner {
-                        display: grid !important;
-                        grid-template-columns: repeat(3, 1fr) !important;
-                        gap: 4px !important;
-                    }
-
-                    .network-pill {
-                        font-size: 0.55rem !important;
-                        /* Tiny font for mobile */
-                        padding: 6px 2px !important;
-                        /* Minimal padding */
-                        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-                        white-space: normal !important;
-                        /* Allow wrapping to fit grid */
-                        text-align: center;
-                        display: flex !important;
-                        align-items: center;
-                        justify-content: center;
-                        height: 100%;
-                        line-height: 1.1;
-                    }
-                }
-            </style>
             <div class="section-compact-mobile" style="padding: 20px 10px; background: #f8fafc; border-radius: 16px;"
                 data-aos="fade-up">
                 <h3 style="text-align: center; color: var(--navy-deep); margin-bottom: 10px; font-size: 1.1rem;"
@@ -1388,33 +742,6 @@
             </div>
 
             <!-- Final Statement -->
-            <style>
-                @media (max-width: 768px) {
-                    .about-final-statement {
-                        font-size: 0.75rem !important;
-                    }
-
-                    .about-cta-container {
-                        padding: 0 10px;
-                        display: flex;
-                        justify-content: center;
-                    }
-
-                    .about-cta-btn {
-                        font-size: 2.3vw !important;
-                        /* Smaller responsive font */
-                        padding: 8px 8px !important;
-                        /* Minimal padding */
-                        gap: 4px !important;
-                        width: auto !important;
-                        max-width: 95%;
-                        white-space: normal !important;
-                        text-align: center;
-                        line-height: 1.4;
-                        border-radius: 50px !important;
-                    }
-                }
-            </style>
             <div style="text-align: center; margin-top: 15px;" data-aos="fade-up">
                 <p class="about-final-statement" style="font-size: 0.95rem; font-weight: 700; color: var(--navy-deep);"
                     data-i18n="about_p1">Robel
@@ -2663,8 +1990,18 @@
             }, 100); // Wait 100ms after scroll stop
         }, { passive: true });
     </script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(() => {});
+            });
+        }
+    </script>
 </body>
 
 </html>
+
 
 

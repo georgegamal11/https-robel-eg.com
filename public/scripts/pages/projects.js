@@ -184,7 +184,7 @@ document.addEventListener('submit', function (e) {
         const phoneVal = form.querySelector('#contactPhone')?.value;
 
         if (!nameVal || !phoneVal) {
-            alert(lang === 'en' ? "Please fill in Name and Phone" : "ÙŠØ±Ø¬Ù‰ Ù…Ù„Ø¡ Ø§Ù„Ø§Ø³Ù… ÙˆØ±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ");
+            alert(lang === 'en' ? "Please fill in Name and Phone" : "يرجى ملء الاسم ورقم الهاتف");
             return false;
         }
 
@@ -195,7 +195,7 @@ document.addEventListener('submit', function (e) {
 
         if (btn) {
             btn.disabled = true;
-            btn.innerHTML = lang === 'en' ? 'Sending...' : 'Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„...';
+            btn.innerHTML = lang === 'en' ? 'Sending...' : 'جاري الإرسال...';
         }
 
         EmailService.sendForm(form).then(result => {
@@ -203,7 +203,7 @@ document.addEventListener('submit', function (e) {
                 alert(t.form_success || 'Thank you! Message sent.');
                 form.reset();
             } else {
-                alert((lang === 'en' ? 'Error: ' : 'Ø®Ø·Ø£: ') + result.error);
+                alert((lang === 'en' ? 'Error: ' : 'خطأ: ') + result.error);
             }
         }).catch(err => {
             console.error("Send error:", err);

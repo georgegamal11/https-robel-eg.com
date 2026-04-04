@@ -67,7 +67,7 @@ window.handleExport = async function (type) {
     let currentProjectName = domName ? domName.textContent.trim() : null;
 
     if (!currentProjectName || currentProjectName === 'Select Building' || currentProjectName === '') {
-        alert(currentLang === 'ar' ? 'ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ù…Ø¨Ù†Ù‰ Ø£ÙˆÙ„Ø§Ù‹.' : 'Please select a building / project first.');
+        alert(currentLang === 'ar' ? 'يرجى اختيار مبنى أولاً.' : 'Please select a building / project first.');
         return;
     }
 
@@ -93,10 +93,10 @@ window.handleExport = async function (type) {
             const fArea = document.getElementById('admin-unit-filter-area')?.value;
             const fSearch = document.getElementById('admin-unit-search')?.value;
 
-            if (fFloor) filterLabels.push(`${currentLang === 'ar' ? 'Ø§Ù„Ø¯ÙˆØ±' : 'Floor'}: ${fFloor}`);
-            if (fView) filterLabels.push(`${currentLang === 'ar' ? 'Ø§Ù„Ø¥Ø·Ù„Ø§Ù„Ø©' : 'View'}: ${fView}`);
-            if (fArea) filterLabels.push(`${currentLang === 'ar' ? 'Ø§Ù„Ù…Ø³Ø§Ø­Ø©' : 'Area'}: ${fArea} mÂ²`);
-            if (fSearch) filterLabels.push(`${currentLang === 'ar' ? 'Ø¨Ø­Ø«' : 'Search'}: ${fSearch}`);
+            if (fFloor) filterLabels.push(`${currentLang === 'ar' ? 'الدور' : 'Floor'}: ${fFloor}`);
+            if (fView) filterLabels.push(`${currentLang === 'ar' ? 'الإطلالة' : 'View'}: ${fView}`);
+            if (fArea) filterLabels.push(`${currentLang === 'ar' ? 'المساحة' : 'Area'}: ${fArea} mÂ²`);
+            if (fSearch) filterLabels.push(`${currentLang === 'ar' ? 'بحث' : 'Search'}: ${fSearch}`);
 
             if (meta) {
                 meta.activeFiltersText = filterLabels.join(' | ');
@@ -179,7 +179,7 @@ window.handleExport = async function (type) {
         // 5. Validation
         if (!units || units.length === 0) {
             const msg = currentLang === 'ar' ?
-                `Ù„Ù… ÙŠØªÙ… Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ Ø¨ÙŠØ§Ù†Ø§Øª Ù„Ù€ "${currentProjectName}". ØªØ£ÙƒØ¯ Ù…Ù† ÙˆØ¬ÙˆØ¯ ÙˆØ­Ø¯Ø§Øª Ù…Ø³Ø¬Ù„Ø©.` :
+                `لم يتم العثور على بيانات لـ "${currentProjectName}". تأكد من وجود وحدات مسجلة.` :
                 `No units found for "${currentProjectName}". Please verify data exists.`;
             alert(msg);
             return;
@@ -208,7 +208,7 @@ window.handleExport = async function (type) {
 
         // Prepare breadcrumbs for the confirmation message
         const activeFilters = [];
-        if (domFilteredOnly?.checked) activeFilters.push(currentLang === 'ar' ? 'Ø§Ù„ÙÙ„Ø§ØªØ± Ø§Ù„Ù†Ø´Ø·Ø©' : 'UI Filters');
+        if (domFilteredOnly?.checked) activeFilters.push(currentLang === 'ar' ? 'الفلاتر النشطة' : 'UI Filters');
         if (statusKeywords.length > 0 && !domAll?.checked) {
             statusKeywords.forEach(k => activeFilters.push(k));
         } else {
@@ -217,20 +217,20 @@ window.handleExport = async function (type) {
 
         // --- CONFIRMATION ---
         const isFiltered = domFilteredOnly && domFilteredOnly.checked;
-        const filterTypeStr = isFiltered ? (currentLang === 'ar' ? "(Ø¨Ù†Ø§Ø¡Ù‹ Ø¹Ù„Ù‰ Ø§Ù„ÙÙ„ØªØ±Ø© Ø§Ù„Ø­Ø§Ù„ÙŠØ©)" : "(Based on UI Filters)") : "";
+        const filterTypeStr = isFiltered ? (currentLang === 'ar' ? "(بناءً على الفلترة الحالية)" : "(Based on UI Filters)") : "";
 
         const confirmMsg = currentLang === 'ar'
-            ? `ØªØ£ÙƒÙŠØ¯ ØªØµØ¯ÙŠØ± ØªÙ‚Ø±ÙŠØ± ${filterTypeStr}: ${currentProjectName}\n\n` +
-            `Ø§Ù„ÙˆØ­Ø¯Ø§Øª: ${filteredUnits.length} (Ù…Ù† Ø¥Ø¬Ù…Ø§Ù„ÙŠ ${units.length})\n` +
-            `Ø§Ù„ÙÙ„Ø§ØªØ±: ${activeFilters.join(', ')}\n\n` +
-            `Ù‡Ù„ ØªÙˆØ¯ Ø§Ù„Ù…ØªØ§Ø¨Ø¹Ø©ØŸ`
+            ? `تأكيد تصدير تقرير ${filterTypeStr}: ${currentProjectName}\n\n` +
+            `الوحدات: ${filteredUnits.length} (من إجمالي ${units.length})\n` +
+            `الفلاتر: ${activeFilters.join(', ')}\n\n` +
+            `هل تود المتابعة؟`
             : `Confirm Export Report ${filterTypeStr}: ${currentProjectName}\n\n` +
             `Matching Units: ${filteredUnits.length} (Total: ${units.length})\n` +
             `Filters: ${activeFilters.join(', ')}\n\n` +
             `Proceed?`;
 
         if (filteredUnits.length === 0) {
-            alert(currentLang === 'ar' ? "Ù„Ø§ ØªÙˆØ¬Ø¯ ÙˆØ­Ø¯Ø§Øª ØªØ·Ø§Ø¨Ù‚ Ø§Ù„ÙÙ„Ø§ØªØ± Ø§Ù„Ù…Ø®ØªØ§Ø±Ø©." : "No units match the selected filters.");
+            alert(currentLang === 'ar' ? "لا توجد وحدات تطابق الفلاتر المختارة." : "No units match the selected filters.");
             return;
         }
 
@@ -493,7 +493,7 @@ function exportToExcel(projectName, meta, units) {
         ["BUILDING REPORT SUMMARY"],
         [""],
         ["Building", projectName],
-        ["Applied Filters", meta?.activeFiltersText || (currentLang === 'ar' ? 'Ø§Ù„ÙƒÙ„' : 'All Units')],
+        ["Applied Filters", meta?.activeFiltersText || (currentLang === 'ar' ? 'الكل' : 'All Units')],
         ["Project Area", meta?.projectArea || 'N/A'],
         ["Delivery Date", meta?.delivery || 'N/A'],
         ["Report Date", date],
@@ -611,7 +611,7 @@ async function printPreview(projectName, meta, units) {
                 <div class="summary-item"><b>Delivery Date</b> ${meta?.delivery || 'N/A'}</div>
                 <div class="summary-item"><b>Available Units</b> ${available}</div>
                 <div class="summary-item"><b>Status</b> ${meta?.constStatus || 'N/A'}</div>
-                <div class="summary-item"><b>Applied Filters</b> ${meta?.activeFiltersText || (currentLang === 'ar' ? 'Ø§Ù„ÙƒÙ„' : 'All Units')}</div>
+                <div class="summary-item"><b>Applied Filters</b> ${meta?.activeFiltersText || (currentLang === 'ar' ? 'الكل' : 'All Units')}</div>
                 <div class="summary-item"><b>Generated on</b> ${date}</div>
                 <div class="summary-item"><b>Reserved/Sold</b> ${reserved + sold}</div>
             </div>

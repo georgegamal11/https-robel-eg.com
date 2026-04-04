@@ -1,6 +1,6 @@
 /**
- * ðŸ—ï¸ Ù†Ø¸Ø§Ù… Ø°ÙƒÙŠ Ø§Ø­ØªØ±Ø§ÙÙŠ Ù„ØªØ­Ù„ÙŠÙ„ Ø£ÙƒÙˆØ§Ø¯ Ø§Ù„ÙˆØ­Ø¯Ø§Øª Ø§Ù„Ø¹Ù‚Ø§Ø±ÙŠØ©
- * Ù…ØªØ®ØµØµ ÙÙŠ Ø§Ù„Ù…Ø´Ø±ÙˆØ¹Ø§Øª Ø§Ù„Ø³ÙŠØ§Ø­ÙŠØ© Ø§Ù„Ù…ØµØ±ÙŠØ©: Porto Golf Marina, Porto Said, Porto Sokhna.
+ * ðŸ—ï¸ نظام ذكي احترافي لتحليل أكواد الوحدات العقارية
+ * متخصص في المشروعات السياحية المصرية: Porto Golf Marina, Porto Said, Porto Sokhna.
  */
 
 const UnitParser = {
@@ -13,29 +13,29 @@ const UnitParser = {
 
     // Numeric conversion maps
     NUMERAL_MAP: {
-        'Ù ': '0', 'Ù¡': '1', 'Ù¢': '2', 'Ù£': '3', 'Ù¤': '4',
-        'Ù¥': '5', 'Ù¦': '6', 'Ù§': '7', 'Ù¨': '8', 'Ù©': '9',
+        '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4',
+        '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9',
         '0': '0', '1': '1', '2': '2', '3': '3', '4': '4',
         '5': '5', '6': '6', '7': '7', '8': '8', '9': '9'
     },
 
     FLOOR_NAMES_AR: {
-        '0': 'Ø§Ù„Ø£Ø±Ø¶ÙŠ', '00': 'Ø§Ù„Ø£Ø±Ø¶ÙŠ', '01': 'Ø§Ù„Ø£ÙˆÙ„', '1': 'Ø§Ù„Ø£ÙˆÙ„',
-        '02': 'Ø§Ù„Ø«Ø§Ù†ÙŠ', '2': 'Ø§Ù„Ø«Ø§Ù†ÙŠ', '03': 'Ø§Ù„Ø«Ø§Ù„Ø«', '3': 'Ø§Ù„Ø«Ø§Ù„Ø«',
-        '04': 'Ø§Ù„Ø±Ø§Ø¨Ø¹', '4': 'Ø§Ù„Ø±Ø§Ø¨Ø¹', '05': 'Ø§Ù„Ø®Ø§Ù…Ø³', '5': 'Ø§Ù„Ø®Ø§Ù…Ø³',
-        '06': 'Ø§Ù„Ø³Ø§Ø¯Ø³', '6': 'Ø§Ù„Ø³Ø§Ø¯Ø³', '07': 'Ø§Ù„Ø³Ø§Ø¨Ø¹', '7': 'Ø§Ù„Ø³Ø§Ø¨Ø¹',
-        '08': 'Ø§Ù„Ø«Ø§Ù…Ù†', '8': 'Ø§Ù„Ø«Ø§Ù…Ù†', '09': 'Ø§Ù„ØªØ§Ø³Ø¹', '9': 'Ø§Ù„ØªØ§Ø³Ø¹',
-        '10': 'Ø§Ù„Ø¹Ø§Ø´Ø±', '11': 'Ø§Ù„Ø­Ø§Ø¯ÙŠ Ø¹Ø´Ø±', '12': 'Ø§Ù„Ø«Ø§Ù†ÙŠ Ø¹Ø´Ø±', '13': 'Ø§Ù„Ø«Ø§Ù„Ø« Ø¹Ø´Ø±',
-        '14': 'Ø§Ù„Ø±Ø§Ø¨Ø¹ Ø¹Ø´Ø±', '15': 'Ø§Ù„Ø®Ø§Ù…Ø³ Ø¹Ø´Ø±', '16': 'Ø§Ù„Ø³Ø§Ø¯Ø³ Ø¹Ø´Ø±', '17': 'Ø§Ù„Ø³Ø§Ø¨Ø¹ Ø¹Ø´Ø±',
-        '18': 'Ø§Ù„Ø«Ø§Ù…Ù† Ø¹Ø´Ø±', '19': 'Ø§Ù„ØªØ§Ø³Ø¹ Ø¹Ø´Ø±', '20': 'Ø§Ù„Ø¹Ø´Ø±ÙˆÙ†', '21': 'Ø§Ù„Ø­Ø§Ø¯ÙŠ ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†',
-        '22': 'Ø§Ù„Ø«Ø§Ù†ÙŠ ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†', '23': 'Ø§Ù„Ø«Ø§Ù„Ø« ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†', '24': 'Ø§Ù„Ø±Ø§Ø¨Ø¹ ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†', '25': 'Ø§Ù„Ø®Ø§Ù…Ø³ ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†',
-        '26': 'Ø§Ù„Ø³Ø§Ø¯Ø³ ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†', '27': 'Ø§Ù„Ø³Ø§Ø¨Ø¹ ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†', '28': 'Ø§Ù„Ø«Ø§Ù…Ù† ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†', '29': 'Ø§Ù„ØªØ§Ø³Ø¹ ÙˆØ§Ù„Ø¹Ø´Ø±ÙˆÙ†',
-        '30': 'Ø§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†', '31': 'Ø§Ù„Ø­Ø§Ø¯ÙŠ ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†', '32': 'Ø§Ù„Ø«Ø§Ù†ÙŠ ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†', '33': 'Ø§Ù„Ø«Ø§Ù„Ø« ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†',
-        '34': 'Ø§Ù„Ø±Ø§Ø¨Ø¹ ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†', '35': 'Ø§Ù„Ø®Ø§Ù…Ø³ ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†', '36': 'Ø§Ù„Ø³Ø§Ø¯Ø³ ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†', '37': 'Ø§Ù„Ø³Ø§Ø¨Ø¹ ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†',
-        '38': 'Ø§Ù„Ø«Ø§Ù…Ù† ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†', '39': 'Ø§Ù„ØªØ§Ø³Ø¹ ÙˆØ§Ù„Ø«Ù„Ø§Ø«ÙˆÙ†', '40': 'Ø§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†', '41': 'Ø§Ù„Ø­Ø§Ø¯ÙŠ ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†',
-        '42': 'Ø§Ù„Ø«Ø§Ù†ÙŠ ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†', '43': 'Ø§Ù„Ø«Ø§Ù„Ø« ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†', '44': 'Ø§Ù„Ø±Ø§Ø¨Ø¹ ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†', '45': 'Ø§Ù„Ø®Ø§Ù…Ø³ ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†',
-        '46': 'Ø§Ù„Ø³Ø§Ø¯Ø³ ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†', '47': 'Ø§Ù„Ø³Ø§Ø¨Ø¹ ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†', '48': 'Ø§Ù„Ø«Ø§Ù…Ù† ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†', '49': 'Ø§Ù„ØªØ§Ø³Ø¹ ÙˆØ§Ù„Ø£Ø±Ø¨Ø¹ÙˆÙ†',
-        '50': 'Ø§Ù„Ø®Ù…Ø³ÙˆÙ†'
+        '0': 'الأرضي', '00': 'الأرضي', '01': 'الأول', '1': 'الأول',
+        '02': 'الثاني', '2': 'الثاني', '03': 'الثالث', '3': 'الثالث',
+        '04': 'الرابع', '4': 'الرابع', '05': 'الخامس', '5': 'الخامس',
+        '06': 'السادس', '6': 'السادس', '07': 'السابع', '7': 'السابع',
+        '08': 'الثامن', '8': 'الثامن', '09': 'التاسع', '9': 'التاسع',
+        '10': 'العاشر', '11': 'الحادي عشر', '12': 'الثاني عشر', '13': 'الثالث عشر',
+        '14': 'الرابع عشر', '15': 'الخامس عشر', '16': 'السادس عشر', '17': 'السابع عشر',
+        '18': 'الثامن عشر', '19': 'التاسع عشر', '20': 'العشرون', '21': 'الحادي والعشرون',
+        '22': 'الثاني والعشرون', '23': 'الثالث والعشرون', '24': 'الرابع والعشرون', '25': 'الخامس والعشرون',
+        '26': 'السادس والعشرون', '27': 'السابع والعشرون', '28': 'الثامن والعشرون', '29': 'التاسع والعشرون',
+        '30': 'الثلاثون', '31': 'الحادي والثلاثون', '32': 'الثاني والثلاثون', '33': 'الثالث والثلاثون',
+        '34': 'الرابع والثلاثون', '35': 'الخامس والثلاثون', '36': 'السادس والثلاثون', '37': 'السابع والثلاثون',
+        '38': 'الثامن والثلاثون', '39': 'التاسع والثلاثون', '40': 'الأربعون', '41': 'الحادي والأربعون',
+        '42': 'الثاني والأربعون', '43': 'الثالث والأربعون', '44': 'الرابع والأربعون', '45': 'الخامس والأربعون',
+        '46': 'السادس والأربعون', '47': 'السابع والأربعون', '48': 'الثامن والأربعون', '49': 'التاسع والأربعون',
+        '50': 'الخمسون'
     },
 
     /**
@@ -44,13 +44,13 @@ const UnitParser = {
      * @returns {Object} Analysis result
      */
     parse: function (input) {
-        if (!input) return this.error("ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ ÙƒÙˆØ¯ Ø§Ù„ÙˆØ­Ø¯Ø©");
+        if (!input) return this.error("يرجى إدخال كود الوحدة");
 
         // 1. Pre-process input
         let raw = input.toString().trim();
 
         // Convert Hindi numerals to Western
-        raw = raw.replace(/[Ù -Ù©0-9]/g, d => this.NUMERAL_MAP[d] || d);
+        raw = raw.replace(/[٠-٩0-9]/g, d => this.NUMERAL_MAP[d] || d);
 
         // 2. Extract components using various methods
         let results = [];
@@ -72,7 +72,7 @@ const UnitParser = {
                 confidence: 1.0
             }));
         } else {
-            // Method B: Explicit Text/Dashes (e.g. "133-4-24" or "Ù…Ø¨Ù†Ù‰ 133 Ø¯ÙˆØ± 4 ÙˆØ­Ø¯Ø© 24")
+            // Method B: Explicit Text/Dashes (e.g. "133-4-24" or "مبنى 133 دور 4 وحدة 24")
             const explicitMatch = this.extractExplicit(cleanRaw);
             if (explicitMatch) {
                 results.push(this.enrich({ ...explicitMatch, suffix }));
@@ -91,7 +91,7 @@ const UnitParser = {
         results = results.filter((v, i, a) => a.findIndex(t => t.shortCode === v.shortCode) === i);
 
         if (results.length === 0) {
-            return this.error("âš ï¸ Ø®Ø·Ø£ - ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„ÙƒÙˆØ¯ ØºÙŠØ± Ù…Ø¯Ø¹ÙˆÙ… Ø£Ùˆ Ø±Ù‚Ù… Ø§Ù„Ù…Ø¨Ù†Ù‰ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯ ÙÙŠ Ø§Ù„Ù†Ø¸Ø§Ù…");
+            return this.error("âš ï¸ خطأ - تنسيق الكود غير مدعوم أو رقم المبنى غير موجود في النظام");
         }
 
         // 3. Final Output Generation
@@ -119,7 +119,7 @@ const UnitParser = {
         const numbers = raw.match(/\d+/g);
         if (numbers && numbers.length >= 3) {
             // Check if it's dashed or has keywords
-            const hasKeywords = /Ù…Ø¨Ù†Ù‰|Ø¯ÙˆØ±|ÙˆØ­Ø¯Ø©|building|floor|unit|apartment/i.test(raw);
+            const hasKeywords = /مبنى|دور|وحدة|building|floor|unit|apartment/i.test(raw);
             const hasDashes = raw.includes('-');
 
             if (hasKeywords || hasDashes) {
@@ -133,10 +133,10 @@ const UnitParser = {
         }
 
         // Match specific keywords (Arabic/English)
-        const bMatch = raw.match(/(?:Ù…Ø¨Ù†Ù‰|building|b)\s*(\d+)/i);
-        const fMatch = raw.match(/(?:Ø¯ÙˆØ±|floor|f)\s*(\d+)/i);
-        const uMatch = raw.match(/(?:ÙˆØ­Ø¯Ø©|Ø´Ù‚Ø©|unit|apt|u)\s*(\d+)/i);
-        const sMatch = raw.match(/(?:Ù…Ø­Ù„|shop|s)\s*(\d+)/i);
+        const bMatch = raw.match(/(?:مبنى|building|b)\s*(\d+)/i);
+        const fMatch = raw.match(/(?:دور|floor|f)\s*(\d+)/i);
+        const uMatch = raw.match(/(?:وحدة|شقة|unit|apt|u)\s*(\d+)/i);
+        const sMatch = raw.match(/(?:محل|shop|s)\s*(\d+)/i);
 
         if (sMatch) {
             return {
@@ -254,7 +254,7 @@ const UnitParser = {
         // Model Suffix logic (Porto Said only)
         const suffix = (project.type === "Said" && obj.suffix) ? obj.suffix.toUpperCase() : "";
 
-        const fName = this.FLOOR_NAMES_AR[obj.f] || (obj.f ? `Ø§Ù„Ø¯ÙˆØ± ${obj.f}` : "");
+        const fName = this.FLOOR_NAMES_AR[obj.f] || (obj.f ? `الدور ${obj.f}` : "");
         const mid = obj.isShop ? 'S' : obj.f;
         const shortCode = `B${obj.b}${mid}${obj.u}${suffix}`;
         const isComplete = !!(obj.b && obj.u && (obj.f !== undefined || obj.isShop));
@@ -272,9 +272,9 @@ const UnitParser = {
     },
 
     getProjectNameAr: function (name) {
-        if (name === "Porto Said") return "Ø¨ÙˆØ±ØªÙˆ Ø³Ø¹ÙŠØ¯";
-        if (name === "Porto Golf Marina") return "Ø¨ÙˆØ±ØªÙˆ Ø¬ÙˆÙ„Ù Ù…Ø§Ø±ÙŠÙ†Ø§ Ø§Ù„Ø³Ø§Ø­Ù„ Ø§Ù„Ø´Ù…Ø§Ù„Ù‰";
-        if (name === "Porto Sokhna") return "Ø¨ÙˆØ±ØªÙˆ Ø§Ù„Ø³Ø®Ù†Ø©";
+        if (name === "Porto Said") return "بورتو سعيد";
+        if (name === "Porto Golf Marina") return "بورتو جولف مارينا الساحل الشمالى";
+        if (name === "Porto Sokhna") return "بورتو السخنة";
         return name;
     },
 
@@ -286,7 +286,7 @@ const UnitParser = {
         const floors = ["1", "2", "3", "4"];
 
         return {
-            message: `ðŸ’¡ ÙˆØ­Ø¯Ø§Øª Ù…Ù‚ØªØ±Ø­Ø© ÙÙŠ Ù…Ø¨Ù†Ù‰ ${item.b}:`,
+            message: `ðŸ’¡ وحدات مقترحة في مبنى ${item.b}:`,
             list: units.map(u => `B${item.b}${floors[Math.floor(Math.random() * floors.length)]}${u}`)
         };
     },
@@ -296,37 +296,37 @@ const UnitParser = {
         const b = item.b || "?";
         const f = item.f || "?";
         const u = item.u || "?";
-        const suffix = item.suffix ? ` (Ù†Ù…ÙˆØ°Ø¬ ${item.suffix})` : "";
-        const fName = item.floorName || "ØºÙŠØ± Ù…Ø­Ø¯Ø¯";
+        const suffix = item.suffix ? ` (نموذج ${item.suffix})` : "";
+        const fName = item.floorName || "غير محدد";
         const fVal = item.f || (item.isShop ? "0" : "?");
         const code = item.shortCode || "B???";
-        const unitLabel = item.isShop ? "Ø§Ù„Ù…Ø­Ù„  " : "Ø§Ù„ÙˆØ­Ø¯Ø© ";
+        const unitLabel = item.isShop ? "المحل  " : "الوحدة ";
 
         // Precise padding for the ASCII box
         const pad = (str, len) => str.toString() + " ".repeat(Math.max(0, len - str.toString().length));
 
         return `
 â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
-â•‘      ðŸ¢ ${item.isShop ? "Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø­Ù„ Ø§Ù„ØªØ¬Ø§Ø±ÙŠ" : "Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„ÙˆØ­Ø¯Ø© Ø§Ù„Ø¹Ù‚Ø§Ø±ÙŠØ©"}          â•‘
+â•‘      ðŸ¢ ${item.isShop ? "بيانات المحل التجاري" : "بيانات الوحدة العقارية"}          â•‘
 â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£
-â•‘ ðŸ“ Ø§Ù„Ù…Ø´Ø±ÙˆØ¹: ${pad(pName, 26)} â•‘
-â•‘ ðŸ—ï¸ Ø§Ù„Ù…Ø¨Ù†Ù‰: ${pad(b, 28)} â•‘
-â•‘ ðŸªœ Ø§Ù„Ø¯ÙˆØ±: ${pad(fName + " (" + fVal + ")", 25)} â•‘
+â•‘ ðŸ“ المشروع: ${pad(pName, 26)} â•‘
+â•‘ ðŸ—ï¸ المبنى: ${pad(b, 28)} â•‘
+â•‘ ðŸªœ الدور: ${pad(fName + " (" + fVal + ")", 25)} â•‘
 â•‘ ðŸšª ${unitLabel}: ${pad(u + suffix, 27)} â•‘
 â•‘                                          â•‘
-â•‘ ðŸ”‘ Ø§Ù„ÙƒÙˆØ¯ Ø§Ù„Ù…Ø®ØªØµØ±: ${pad(code, 24)} â•‘
+â•‘ ðŸ”‘ الكود المختصر: ${pad(code, 24)} â•‘
 â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•`.trim();
     },
 
     generateArabicText: function (item) {
-        if (!item.f && !item.u && !item.isShop) return `Ù…Ø¨Ù†Ù‰ ${item.b} Ø¨Ù…Ø´Ø±ÙˆØ¹ ${item.projectNameAr}\n(ÙŠØ±Ø¬Ù‰ ØªØ­Ø¯ÙŠØ¯ Ø§Ù„Ø¯ÙˆØ± ÙˆØ§Ù„ÙˆØ­Ø¯Ø©)`;
-        if (!item.u) return `Ù…Ø¨Ù†Ù‰ ${item.b} - ${item.floorName} - Ø¨Ù…Ø´Ø±ÙˆØ¹ ${item.projectNameAr}\n(ÙŠØ±Ø¬Ù‰ ØªØ­Ø¯ÙŠØ¯ Ø±Ù‚Ù… Ø§Ù„ÙˆØ­Ø¯Ø©)`;
+        if (!item.f && !item.u && !item.isShop) return `مبنى ${item.b} بمشروع ${item.projectNameAr}\n(يرجى تحديد الدور والوحدة)`;
+        if (!item.u) return `مبنى ${item.b} - ${item.floorName} - بمشروع ${item.projectNameAr}\n(يرجى تحديد رقم الوحدة)`;
 
-        const modelText = item.suffix ? ` Ù†Ù…ÙˆØ°Ø¬ ${item.suffix}` : "";
+        const modelText = item.suffix ? ` نموذج ${item.suffix}` : "";
         if (item.isShop) {
-            return `Ù…Ø­Ù„ Ø±Ù‚Ù… ${item.u}${modelText} Ø¨Ø§Ù„Ø¯ÙˆØ± Ø§Ù„Ø£Ø±Ø¶ÙŠ ÙÙŠ Ù…Ø¨Ù†Ù‰ ${item.b}\nØ¨Ù…Ø´Ø±ÙˆØ¹ ${item.projectNameAr}`;
+            return `محل رقم ${item.u}${modelText} بالدور الأرضي في مبنى ${item.b}\nبمشروع ${item.projectNameAr}`;
         }
-        return `ÙˆØ­Ø¯Ø© Ø±Ù‚Ù… ${parseInt(item.u)}${modelText} Ø¨Ø§Ù„Ø¯ÙˆØ± ${item.floorName} ÙÙŠ Ù…Ø¨Ù†Ù‰ ${item.b}\nØ¨Ù…Ø´Ø±ÙˆØ¹ ${item.projectNameAr}`;
+        return `وحدة رقم ${parseInt(item.u)}${modelText} بالدور ${item.floorName} في مبنى ${item.b}\nبمشروع ${item.projectNameAr}`;
     },
 
     error: function (msg) {
