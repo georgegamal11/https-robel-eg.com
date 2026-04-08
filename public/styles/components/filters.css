@@ -2,22 +2,23 @@
    06-FILTERS (Refactored to BEM-like)
    ========================================= */
 
-    /* Main Container (Hero Filter) */
     .filter {
-        background: rgba(15, 33, 56, 0.48);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        border: 1px solid rgba(255, 255, 255, 0.20);
-        box-shadow: none;
+        background: #ffffff !important;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
         border-radius: 28px;
-        padding: 35px;
+        padding: 30px;
         width: 100%;
-        max-width: 1100px;
+        max-width: 1050px;
         margin: 0 auto;
         position: relative;
         z-index: 100;
-        animation: fadeInUp 1.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+        animation: fadeInUp 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+        zoom: 0.75; /* Even more compact */
+        transition: box-shadow 0.3s ease;
     }
+
+    /* REMOVED HOVER TRANSPARENCY */
 
     @keyframes searchPulse {
         0% {
@@ -43,7 +44,7 @@
     /* Modifier: Hero Placement */
     .filter--hero {
         margin-top: 10px;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease;
     }
 
     /* Filter Body/Layout */
@@ -81,6 +82,12 @@
     /* Row 1 Columns */
     .filter__col-search {
         flex: 1;
+    }
+
+    .filter-field-label {
+        color: #1a202c !important; /* Force dark label */
+        opacity: 0.8;
+        font-weight: 700;
     }
 
     .filter__col-toggle-small {
@@ -187,10 +194,10 @@
     .filter__btn-reset {
         width: 60px;
         height: 60px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 35px;
-        color: #fff;
+        color: #1a202c;
         cursor: pointer;
         transition: all 0.4s ease;
         display: flex;
@@ -198,6 +205,8 @@
         justify-content: center;
         font-size: 1.2rem;
     }
+
+    /* REMOVED PREVIOUS HOVER RULES THAT TURNED BUTTONS WHITE */
 
     .filter__btn-reset:hover {
         background: rgba(255, 0, 0, 0.15);
@@ -214,19 +223,20 @@
     .filter__toggle-group {
         display: flex;
         width: 100%;
-        background: rgba(10, 32, 59, 0.6);
-        backdrop-filter: blur(30px);
-        border: 1.5px solid rgba(255, 255, 100, 0.08);
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
         border-radius: 40px;
-        padding: 6px;
+        padding: 5px;
         height: 60px;
         overflow: hidden;
         box-sizing: border-box;
         align-items: stretch;
         gap: 0;
         position: relative;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
     }
+
+    /* REMOVED HOVER RULE */
 
     /* The Sliding Glider */
     .filter__toggle-group::before {
@@ -260,43 +270,35 @@
         border: none;
         background: transparent !important;
         border-radius: 30px;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-weight: 800;
-        color: rgba(255, 255, 255, 0.55);
+        color: #1e293b;
         cursor: pointer;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
-        padding: 0 10px;
+        gap: 8px;
+        padding: 0 15px;
         height: 100%;
-        line-height: normal;
-        white-space: nowrap;
-        margin: 0;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
         z-index: 1;
         position: relative;
-    }
-
-    .filter__toggle-btn i {
-        font-size: 0.8rem;
-        opacity: 0.85;
-        transition: transform 0.3s ease;
-    }
-
-    .filter__toggle-btn.active i {
-        opacity: 1;
-        transform: scale(1.15);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        opacity: 0.7;
     }
 
     .filter__toggle-btn.active {
-        color: #000 !important;
+        opacity: 1;
+        color: #ffffff !important;
     }
 
     .filter__toggle-btn:hover:not(.active) {
-        color: #fff;
+        color: var(--gold-main);
+    }
+
+    .filter__toggle-btn:hover:not(.active) {
+        color: var(--gold-main);
     }
 
     .filter__toggle-btn:hover:not(.active) i {
@@ -316,17 +318,15 @@
     /* Keyword Search Input Group */
     .filter__input-wrap {
         height: 60px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 35px;
+        background: #f8fafc;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 40px;
         display: flex;
         align-items: center;
         padding: 0 25px;
+        gap: 15px;
         transition: all 0.3s ease;
-        overflow: hidden;
-        box-sizing: border-box;
-        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
     }
 
     .filter__input-wrap:focus-within {
@@ -348,33 +348,36 @@
         height: 100%;
         font-size: 0.95rem;
         font-weight: 600;
-        color: #fff;
+        color: #1a202c !important; /* Force dark text */
         background: transparent;
         box-sizing: border-box;
     }
 
     .filter__input-wrap input::placeholder {
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(0, 0, 0, 0.4) !important; /* Force dark placeholder */
         font-weight: 400;
+    }
+
+    .filter__input-icon {
+        color: #1a202c !important; /* Force dark icon */
+        opacity: 0.6;
     }
 
     /* Select Inputs */
     .filter__select-wrap {
-        height: 52px;
-        width: 100%;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 12px;
         position: relative;
         display: flex;
         align-items: center;
         padding: 0 15px;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 12px;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
 
     .filter__select-wrap:hover {
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.06);
         border-color: var(--gold-main);
     }
 
@@ -392,7 +395,7 @@
 
     .filter__select-label {
         font-weight: 800;
-        color: rgba(255, 255, 255, 0.9);
+        color: #1a202c !important;
         font-size: 0.9rem;
         white-space: nowrap;
     }
@@ -419,15 +422,13 @@
     .filter__status-btn {
         border: none;
         background: transparent;
-        color: rgba(255, 255, 255, 0.9);
+        color: #1a202c !important;
         font-weight: 700;
         font-size: 0.95rem;
-        /* Slightly larger text */
         cursor: pointer;
         padding: 6px 18px;
         border-radius: 20px;
-        /* Pill shape */
-        transition: 0.3s;
+        transition: all 0.2s ease;
     }
 
     .filter__status-btn.active {
@@ -516,16 +517,22 @@
         width: 55px;
         height: 55px;
         /* Match search height */
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(0, 0, 0, 0.05);
         /* Slightly clearer */
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 12px;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 1.1rem;
+        color: #1a202c !important;
+        transition: all 0.4s ease;
+    }
+
+    .filter:hover .filter__btn-reset {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
         color: #fff !important;
-        transition: 0.3s;
     }
 
 
@@ -999,22 +1006,26 @@
 
     /* Dark Mode Overrides for Filters */
     [data-theme="dark"] .filter {
-        background: rgba(15, 23, 42, 0.4);
-        border-color: rgba(201, 162, 63, 0.2);
+        background: #ffffff !important;
+        border-color: rgba(0, 0, 0, 0.1);
     }
 
     [data-theme="dark"] .filter__input-wrap,
     [data-theme="dark"] .filter__select-wrap {
-        background: rgba(30, 41, 59, 0.9);
+        background: rgba(0, 0, 0, 0.03) !important;
     }
 
     [data-theme="dark"] .filter__input-wrap input {
         background: transparent;
-        color: #f1f5f9;
+        color: #1a202c !important;
+    }
+
+    [data-theme="dark"] .filter:hover .filter__input-wrap input {
+        color: #fff !important;
     }
 
     [data-theme="dark"] .filter__select-label {
-        color: #f1f5f9;
+        color: #1a202c !important;
     }
 
     [data-theme="dark"] .multi-select-dropdown {
@@ -1036,32 +1047,41 @@
         color: #94a3b8;
     }
 
-    /* Project Selection Buttons */
+    /* Project Selection Buttons - PREMIUM MINIMALIST */
     .project-select-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: #fff;
-        padding: 12px 25px;
-        border-radius: 12px;
+        background: #f8fafc;
+        border: 1.5px solid #e2e8f0;
+        color: #475569 !important;
+        padding: 14px 28px;
+        border-radius: 16px;
         cursor: pointer;
         font-weight: 700;
-        font-size: 1rem;
-        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         flex: 1;
-        max-width: 200px;
+        max-width: 220px;
         text-align: center;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.3;
+        will-change: transform;
     }
 
     .project-select-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
+        background: #ffffff;
+        border-color: var(--gold-main);
+        color: var(--gold-main) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px -5px rgba(201, 162, 63, 0.2);
     }
 
     .project-select-btn.active {
-        background: var(--gold-main);
-        color: #000 !important;
-        box-shadow: 0 5px 15px rgba(201, 162, 63, 0.4);
+        background: var(--gold-main) !important;
+        color: #ffffff !important;
         border-color: var(--gold-main);
+        box-shadow: 0 10px 25px rgba(201, 162, 63, 0.4);
     }
 
     /* Hide Project Dropdown when Button Logic is Active */
@@ -1069,66 +1089,23 @@
         display: none !important;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 850px) {
+        .filter {
+            zoom: 1; /* Reset zoom for mobile */
+            padding: 20px;
+        }
+
         .filter__project-buttons {
             flex-direction: row;
             flex-wrap: wrap;
             gap: 8px;
+            justify-content: center;
         }
 
         .project-select-btn {
-            flex: 1 1 30%;
-            min-width: 80px !important;
-            font-size: 0.75rem !important;
-            padding: 8px !important;
-            height: auto !important;
-        }
-    }
-
-    /* Dark Mode Overrides for Filters */
-    [data-theme="dark"] .filter {
-        background: rgba(15, 23, 42, 0.4);
-        border-color: rgba(201, 162, 63, 0.2);
-    }
-
-    [data-theme="dark"] .filter__input-wrap,
-    [data-theme="dark"] .filter__select-wrap {
-        background: rgba(30, 41, 59, 0.9);
-    }
-
-    [data-theme="dark"] .filter__input-wrap input {
-        background: transparent;
-        color: #f1f5f9;
-    }
-
-    /* Project Selection Buttons */
-    .project-select-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: #fff;
-        padding: 10px 15px;
-        border-radius: 12px;
-        cursor: pointer;
-        font-weight: 700;
-        font-size: 0.85rem;
-        transition: all 0.3s ease;
-        flex: 1 1 30%;
-        min-width: 80px;
-        text-align: center;
-        line-height: 1.2;
-    }
-
-    .project-select-btn.active {
-        background: var(--gold-main);
-        color: #000 !important;
-        box-shadow: 0 5px 15px rgba(201, 162, 63, 0.4);
-        border-color: var(--gold-main);
-    }
-
-    @media (max-width: 600px) {
-        .filter__project-buttons {
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 8px;
+            flex: 1 1 calc(50% - 10px);
+            max-width: none;
+            padding: 10px;
+            font-size: 0.8rem;
         }
     }

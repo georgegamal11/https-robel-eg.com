@@ -613,16 +613,10 @@ input[lang="en"], select[lang="en"], textarea[lang="en"] {
 
 .filter.filter--hero {
     animation: filterGlassIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
-    background: rgba(15, 33, 56, 0.48) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: 1px solid rgba(255, 255, 255, 0.20) !important;
-    box-shadow: none !important;
+    transition: all 0.4s ease;
 }
 
 .filter.filter--hero:hover {
-    background: rgba(0, 0, 0, 0.15) !important;
-    border-color: rgba(201, 162, 63, 0.30) !important;
     transition: all 0.35s ease;
 }
 

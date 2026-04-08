@@ -87,8 +87,11 @@
     <meta name="twitter:image" content="https://robel-eg.com/images/ui/home-hero.webp">
 
     <!-- Optimized CSS Loading -->
-    <link rel="stylesheet" href="styles/app.bundle.css?v=20260313002">
+<link rel="stylesheet" href="styles/app.bundle.css?v=20260313002">
+    <link rel="stylesheet" href="styles/madinet-modern.css?v=20260313002">
     <link rel="stylesheet" href="styles/components/filters.css?v=20260313002">
+    <link rel="stylesheet" href="styles/hero.css?v=20260406001">
+    <link rel="stylesheet" href="styles/cinematic-intro.css?v=20260406001">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         media="print" onload="this.media='all'">
     <noscript>
@@ -251,7 +254,7 @@
     <section id="home" class="hero-section">
         <!-- Background Container to clip parallax -->
         <div class="hero-slider-wrapper"
-            style="position: absolute; inset: 0; overflow: hidden; pointer-events: auto; z-index: 0;">
+            style="position: absolute; overflow: hidden; pointer-events: auto; z-index: 0;">
             <div class="hero-slider">
                 <div class="hero-slide active"
                     style="background-image: url('images/projects/porto-golf-marina/hero/hero-1.webp'); background-position: center;">
@@ -278,7 +281,7 @@
             </div>
         </div>
 
-        <div class="container hero-content-vertical" style="position: relative; z-index: 1;">
+        <div class="container hero-content-vertical" style="position: relative; z-index: 15;">
             <h1 class="hero-title-center" data-i18n="hero_title" style="font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 5px;">Robel Real Estate Investment</h1>
             <p class="hero-subtitle-center" data-i18n="hero_subtitle" style="margin-bottom: 15px;">Robel Urban Development is a Strategic Partner of
                 Amer Group.</p>
@@ -1957,25 +1960,11 @@
                     targetTable.classList.add('active');
                 }
             });
-
-            // Add hover effects
-            button.addEventListener('mouseenter', function () {
-                if (!this.classList.contains('active')) {
-                    this.style.borderColor = '#D4AF37';
-                    this.style.background = 'rgba(212, 175, 55, 0.05)';
-                }
-            });
-
-            button.addEventListener('mouseleave', function () {
-                if (!this.classList.contains('active')) {
-                    this.style.borderColor = '#e2e8f0';
-                    this.style.background = '#fff';
-                }
-            });
         });
     </script>
 
-    <script src="scripts/core/utils.js" defer></script>
+<script src="scripts/core/utils.js" defer></script>
+    <script src="scripts/theme-manager.js" defer></script>
     <script>
         // Optimization: Disable pointer-events during scroll to improve FPS
         let scrollTimeout;
